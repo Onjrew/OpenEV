@@ -1,0 +1,172 @@
+#!/bin/sh
+
+INSTALLDIR=../delivery
+OSTYPE=`uname`
+GDAL=../../gdal
+
+
+# ---- Work - Platform Independent --- 
+
+# Create all directories
+echo "Creating delivery Directory"
+mkdir -p ${INSTALLDIR}/${OSTYPE}/bin
+mkdir -p ${INSTALLDIR}/${OSTYPE}/lib/Mesa
+mkdir -p ${INSTALLDIR}/${OSTYPE}/pymod
+mkdir -p ${INSTALLDIR}/${OSTYPE}/tools
+# include python headers for building tools
+mkdir -p ${INSTALLDIR}/${OSTYPE}/include
+mkdir -p ${INSTALLDIR}/common
+
+# Copy OpenEV specific things
+echo "Copying OpenEV"
+cp ../gvtest ${INSTALLDIR}/${OSTYPE}/bin
+cp -r ../html ${INSTALLDIR}/common
+cp -r ../pics ${INSTALLDIR}/common
+cp -r ../ramps ${INSTALLDIR}/common
+
+# Copy OpenEV pymod directory
+cp ../pymod/*.so ../pymod/*.py ${INSTALLDIR}/${OSTYPE}/pymod
+
+# Don't copy tools- not stable yet.  Directory is expected though
+# cp ../tools/*.py ${INSTALLDIR}/${OSTYPE}/tools
+
+# Copy libraries other than Python, NumPy and GTK
+echo "Copying GDAL"
+cp ${GDAL}/libgdal.1.1.so ${INSTALLDIR}/${OSTYPE}/lib
+cp ${GDAL}/apps/gdaladdo ${INSTALLDIR}/${OSTYPE}/bin
+cp ${GDAL}/apps/gdalinfo ${INSTALLDIR}/${OSTYPE}/bin
+cp ${GDAL}/apps/gdal_translate ${INSTALLDIR}/${OSTYPE}/bin
+cp ${GDAL}/pymod/*.py ${GDAL}/pymod/*.so ${INSTALLDIR}/${OSTYPE}/pymod
+
+# ---- Work - Platform Independent --- 
+
+if [ "${OSTYPE}" = "Linux" ]; then
+  PYTHON=/data/local_installations/lib/python2.1
+  PYTHONBIN=/data/local_installations/bin/python
+  GTKLIB=/data/local_installations/lib
+  PYTHONINC=/data/local_installations/include/python2.1
+  GNUPLOT_BIN=/home/gwalter/bin
+
+  # Copy Python, NumPy and PyGTK
+  echo "Copying Python and Site-Packages"
+  cp -r ${PYTHON} ${INSTALLDIR}/${OSTYPE}/lib
+  cp ${PYTHONBIN} ${INSTALLDIR}/${OSTYPE}/bin
+  cp -r ${PYTHONINC} ${INSTALLDIR}/${OSTYPE}/include
+
+  echo "Copying GTK"
+  cp ${GTKLIB}/libgtkgl.so.5.0.0 ${INSTALLDIR}/${OSTYPE}/lib
+  cp ${GTKLIB}/libgtk-1.2.so.0.9.1 ${INSTALLDIR}/${OSTYPE}/lib
+  cp ${GTKLIB}/libgdk-1.2.so.0.9.1 ${INSTALLDIR}/${OSTYPE}/lib
+  cp ${GTKLIB}/libgmodule-1.2.so.0.0.10 ${INSTALLDIR}/${OSTYPE}/lib
+  cp ${GTKLIB}/libgthread-1.2.so.0.0.10 ${INSTALLDIR}/${OSTYPE}/lib
+  cp ${GTKLIB}/libglib-1.2.so.0.0.10 ${INSTALLDIR}/${OSTYPE}/lib
+
+  # GL Stuff
+  echo "Copying Mesa GL libraries and other supporting libraries"
+  # cp /usr/lib/libGLcore.so.1 ${INSTALLDIR}/${OSTYPE}/lib/Mesa
+  cp /data/local_installations/lib/libGL.so.1.2.030402 ${INSTALLDIR}/${OSTYPE}/lib/Mesa
+  cp /data/local_installations/lib/libGLU.so.1.1.030402 ${INSTALLDIR}/${OSTYPE}/lib/Mesa
+
+  # Gnuplot stuff
+  cp ${GNUPLOT_BIN}/gnuplot ${INSTALLDIR}/${OSTYPE}/bin
+  cp ${GNUPLOT_BIN}/gnuplot_x11 ${INSTALLDIR}/${OSTYPE}/bin
+
+  # Other libs
+  cp /usr/lib/libjpeg.so.62 ${INSTALLDIR}/${OSTYPE}/lib
+  cp /usr/lib/libpng.so.2 ${INSTALLDIR}/${OSTYPE}/lib
+  cp /lib/libpthread.so.0 ${INSTALLDIR}/${OSTYPE}/lib
+  cp /usr/lib/libvga.so.1 ${INSTALLDIR}/${OSTYPE}/lib
+  cp /data/local_installations/lib/libproj.so.0.2.0 ${INSTALLDIR}/${OSTYPE}/lib
+fi
+
+
+if [ "${OSTYPE}" = "IRIX64" ]; then
+  PYTHON=/esa2/temp_gwalter/local_installations/lib/python2.1
+  PYTHONBIN=/esa2/temp_gwalter/local_installations/bin/python
+  GTKLIB=/esa2/temp_gwalter/local_installations/lib
+  PYTHONINC=/esa2/temp_gwalter/local_installations/include/python2.1
+  GNUPLOT_BIN=/usr/local/bin
+
+  # Copy Python, NumPy and PyGTK
+  echo "Copying Python and Site-Packages"
+  cp -r ${PYTHON} ${INSTALLDIR}/${OSTYPE}/lib
+  cp ${PYTHONBIN} ${INSTALLDIR}/${OSTYPE}/bin
+  cp -r ${PYTHONINC} ${INSTALLDIR}/${OSTYPE}/include
+
+  # Copy GTK libraries
+  echo "Copying GTK"
+  cp ${GTKLIB}/libgtkgl.so.6.0 ${INSTALLDIR}/${OSTYPE}/lib
+  cp ${GTKLIB}/libgtk-1.2.so.1.1 ${INSTALLDIR}/${OSTYPE}/lib
+  cp ${GTKLIB}/libgdk-1.2.so.1.1 ${INSTALLDIR}/${OSTYPE}/lib
+  cp ${GTKLIB}/libgmodule-1.2.so.1.10 ${INSTALLDIR}/${OSTYPE}/lib
+  cp ${GTKLIB}/libgthread-1.2.so.1.10 ${INSTALLDIR}/${OSTYPE}/lib
+  cp ${GTKLIB}/libglib-1.2.so.1.10 ${INSTALLDIR}/${OSTYPE}/lib
+
+  # GL Stuff
+  echo "Copying Mesa GL libraries and other supporting libraries"
+  cp /esa2/temp_gwalter/local_installations/lib/libGL.so ${INSTALLDIR}/${OSTYPE}/lib/Mesa
+  cp /esa2/temp_gwalter/local_installations/lib/libGLU.so ${INSTALLDIR}/${OSTYPE}/lib/Mesa
+
+  # Gnuplot stuff
+  cp ${GNUPLOT_BIN}/gnuplot ${INSTALLDIR}/${OSTYPE}/bin
+  cp ${GNUPLOT_BIN}/gnuplot_x11 ${INSTALLDIR}/${OSTYPE}/bin
+
+  # Other libs
+  cp /usr/lib/libjpeg.so ${INSTALLDIR}/${OSTYPE}/lib
+  cp /usr/lib/libpng.so ${INSTALLDIR}/${OSTYPE}/lib
+  cp /usr/lib/libpthread.so ${INSTALLDIR}/${OSTYPE}/lib
+  cp /esa2/temp_gwalter/local_installations/lib/libproj.so.1.0 ${INSTALLDIR}/${OSTYPE}/lib
+fi
+
+if [ "${OSTYPE}" = "SunOS" ]; then
+  PYTHON=/stripe2/temp_gwalter/local_installations/lib/python2.1
+  PYTHONBIN=/stripe2/temp_gwalter/local_installations/bin/python
+  GTKLIB=/stripe2/temp_gwalter/local_installations/lib
+  PYTHONINC=/stripe2/temp_gwalter/local_installations/include/python2.1
+  GNUPLOT_BIN=/opt/sfw/bin
+
+  # Copy Python, NumPy and PyGTK
+  echo "Copying Python and Site-Packages"
+  cp -r ${PYTHON} ${INSTALLDIR}/${OSTYPE}/lib
+  cp ${PYTHONBIN} ${INSTALLDIR}/${OSTYPE}/bin
+  cp -r ${PYTHONINC} ${INSTALLDIR}/${OSTYPE}/include
+
+  # Copy GTK libraries
+  echo "Copying GTK"
+  cp ${GTKLIB}/libgtkgl.so.5.0.0 ${INSTALLDIR}/${OSTYPE}/lib
+  cp ${GTKLIB}/libgtk-1.2.so.0.9.1 ${INSTALLDIR}/${OSTYPE}/lib
+  cp ${GTKLIB}/libgdk-1.2.so.0.9.1 ${INSTALLDIR}/${OSTYPE}/lib
+  cp ${GTKLIB}/libgmodule-1.2.so.0.0.10 ${INSTALLDIR}/${OSTYPE}/lib
+  cp ${GTKLIB}/libgthread-1.2.so.0.0.10 ${INSTALLDIR}/${OSTYPE}/lib
+  cp ${GTKLIB}/libglib-1.2.so.0.0.10 ${INSTALLDIR}/${OSTYPE}/lib
+
+  # GL Stuff
+  echo "Copying Mesa GL libraries and other supporting libraries"
+  cp /stripe2/temp_gwalter/local_installations/lib/libGL.so.1.2.030402 ${INSTALLDIR}/${OSTYPE}/lib/Mesa
+  cp /stripe2/temp_gwalter/local_installations/lib/libGLU.so.1.1.030402 ${INSTALLDIR}/${OSTYPE}/lib/Mesa
+
+  # Gnuplot stuff
+  cp ${GNUPLOT_BIN}/gnuplot ${INSTALLDIR}/${OSTYPE}/bin
+  cp ${GNUPLOT_BIN}/gnuplot_x11 ${INSTALLDIR}/${OSTYPE}/bin
+  cp ${GNUPLOT_BIN}/../lib/libpng.so.2 ${INSTALLDIR}/${OSTYPE}/lib
+
+  # Other libs
+  #cp /usr/lib/libjpeg.so ${INSTALLDIR}/${OSTYPE}/lib
+  #cp /usr/lib/libpng.so ${INSTALLDIR}/${OSTYPE}/lib
+  cp /usr/lib/libpthread.so.1 ${INSTALLDIR}/${OSTYPE}/lib
+  cp /stripe2/temp_gwalter/local_installations/lib/libproj.so.0.2.0 ${INSTALLDIR}/${OSTYPE}/lib
+  # libstdc++.so is linked to in gdal/openev. Later should
+  # try to get rid of this dependency...
+  cp /opt/sfw/lib/libstdc++.so.2.10.0 ${INSTALLDIR}/${OSTYPE}/lib
+
+fi
+
+
+# Remove Unnecessary Python stuff to save space
+rm -r ${INSTALLDIR}/${OSTYPE}/lib/python2.1/test
+rm -r ${INSTALLDIR}/${OSTYPE}/lib/python2.1/*.pyc
+rm -r ${INSTALLDIR}/${OSTYPE}/lib/python2.1/*.pyo
+rm -r ${INSTALLDIR}/${OSTYPE}/lib/python2.1/site-packages/*.pyc
+rm -r ${INSTALLDIR}/${OSTYPE}/lib/python2.1/site-packages/*.pyo
+
+echo "Done"

@@ -1,2 +1,0 @@
-#!/bin/sh
-${PYTHONHOME}/bin/python ${OPENEVHOME}/pymod/openev.py $*

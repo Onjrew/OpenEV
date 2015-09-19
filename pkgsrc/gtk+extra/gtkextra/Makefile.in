@@ -1,0 +1,599 @@
+# Makefile.in generated automatically by automake 1.4 from Makefile.am
+
+# Copyright (C) 1994, 1995-8, 1999 Free Software Foundation, Inc.
+# This Makefile.in is free software; the Free Software Foundation
+# gives unlimited permission to copy and/or distribute it,
+# with or without modifications, as long as this notice is preserved.
+
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY, to the extent permitted by law; without
+# even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+# PARTICULAR PURPOSE.
+
+
+SHELL = @SHELL@
+
+srcdir = @srcdir@
+top_srcdir = @top_srcdir@
+VPATH = @srcdir@
+prefix = @prefix@
+exec_prefix = @exec_prefix@
+
+bindir = @bindir@
+sbindir = @sbindir@
+libexecdir = @libexecdir@
+datadir = @datadir@
+sysconfdir = @sysconfdir@
+sharedstatedir = @sharedstatedir@
+localstatedir = @localstatedir@
+libdir = @libdir@
+infodir = @infodir@
+mandir = @mandir@
+includedir = @includedir@
+oldincludedir = /usr/include
+
+DESTDIR =
+
+pkgdatadir = $(datadir)/@PACKAGE@
+pkglibdir = $(libdir)/@PACKAGE@
+pkgincludedir = $(includedir)/@PACKAGE@
+
+top_builddir = ..
+
+ACLOCAL = @ACLOCAL@
+AUTOCONF = @AUTOCONF@
+AUTOMAKE = @AUTOMAKE@
+AUTOHEADER = @AUTOHEADER@
+
+INSTALL = @INSTALL@
+INSTALL_PROGRAM = @INSTALL_PROGRAM@ $(AM_INSTALL_PROGRAM_FLAGS)
+INSTALL_DATA = @INSTALL_DATA@
+INSTALL_SCRIPT = @INSTALL_SCRIPT@
+transform = @program_transform_name@
+
+NORMAL_INSTALL = :
+PRE_INSTALL = :
+POST_INSTALL = :
+NORMAL_UNINSTALL = :
+PRE_UNINSTALL = :
+POST_UNINSTALL = :
+host_alias = @host_alias@
+host_triplet = @host@
+AS = @AS@
+CATALOGS = @CATALOGS@
+CATOBJEXT = @CATOBJEXT@
+CC = @CC@
+DATADIRNAME = @DATADIRNAME@
+DLLTOOL = @DLLTOOL@
+GENCAT = @GENCAT@
+GMOFILES = @GMOFILES@
+GMSGFMT = @GMSGFMT@
+GTK_CFLAGS = @GTK_CFLAGS@
+GTK_CONFIG = @GTK_CONFIG@
+GTK_EXTRA_BINARY_AGE = @GTK_EXTRA_BINARY_AGE@
+GTK_EXTRA_INTERFACE_AGE = @GTK_EXTRA_INTERFACE_AGE@
+GTK_EXTRA_MAJOR_VERSION = @GTK_EXTRA_MAJOR_VERSION@
+GTK_EXTRA_MICRO_VERSION = @GTK_EXTRA_MICRO_VERSION@
+GTK_EXTRA_MINOR_VERSION = @GTK_EXTRA_MINOR_VERSION@
+GTK_EXTRA_VERSION = @GTK_EXTRA_VERSION@
+GTK_LIBS = @GTK_LIBS@
+GT_NO = @GT_NO@
+GT_YES = @GT_YES@
+INCLUDE_LOCALE_H = @INCLUDE_LOCALE_H@
+INSTOBJEXT = @INSTOBJEXT@
+INTLDEPS = @INTLDEPS@
+INTLLIBS = @INTLLIBS@
+INTLOBJS = @INTLOBJS@
+LD = @LD@
+LIBTOOL = @LIBTOOL@
+LN_S = @LN_S@
+LT_AGE = @LT_AGE@
+LT_CURRENT = @LT_CURRENT@
+LT_RELEASE = @LT_RELEASE@
+LT_REVISION = @LT_REVISION@
+MAINT = @MAINT@
+MAKEINFO = @MAKEINFO@
+MKINSTALLDIRS = @MKINSTALLDIRS@
+NM = @NM@
+OBJDUMP = @OBJDUMP@
+PACKAGE = @PACKAGE@
+POFILES = @POFILES@
+POSUB = @POSUB@
+RANLIB = @RANLIB@
+USE_INCLUDED_LIBINTL = @USE_INCLUDED_LIBINTL@
+USE_NLS = @USE_NLS@
+VERSION = @VERSION@
+l = @l@
+
+AUTOMAKE_OPTIONS = 1.4
+
+gtkextra_public_h_sources =  	gtkbordercombo.h 	gtkcharsel.h         gtkcheckitem.h 	gtkcolorcombo.h 	gtkcombobox.h         gtkdirtree.h 	gtkextra.h         gtkextrafeatures.h         gtkfilelist.h 	gtkfileicons.h         gtkfontcombo.h         gtkiconfilesel.h         gtkiconlist.h 	gtkitementry.h         gtkplot.h         gtkplot3d.h         gtkplotdt.h         gtkplotpolar.h         gtkplotdata.h         gtkplotpixmap.h         gtkplotbar.h         gtkplotbox.h         gtkplotflux.h         gtkplotsurface.h         gtkplotcsurface.h         gtkplotcanvas.h         gtkplotpc.h         gtkplotgdk.h         gtkplotps.h         gtkplotprint.h         gtkpsfont.h 	gtksheet.h 	gtktogglecombo.h 
+
+
+gtkextra_c_sources =  	gtkbordercombo.c         gtkcharsel.c         gtkcheckitem.c 	gtkcolorcombo.c 	gtkcombobox.c         gtkdirtree.c         gtkextra.c         gtkfilelist.c         gtkfontcombo.c         gtkiconlist.c 	gtkitementry.c         gtkiconfilesel.c         gtkplot.c         gtkplot3d.c         gtkplotdt.c          gtkplotpolar.c         gtkplotdata.c         gtkplotpixmap.c         gtkplotbar.c         gtkplotbox.c         gtkplotflux.c         gtkplotsurface.c         gtkplotcsurface.c         gtkplotcanvas.c         gtkplotpc.c         gtkplotgdk.c         gtkplotps.c         gtkplotprint.c         gtkpsfont.c 	gtksheet.c 	gtktogglecombo.c 
+
+
+gtkextra_private_h_sources =  	icons.h 	pixmaps.h 
+
+
+gtkextra_extra_sources =  	gtkextrafeatures.h.in 
+
+
+INCLUDES = $(GTK_CFLAGS) $(GTKGL_CFLAGS)
+
+libgtkextraincludedir = $(includedir)/gtkextra
+libgtkextrainclude_HEADERS = $(gtkextra_public_h_sources)
+
+lib_LTLIBRARIES = libgtkextra.la
+libgtkextra_la_SOURCES = $(gtkextra_c_sources)
+libgtkextra_la_LDFLAGS =  	-version-info $(LT_CURRENT):$(LT_REVISION):$(LT_AGE) 	-release $(LT_RELEASE) 	-export-dynamic 	$(shell gtk-config --libs) $(GTKGL_LIBS)
+
+EXTRA_HEADERS =  
+EXTRA_DIST =  $(gtkextra_private_h_sources) gtkextra.def Makefile.win32 makefile.msc sat.xpm sg_small.xpm cloud.xpm suncloud.xpm testgtkplotdt.in
+
+# test programs, not to be installed
+
+noinst_PROGRAMS = testgtksheet testgtkiconlist testgtkfilesel testgtkplot testgtkfont testrealtime testiterator testpolar testgtkplot3d testcontour testbubbles testflux testboxes testimage testpixmap testcharsel testdt testgtkplotdt
+DEPS = libgtkextra.la
+LDADDS = libgtkextra.la $(GTK_LIBS)
+
+testgtksheet_DEPENDENCIES = $(DEPS)
+testgtkplot_DEPENDENCIES = $(DEPS)
+testdt_DEPENDENCIES = $(DEPS)
+testgtkplotdt_DEPENDENCIES = $(DEPS)
+testpolar_DEPENDENCIES = $(DEPS)
+testgtkplot3d_DEPENDENCIES = $(DEPS)
+testcontour_DEPENDENCIES = $(DEPS)
+testrealtime_DEPENDENCIES = $(DEPS)
+testgtkfilesel_DEPENDENCIES = $(DEPS)
+testgtkiconlist_DEPENDENCIES = $(DEPS)
+testgtkfont_DEPENDENCIES = $(DEPS)
+testbubbles_DEPENDENCIES = $(DEPS)
+testflux_DEPENDENCIES = $(DEPS)
+testboxes_DEPENDENCIES = $(DEPS)
+testpixmap_DEPENDENCIES = $(DEPS)
+testimage_DEPENDENCIES = $(DEPS)
+testcharsel_DEPENDENCIES = $(DEPS)
+testiterator_DEPENDENCIES = $(DEPS)
+testgtksheet_LDADD = $(LDADDS)
+testgtkplot_LDADD = $(LDADDS)
+testdt_LDADD = $(LDADDS)
+testgtkplotdt_LDADD = $(LDADDS)
+testimage_LDADD = $(LDADDS)
+testcharsel_LDADD = $(LDADDS)
+testpixmap_LDADD = $(LDADDS)
+testpolar_LDADD = $(LDADDS)
+testgtkplot3d_LDADD = $(LDADDS)
+testcontour_LDADD = $(LDADDS)
+testrealtime_LDADD = $(LDADDS)
+testgtkfilesel_LDADD = $(LDADDS)
+testgtkiconlist_LDADD = $(LDADDS)
+testgtkfont_LDADD = $(LDADDS)
+testbubbles_LDADD = $(LDADDS)
+testflux_LDADD = $(LDADDS)
+testboxes_LDADD = $(LDADDS)
+testiterator_LDADD = $(LDADDS)
+mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
+CONFIG_HEADER = ../config.h
+CONFIG_CLEAN_FILES =  gtkextrafeatures.h
+LTLIBRARIES =  $(lib_LTLIBRARIES)
+
+
+DEFS = @DEFS@ -I. -I$(srcdir) -I..
+CPPFLAGS = @CPPFLAGS@
+LDFLAGS = @LDFLAGS@
+LIBS = @LIBS@
+libgtkextra_la_LIBADD = 
+libgtkextra_la_OBJECTS =  gtkbordercombo.lo gtkcharsel.lo \
+gtkcheckitem.lo gtkcolorcombo.lo gtkcombobox.lo gtkdirtree.lo \
+gtkextra.lo gtkfilelist.lo gtkfontcombo.lo gtkiconlist.lo \
+gtkitementry.lo gtkiconfilesel.lo gtkplot.lo gtkplot3d.lo gtkplotdt.lo \
+gtkplotpolar.lo gtkplotdata.lo gtkplotpixmap.lo gtkplotbar.lo \
+gtkplotbox.lo gtkplotflux.lo gtkplotsurface.lo gtkplotcsurface.lo \
+gtkplotcanvas.lo gtkplotpc.lo gtkplotgdk.lo gtkplotps.lo \
+gtkplotprint.lo gtkpsfont.lo gtksheet.lo gtktogglecombo.lo
+PROGRAMS =  $(noinst_PROGRAMS)
+
+testgtksheet_SOURCES = testgtksheet.c
+testgtksheet_OBJECTS =  testgtksheet.o
+testgtksheet_LDFLAGS = 
+testgtkiconlist_SOURCES = testgtkiconlist.c
+testgtkiconlist_OBJECTS =  testgtkiconlist.o
+testgtkiconlist_LDFLAGS = 
+testgtkfilesel_SOURCES = testgtkfilesel.c
+testgtkfilesel_OBJECTS =  testgtkfilesel.o
+testgtkfilesel_LDFLAGS = 
+testgtkplot_SOURCES = testgtkplot.c
+testgtkplot_OBJECTS =  testgtkplot.o
+testgtkplot_LDFLAGS = 
+testgtkfont_SOURCES = testgtkfont.c
+testgtkfont_OBJECTS =  testgtkfont.o
+testgtkfont_LDFLAGS = 
+testrealtime_SOURCES = testrealtime.c
+testrealtime_OBJECTS =  testrealtime.o
+testrealtime_LDFLAGS = 
+testiterator_SOURCES = testiterator.c
+testiterator_OBJECTS =  testiterator.o
+testiterator_LDFLAGS = 
+testpolar_SOURCES = testpolar.c
+testpolar_OBJECTS =  testpolar.o
+testpolar_LDFLAGS = 
+testgtkplot3d_SOURCES = testgtkplot3d.c
+testgtkplot3d_OBJECTS =  testgtkplot3d.o
+testgtkplot3d_LDFLAGS = 
+testcontour_SOURCES = testcontour.c
+testcontour_OBJECTS =  testcontour.o
+testcontour_LDFLAGS = 
+testbubbles_SOURCES = testbubbles.c
+testbubbles_OBJECTS =  testbubbles.o
+testbubbles_LDFLAGS = 
+testflux_SOURCES = testflux.c
+testflux_OBJECTS =  testflux.o
+testflux_LDFLAGS = 
+testboxes_SOURCES = testboxes.c
+testboxes_OBJECTS =  testboxes.o
+testboxes_LDFLAGS = 
+testimage_SOURCES = testimage.c
+testimage_OBJECTS =  testimage.o
+testimage_LDFLAGS = 
+testpixmap_SOURCES = testpixmap.c
+testpixmap_OBJECTS =  testpixmap.o
+testpixmap_LDFLAGS = 
+testcharsel_SOURCES = testcharsel.c
+testcharsel_OBJECTS =  testcharsel.o
+testcharsel_LDFLAGS = 
+testdt_SOURCES = testdt.c
+testdt_OBJECTS =  testdt.o
+testdt_LDFLAGS = 
+testgtkplotdt_SOURCES = testgtkplotdt.c
+testgtkplotdt_OBJECTS =  testgtkplotdt.o
+testgtkplotdt_LDFLAGS = 
+CFLAGS = @CFLAGS@
+COMPILE = $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+LTCOMPILE = $(LIBTOOL) --mode=compile $(CC) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+CCLD = $(CC)
+LINK = $(LIBTOOL) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(LDFLAGS) -o $@
+HEADERS =  $(libgtkextrainclude_HEADERS)
+
+DIST_COMMON =  Makefile.am Makefile.in gtkextrafeatures.h.in
+
+
+DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
+
+TAR = gtar
+GZIP_ENV = --best
+SOURCES = $(libgtkextra_la_SOURCES) testgtksheet.c testgtkiconlist.c testgtkfilesel.c testgtkplot.c testgtkfont.c testrealtime.c testiterator.c testpolar.c testgtkplot3d.c testcontour.c testbubbles.c testflux.c testboxes.c testimage.c testpixmap.c testcharsel.c testdt.c testgtkplotdt.c
+OBJECTS = $(libgtkextra_la_OBJECTS) testgtksheet.o testgtkiconlist.o testgtkfilesel.o testgtkplot.o testgtkfont.o testrealtime.o testiterator.o testpolar.o testgtkplot3d.o testcontour.o testbubbles.o testflux.o testboxes.o testimage.o testpixmap.o testcharsel.o testdt.o testgtkplotdt.o
+
+all: all-redirect
+.SUFFIXES:
+.SUFFIXES: .S .c .lo .o .s
+$(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ Makefile.am $(top_srcdir)/configure.in $(ACLOCAL_M4) 
+	cd $(top_srcdir) && $(AUTOMAKE) --gnu --include-deps gtkextra/Makefile
+
+Makefile: $(srcdir)/Makefile.in  $(top_builddir)/config.status
+	cd $(top_builddir) \
+	  && CONFIG_FILES=$(subdir)/$@ CONFIG_HEADERS= $(SHELL) ./config.status
+
+gtkextrafeatures.h: $(top_builddir)/config.status gtkextrafeatures.h.in
+	cd $(top_builddir) && CONFIG_FILES=$(subdir)/$@ CONFIG_HEADERS= $(SHELL) ./config.status
+
+mostlyclean-libLTLIBRARIES:
+
+clean-libLTLIBRARIES:
+	-test -z "$(lib_LTLIBRARIES)" || rm -f $(lib_LTLIBRARIES)
+
+distclean-libLTLIBRARIES:
+
+maintainer-clean-libLTLIBRARIES:
+
+install-libLTLIBRARIES: $(lib_LTLIBRARIES)
+	@$(NORMAL_INSTALL)
+	$(mkinstalldirs) $(DESTDIR)$(libdir)
+	@list='$(lib_LTLIBRARIES)'; for p in $$list; do \
+	  if test -f $$p; then \
+	    echo "$(LIBTOOL)  --mode=install $(INSTALL) $$p $(DESTDIR)$(libdir)/$$p"; \
+	    $(LIBTOOL)  --mode=install $(INSTALL) $$p $(DESTDIR)$(libdir)/$$p; \
+	  else :; fi; \
+	done
+
+uninstall-libLTLIBRARIES:
+	@$(NORMAL_UNINSTALL)
+	list='$(lib_LTLIBRARIES)'; for p in $$list; do \
+	  $(LIBTOOL)  --mode=uninstall rm -f $(DESTDIR)$(libdir)/$$p; \
+	done
+
+.c.o:
+	$(COMPILE) -c $<
+
+.s.o:
+	$(COMPILE) -c $<
+
+.S.o:
+	$(COMPILE) -c $<
+
+mostlyclean-compile:
+	-rm -f *.o core *.core
+
+clean-compile:
+
+distclean-compile:
+	-rm -f *.tab.c
+
+maintainer-clean-compile:
+
+.c.lo:
+	$(LIBTOOL) --mode=compile $(COMPILE) -c $<
+
+.s.lo:
+	$(LIBTOOL) --mode=compile $(COMPILE) -c $<
+
+.S.lo:
+	$(LIBTOOL) --mode=compile $(COMPILE) -c $<
+
+mostlyclean-libtool:
+	-rm -f *.lo
+
+clean-libtool:
+	-rm -rf .libs _libs
+
+distclean-libtool:
+
+maintainer-clean-libtool:
+
+libgtkextra.la: $(libgtkextra_la_OBJECTS) $(libgtkextra_la_DEPENDENCIES)
+	$(LINK) -rpath $(libdir) $(libgtkextra_la_LDFLAGS) $(libgtkextra_la_OBJECTS) $(libgtkextra_la_LIBADD) $(LIBS)
+
+mostlyclean-noinstPROGRAMS:
+
+clean-noinstPROGRAMS:
+	-test -z "$(noinst_PROGRAMS)" || rm -f $(noinst_PROGRAMS)
+
+distclean-noinstPROGRAMS:
+
+maintainer-clean-noinstPROGRAMS:
+
+testgtksheet: $(testgtksheet_OBJECTS) $(testgtksheet_DEPENDENCIES)
+	@rm -f testgtksheet
+	$(LINK) $(testgtksheet_LDFLAGS) $(testgtksheet_OBJECTS) $(testgtksheet_LDADD) $(LIBS)
+
+testgtkiconlist: $(testgtkiconlist_OBJECTS) $(testgtkiconlist_DEPENDENCIES)
+	@rm -f testgtkiconlist
+	$(LINK) $(testgtkiconlist_LDFLAGS) $(testgtkiconlist_OBJECTS) $(testgtkiconlist_LDADD) $(LIBS)
+
+testgtkfilesel: $(testgtkfilesel_OBJECTS) $(testgtkfilesel_DEPENDENCIES)
+	@rm -f testgtkfilesel
+	$(LINK) $(testgtkfilesel_LDFLAGS) $(testgtkfilesel_OBJECTS) $(testgtkfilesel_LDADD) $(LIBS)
+
+testgtkplot: $(testgtkplot_OBJECTS) $(testgtkplot_DEPENDENCIES)
+	@rm -f testgtkplot
+	$(LINK) $(testgtkplot_LDFLAGS) $(testgtkplot_OBJECTS) $(testgtkplot_LDADD) $(LIBS)
+
+testgtkfont: $(testgtkfont_OBJECTS) $(testgtkfont_DEPENDENCIES)
+	@rm -f testgtkfont
+	$(LINK) $(testgtkfont_LDFLAGS) $(testgtkfont_OBJECTS) $(testgtkfont_LDADD) $(LIBS)
+
+testrealtime: $(testrealtime_OBJECTS) $(testrealtime_DEPENDENCIES)
+	@rm -f testrealtime
+	$(LINK) $(testrealtime_LDFLAGS) $(testrealtime_OBJECTS) $(testrealtime_LDADD) $(LIBS)
+
+testiterator: $(testiterator_OBJECTS) $(testiterator_DEPENDENCIES)
+	@rm -f testiterator
+	$(LINK) $(testiterator_LDFLAGS) $(testiterator_OBJECTS) $(testiterator_LDADD) $(LIBS)
+
+testpolar: $(testpolar_OBJECTS) $(testpolar_DEPENDENCIES)
+	@rm -f testpolar
+	$(LINK) $(testpolar_LDFLAGS) $(testpolar_OBJECTS) $(testpolar_LDADD) $(LIBS)
+
+testgtkplot3d: $(testgtkplot3d_OBJECTS) $(testgtkplot3d_DEPENDENCIES)
+	@rm -f testgtkplot3d
+	$(LINK) $(testgtkplot3d_LDFLAGS) $(testgtkplot3d_OBJECTS) $(testgtkplot3d_LDADD) $(LIBS)
+
+testcontour: $(testcontour_OBJECTS) $(testcontour_DEPENDENCIES)
+	@rm -f testcontour
+	$(LINK) $(testcontour_LDFLAGS) $(testcontour_OBJECTS) $(testcontour_LDADD) $(LIBS)
+
+testbubbles: $(testbubbles_OBJECTS) $(testbubbles_DEPENDENCIES)
+	@rm -f testbubbles
+	$(LINK) $(testbubbles_LDFLAGS) $(testbubbles_OBJECTS) $(testbubbles_LDADD) $(LIBS)
+
+testflux: $(testflux_OBJECTS) $(testflux_DEPENDENCIES)
+	@rm -f testflux
+	$(LINK) $(testflux_LDFLAGS) $(testflux_OBJECTS) $(testflux_LDADD) $(LIBS)
+
+testboxes: $(testboxes_OBJECTS) $(testboxes_DEPENDENCIES)
+	@rm -f testboxes
+	$(LINK) $(testboxes_LDFLAGS) $(testboxes_OBJECTS) $(testboxes_LDADD) $(LIBS)
+
+testimage: $(testimage_OBJECTS) $(testimage_DEPENDENCIES)
+	@rm -f testimage
+	$(LINK) $(testimage_LDFLAGS) $(testimage_OBJECTS) $(testimage_LDADD) $(LIBS)
+
+testpixmap: $(testpixmap_OBJECTS) $(testpixmap_DEPENDENCIES)
+	@rm -f testpixmap
+	$(LINK) $(testpixmap_LDFLAGS) $(testpixmap_OBJECTS) $(testpixmap_LDADD) $(LIBS)
+
+testcharsel: $(testcharsel_OBJECTS) $(testcharsel_DEPENDENCIES)
+	@rm -f testcharsel
+	$(LINK) $(testcharsel_LDFLAGS) $(testcharsel_OBJECTS) $(testcharsel_LDADD) $(LIBS)
+
+testdt: $(testdt_OBJECTS) $(testdt_DEPENDENCIES)
+	@rm -f testdt
+	$(LINK) $(testdt_LDFLAGS) $(testdt_OBJECTS) $(testdt_LDADD) $(LIBS)
+
+testgtkplotdt: $(testgtkplotdt_OBJECTS) $(testgtkplotdt_DEPENDENCIES)
+	@rm -f testgtkplotdt
+	$(LINK) $(testgtkplotdt_LDFLAGS) $(testgtkplotdt_OBJECTS) $(testgtkplotdt_LDADD) $(LIBS)
+
+install-libgtkextraincludeHEADERS: $(libgtkextrainclude_HEADERS)
+	@$(NORMAL_INSTALL)
+	$(mkinstalldirs) $(DESTDIR)$(libgtkextraincludedir)
+	@list='$(libgtkextrainclude_HEADERS)'; for p in $$list; do \
+	  if test -f "$$p"; then d= ; else d="$(srcdir)/"; fi; \
+	  echo " $(INSTALL_DATA) $$d$$p $(DESTDIR)$(libgtkextraincludedir)/$$p"; \
+	  $(INSTALL_DATA) $$d$$p $(DESTDIR)$(libgtkextraincludedir)/$$p; \
+	done
+
+uninstall-libgtkextraincludeHEADERS:
+	@$(NORMAL_UNINSTALL)
+	list='$(libgtkextrainclude_HEADERS)'; for p in $$list; do \
+	  rm -f $(DESTDIR)$(libgtkextraincludedir)/$$p; \
+	done
+
+tags: TAGS
+
+ID: $(HEADERS) $(SOURCES) $(LISP)
+	list='$(SOURCES) $(HEADERS)'; \
+	unique=`for i in $$list; do echo $$i; done | \
+	  awk '    { files[$$0] = 1; } \
+	       END { for (i in files) print i; }'`; \
+	here=`pwd` && cd $(srcdir) \
+	  && mkid -f$$here/ID $$unique $(LISP)
+
+TAGS:  $(HEADERS) $(SOURCES)  $(TAGS_DEPENDENCIES) $(LISP)
+	tags=; \
+	here=`pwd`; \
+	list='$(SOURCES) $(HEADERS)'; \
+	unique=`for i in $$list; do echo $$i; done | \
+	  awk '    { files[$$0] = 1; } \
+	       END { for (i in files) print i; }'`; \
+	test -z "$(ETAGS_ARGS)$$unique$(LISP)$$tags" \
+	  || (cd $(srcdir) && etags $(ETAGS_ARGS) $$tags  $$unique $(LISP) -o $$here/TAGS)
+
+mostlyclean-tags:
+
+clean-tags:
+
+distclean-tags:
+	-rm -f TAGS ID
+
+maintainer-clean-tags:
+
+distdir = $(top_builddir)/$(PACKAGE)-$(VERSION)/$(subdir)
+
+subdir = gtkextra
+
+distdir: $(DISTFILES)
+	@for file in $(DISTFILES); do \
+	  d=$(srcdir); \
+	  if test -d $$d/$$file; then \
+	    cp -pr $$d/$$file $(distdir)/$$file; \
+	  else \
+	    test -f $(distdir)/$$file \
+	    || ln $$d/$$file $(distdir)/$$file 2> /dev/null \
+	    || cp -p $$d/$$file $(distdir)/$$file || :; \
+	  fi; \
+	done
+
+info-am:
+info: info-am
+dvi-am:
+dvi: dvi-am
+check-am: all-am
+check: check-am
+installcheck-am:
+installcheck: installcheck-am
+install-exec-am: install-libLTLIBRARIES
+install-exec: install-exec-am
+
+install-data-am: install-libgtkextraincludeHEADERS
+install-data: install-data-am
+
+install-am: all-am
+	@$(MAKE) $(AM_MAKEFLAGS) install-exec-am install-data-am
+install: install-am
+uninstall-am: uninstall-libLTLIBRARIES \
+		uninstall-libgtkextraincludeHEADERS
+uninstall: uninstall-am
+all-am: Makefile $(LTLIBRARIES) $(PROGRAMS) $(HEADERS)
+all-redirect: all-am
+install-strip:
+	$(MAKE) $(AM_MAKEFLAGS) AM_INSTALL_PROGRAM_FLAGS=-s install
+installdirs:
+	$(mkinstalldirs)  $(DESTDIR)$(libdir) \
+		$(DESTDIR)$(libgtkextraincludedir)
+
+
+mostlyclean-generic:
+
+clean-generic:
+
+distclean-generic:
+	-rm -f Makefile $(CONFIG_CLEAN_FILES)
+	-rm -f config.cache config.log stamp-h stamp-h[0-9]*
+
+maintainer-clean-generic:
+mostlyclean-am:  mostlyclean-libLTLIBRARIES mostlyclean-compile \
+		mostlyclean-libtool mostlyclean-noinstPROGRAMS \
+		mostlyclean-tags mostlyclean-generic
+
+mostlyclean: mostlyclean-am
+
+clean-am:  clean-libLTLIBRARIES clean-compile clean-libtool \
+		clean-noinstPROGRAMS clean-tags clean-generic \
+		mostlyclean-am
+
+clean: clean-am
+
+distclean-am:  distclean-libLTLIBRARIES distclean-compile \
+		distclean-libtool distclean-noinstPROGRAMS \
+		distclean-tags distclean-generic clean-am
+	-rm -f libtool
+
+distclean: distclean-am
+
+maintainer-clean-am:  maintainer-clean-libLTLIBRARIES \
+		maintainer-clean-compile maintainer-clean-libtool \
+		maintainer-clean-noinstPROGRAMS maintainer-clean-tags \
+		maintainer-clean-generic distclean-am
+	@echo "This command is intended for maintainers to use;"
+	@echo "it deletes files that may require special tools to rebuild."
+
+maintainer-clean: maintainer-clean-am
+
+.PHONY: mostlyclean-libLTLIBRARIES distclean-libLTLIBRARIES \
+clean-libLTLIBRARIES maintainer-clean-libLTLIBRARIES \
+uninstall-libLTLIBRARIES install-libLTLIBRARIES mostlyclean-compile \
+distclean-compile clean-compile maintainer-clean-compile \
+mostlyclean-libtool distclean-libtool clean-libtool \
+maintainer-clean-libtool mostlyclean-noinstPROGRAMS \
+distclean-noinstPROGRAMS clean-noinstPROGRAMS \
+maintainer-clean-noinstPROGRAMS uninstall-libgtkextraincludeHEADERS \
+install-libgtkextraincludeHEADERS tags mostlyclean-tags distclean-tags \
+clean-tags maintainer-clean-tags distdir info-am info dvi-am dvi check \
+check-am installcheck-am installcheck install-exec-am install-exec \
+install-data-am install-data install-am install uninstall-am uninstall \
+all-redirect all-am all installdirs mostlyclean-generic \
+distclean-generic clean-generic maintainer-clean-generic clean \
+mostlyclean distclean maintainer-clean
+
+
+files:
+        @files=`ls $(DISTFILES) 2> /dev/null `; for p in $$files; do \
+          echo $$p; \
+        done
+
+test: testgtksheet testgtkiconlist testgtkfilesel testgtkplot testgtkfont testrealtime testpolar testgtkplot3d testcontour testbubbles testflux testboxes testimage testpixmap testcharsel testdt testgtkplotdt testiterator
+        builddir=`pwd`; cd $(top_builddir); top_builddir=`pwd`; export HAVE_PROGRESSBAR=1; \
+        cd $$builddir; cd $(srcdir); \
+        $(SHELL) $$top_builddir/libtool --mode=execute gdb $$builddir/testgtksheet;  \
+        $(SHELL) $$top_builddir/libtool --mode=execute gdb $$builddir/testgtkplot;  \
+        $(SHELL) $$top_builddir/libtool --mode=execute gdb $$builddir/testgtkpolar;  \
+        $(SHELL) $$top_builddir/libtool --mode=execute gdb $$builddir/testgtkplot3d;  \
+        $(SHELL) $$top_builddir/libtool --mode=execute gdb $$builddir/testgtkbubble;  \
+        $(SHELL) $$top_builddir/libtool --mode=execute gdb $$builddir/testgtkflux;  \
+        $(SHELL) $$top_builddir/libtool --mode=execute gdb $$builddir/testcontour;  \
+        $(SHELL) $$top_builddir/libtool --mode=execute gdb $$builddir/testgtkiconlist;  \
+        $(SHELL) $$top_builddir/libtool --mode=execute gdb $$builddir/testgtkfilesel;  \
+        $(SHELL) $$top_builddir/libtool --mode=execute gdb $$builddir/testgtkfont;  \
+        $(SHELL) $$top_builddir/libtool --mode=execute gdb $$builddir/testrealtime;  \
+        $(SHELL) $$top_builddir/libtool --mode=execute gdb $$builddir/testiterator;  \
+        $(SHELL) $$top_builddir/libtool --mode=execute gdb $$builddir/testimage;  \
+        $(SHELL) $$top_builddir/libtool --mode=execute gdb $$builddir/testpixmap;  \
+        $(SHELL) $$top_builddir/libtool --mode=execute gdb $$builddir/testcharsel; \
+	$(SHELL) $$top_builddir/libtool --mode=execute gdb $$builddir/testdt \
+		$$builddir/testgtkplotdt.in > $$builddir/testgtkplotdt.out; echo
+
+# Tell versions [3.59,3.63) of GNU make to not export all variables.
+# Otherwise a system limit (for SysV at least) may be exceeded.
+.NOEXPORT:

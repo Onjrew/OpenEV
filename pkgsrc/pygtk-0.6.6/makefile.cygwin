@@ -1,0 +1,37 @@
+
+PYDIR = C:/Python
+
+GTK_SRC	= ../gtk+
+GLIB_SRC = ../glib
+GTKGLAREA = ../../gtkglarea-1.2.2
+
+PYGTK_DLL	=	_gtk
+
+GDAL_HOME	=	F:/gdal
+CC = gcc
+
+INC = -I$(GLIB_SRC) -I$(GTK_SRC) -I$(GTK_SRC)/gdk \
+	-I$(GTKGLAREA) -I$(GTKGLAREA)/gtkgl
+
+CFLAGS =	-I$(PYDIR)/Include  $(INC)
+
+LIBS = $(GTK_SRC)/gtk/gtk-1.3.lib \
+	$(GTK_SRC)/gdk/gdk-1.3.lib $(GLIB_SRC)/glib-1.3.lib \
+	GLU32.lib opengl32.lib gdi32.lib user32.lib
+
+default:	$(PYGTK_DLL)
+
+$(PYGTK_DLL):	gtkmodule.o
+	$(GLIB_SRC)/build-dll _gtk 1 gtkmodule.o $(LIBS) 
+#	link /dll /def:_gtk.def gtkmodule.o $(LIBS) \
+#		/LIBPATH:$(PYDIR)/libs \
+#		/out:$(PYGTK_DLL)
+	
+%.o:    %.c
+	gcc $(CFLAGS) $*.c -o $*.o
+	
+.c.obj:	
+	$(CC) $(CFLAGS) -c $*.c
+
+clean:
+	del *.obj *.dll *.lib

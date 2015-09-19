@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title>Main OpenEV Files</title>
+</head>
+<body bgcolor="#ffffff">
+<h1>Main OpenEV Files</h1>
+The following is not intended to be a high-level description of
+OpenEV's classes, as a complete description can be found in the
+<a href="http://openev.sourceforge.net/lib_design_doc/openev.html">Library
+Design Document</a>.
+This is meant to describe the purpose and a bit
+about six key openev files. These should provide a suitable starting
+point for learning and experimentation.
+<h2>openev</h2>
+This is a shell script that can be used to launch openev. All it does
+is set some environment variables, then run
+openev.py. It varies depending on the type of installation.
+<p>Here are some examples:
+</p>
+<p>Type 1:
+</p>
+<pre>#!/bin/sh<br>OPENEV_HOME=`dirname $0`/..<br><br># Setup Environment Variables for OpenEV<br><br>PYTHONHOME=${OPENEV_HOME}<br>PYTHONPATH=${OPENEV_HOME}/pymod:${PYTHONPATH}<br>GEOTIFF_CSV=${OPENEV_HOME}/share/gdal<br>GDAL_DATA=${OPENEV_HOME}/share/gdal<br>PROJ_LIB=${OPENEV_HOME}/share/proj<br>LD_LIBRARY_PATH=${OPENEV_HOME}/lib:${LD_LIBRARY_PATH}<br>PATH=${OPENEV_HOME}/bin:${PATH}<br><br># check for accelerated hardware flag<br>if [ "${1}" = "-h" ]; then<br>    shift<br>    echo "Setup for user installed hardware acceleration"<br>else<br>    echo "Default software rendering mode (use -h if accelerated video card installed)."<br>    LD_LIBRARY_PATH=${OPENEV_HOME}/lib/Mesa:${LD_LIBRARY_PATH}<br>fi<br><br>export PYTHONHOME PYTHONPATH LD_LIBRARY_PATH PATH OPENEV_HOME GEOTIFF_CSV<br><br><br># Run OpenEV<br>${OPENEV_HOME}/pymod/openev.py "$@"<br></pre>
+This one will run without requiring a setup script to be sourced,
+because it sets all the environment variables it needs. This is
+the type of script included in Frank Warmerdam's ftp site
+distributions.
+<p>Type 2:
+</p>
+<pre>#!/bin/sh<br>${PYTHONHOME}/bin/python ${OPENEVHOME}/pymod/openev.py $*<br></pre>
+This type assumes that a setup script (eg. .cshrc) has set all the
+necessary
+variables, and simply launches OpenEV.
+<h2>openev.py</h2>
+This is a python script that creates an OpenEV application instance and
+launches a view.
+<p></p>
+<pre>import gviewapp<br>import gview<br>import gtk<br>import sys<br>import os<br>import getopt<br><br>if __name__ == '__main__':<br><br> <br>    # get command line options and args<br>    # openev -m menufile -i iconfile -t toolfile image1 image2 ......<br>    (options, ifiles) = getopt.getopt(sys.argv[1:], 'm:i:t:p:')<br> <br>    if os.path.isdir(os.path.join(gview.home_dir, 'config')):<br>        mfile = os.path.join(gview.home_dir, 'config', 'DefaultMenuFile.xml')<br>        ifile = os.path.join(gview.home_dir, 'config', 'DefaultIconFile.xml')<br>        pfile = os.path.join(gview.home_dir, 'config', 'DefaultPyshellFile.xml')<br>    else:<br>        mfile=None<br>        ifile=None<br>        pfile=None<br>         <br>    tfile = None<br> <br>    for opt in options[0:]:<br>        if opt[0] == '-m':<br>            mfile=opt[1]<br>        elif opt[0] == '-i':<br>            ifile=opt[1]<br>        elif opt[0] == '-p':<br>            pfile=opt[1]<br>        elif opt[0] == '-t':<br>            tfile=opt[1]<br> <br>    app = gviewapp.GViewApp(toolfile=tfile,menufile=mfile,iconfile=ifile,pyshellfile=pfile)<br>    gview.app = app      # handle to the application for other modules to use<br>    app.subscribe('quit',gtk.mainquit)   # connect to gtk's quit mechanism<br>    app.show_layerdlg()                  # show layer dialog<br>    app.new_view(None)                   # create initial view window<br>    app.do_auto_imports()  # imports modules specified in preferences<br><br>    for item in ifiles:<br>        app.file_open_by_name(item)     # open command line files<br><br>    gtk.mainloop()         # start the main event loop<br><br></pre>
+<h2>gview.py</h2>
+This provides access to the c-level openev code. Layers, view areas,
+rasters,
+etc. are defined here, however no GUI's are defined gview.py- this is
+left
+to other modules.
+As an example, here is the snippet of gview.py code that creates the
+point of
+interest tool:
+<pre>class GvPoiTool(GvTool):<br>    """Point of Interest Selection Tool<br><br>    Signals:<br><br>    poi-changed -- generated when the POI has been changed.<br>    """<br>    <br>    get_type = _gv.gv_poi_tool_get_type<br>    def __init__(self, _obj=None):<br>        if _obj: self._o = _obj; return<br>        self._o = _gv.gv_poi_tool_new()<br><br>    def get_point(self):<br>        """ Returns the current POI """<br>        return _gv.gv_poi_tool_get_point(self._o)<br><br>    def set_point(self, point):<br>        """ Sets the current POI.<br><br>        point -- a tuple (column, row)<br>        """<br>        return _gv.gv_poi_tool_new_point(self._o, point)<br></pre>
+It inherits from the GvTool class:
+<pre>class GvTool(_gtk.GtkObject):<br>    get_type = _gv.gv_tool_get_type<br>    def __init__(self, _obj=None):<br>        if _obj: self._o = _obj; return<br>        <br>    def activate(self, view):<br>        _gv.gv_tool_activate(self._o, view._o)<br>        <br>    def deactivate(self, view):<br>        _gv.gv_tool_deactivate(self._o, view._o)<br>        <br>    def get_view(self):<br>        v_o = _gv.gv_tool_get_view(self._o)<br>        if v_o is None:<br>            return None<br>        else:<br>            return GvViewArea(_obj=v_o)<br>        <br>    def set_boundary(self, boundary):<br>        """Set constraint rectangle.<br><br>        boundary -- boundary is a tuple in the form (column,row,width,height)<br>        """<br>        return _gv.gv_tool_set_boundary(self._o, boundary)<br></pre>
+You can connect to the POI tool's poi-changed signal using the connect
+function:
+<pre>class my_object:<br>    def __init__(self):<br>        # The poi tool is stored in the main application's toolbar:<br>        # Get a handle to the main application through gview (gview.app<br>        # is set to the main application in openev.py).  This makes<br>        # use of the fact that every module is only loaded once in<br>        # an application, unless the "reload" command is called<br>        # on the module.  All subsequent imports point to the same<br>        # space in memory.  This means that setting gview.app in <br>        # openev.py results in app being accessible wherever gview is<br>        # loaded.<br>        # The application is sometimes passed as an argument<br>        # to make it less confusing in OpenEV's tools, but the<br>        # end effect is the same.<br><br>        import gview<br>        gview.app.toolbar.poi_tool.connect('poi-changed',self.my_update_cb)<br><br>    def my_update_cb(self,*args)<br>        poi_info = self.app.toolbar.get_poi()<br>        txt=str(poi_info[0])+'     '+str(poi_info[1])<br></pre>
+This connects the poi tool's "poi-changed" signal to your object's
+"my_update_cb" callback. Note that the poi tool's "connect" function
+is inherited from gtk.GtkObject through the GvTool base class.
+<p></p>
+<h2>gviewapp.py and gvviewwindow.py</h2>
+These modules provide gui's to go with the gview.py objects, and
+super-structures to control their interaction.
+<p>The top-level application
+is the GViewApp class in gviewapp.py. It does not have its own gui, but
+initializes the layer dialog, view manager, selection manager, toolbar,
+tools, and preferences. The first view window is launched through a
+call
+to the GViewApp's "new_view" function, which creates a new GvViewWindow
+and adds tool menu entries to it.
+gviewapp.py also contains the code for the edit toolbar and preference
+dialog GUIs.
+</p>
+<p>gvviewwindow.py contains the code to create an OpenEV view. This
+consists
+of a GtkWindow with an embedded menubar, icon bar, and GvViewArea (the
+black area- see gview.py for the wrappers, gvviewarea.c for the
+nitty-gritty).
+</p>
+<p>Other python files that provide GUIs include layerdlg.py (the layer
+dialog),
+oeattedit.py (the vector attributes dialog launched from the edit
+menu),
+gvvectorpropdlg.py (the vector properties dialog launched by right
+clicking on a vector file in the layer dialog), and gvrasterpropdlg.py
+(the raster properties dialog). </p>
+<p></p>
+<h2>gvsignaler.py</h2>
+One other class that you should be aware of as an OpenEV developer is
+the
+Signaler class (code below):
+<pre>"""<br>MODULE<br>   gvsignaler<br>   <br>DESCRIPTION<br>   Provides an event subscription/notification mechanism a bit like<br>   Gtk signal handling.  Classes which derive from Signaler can<br>   publish a list of named signals.  These signals can then be<br>   attached to arbitrary callback methods/functions using subscribe().<br>   More than one callback function per signal can be attached.<br>   The Signaler executes the callback functions with the notify()<br>   method.<br><br>   Arguments to the callback functions are (in order):<br>     1. The Signaler instance.<br>     2. Any signal specific arguments provided to notify().<br>     3. Subscriber baggage arguments provided to subscribe().<br>   The baggage arguments act like the 'data' argument of Gtk signals.<br>"""<br><br>class UnpublishedSignalError(Exception): pass<br>class SignalExistsError(Exception): pass<br><br>class Signaler:<br>    "Base class for objects with published signals"<br>    signal = {}  # Prevents AttributeErrors<br><br>    def publish(self, *sigs):<br>        "Publish one or more named signals"<br>        if not self.__dict__.has_key('signal'):<br>            self.signal = {}<br>        for s in sigs:<br>            if self.signal.has_key(s):<br>                raise SignalExistsError<br>            self.signal[s] = [0, []]  # Blocked flag, handlers list<br><br>    def subscribe(self, name, meth, *args):<br>        "Attach a callback function/method to a signal"<br>        try:<br>            self.signal[name][1].append((meth, args))<br>        except KeyError:<br>            raise UnpublishedSignalError<br>            <br>    def unsubscribe(self, name, meth):<br>        "Remove a callback function/method for a named signal"<br>        try:<br>            l = len(self.signal[name][1])<br>            for si in range(l):<br>                if self.signal[name][1][si][0] == meth:<br>                    del self.signal[name][1][si]<br>                    break<br>        except KeyError:<br>            raise UnpublishedSignalError<br><br>            <br>    def notify(self, name, *args):<br>        "Execute callbacks attached to the named signal"<br>        try:<br>            sig = self.signal[name]<br>        except KeyError:<br>            raise UnpublishedSignalError<br>        # Check for blocked signal<br>        <br>        if sig[0] == 0:<br>            for s in sig[1]:<br>                apply(s[0], (self,) + args + s[1])<br><br>    def block(self, name):<br>        "Prevent a signal from being emitted"<br>        try:<br>            self.signal[name][0] = 1<br>        except KeyError:<br>            raise UnpublishedSignalError<br><br>    def unblock(self, name):<br>        "Allows a blocked signal to be emitted"<br>        try:<br>            self.signal[name][0] = 0<br>        except KeyError:<br>            raise UnpublishedSignalError<br><br></pre>
+An object of this class stores a dictionary of signals that it will
+recognize.
+A new signal is added to the dictionary using the "publish" function,
+and
+the signal is emitted using the "notify" function. Another object can
+connect to this signal using the "subscribe" function, which appends
+the
+desired callback (passed through the subscribe arguments) to the list
+of callbacks for that signal. "notify" cycles through all attached
+callbacks
+for a given signal, applying them. The block/unblock functions are used
+to temporarily prevent the callbacks from being executed. This is
+similar
+to the gtk signaling mechanism, with the difference that the gtk
+signals
+are defined at the c-level, and are emitted and connected to through
+python wrappers. The gtk mechanism uses the terms "connect" and "emit"
+rather than "subscribe" and "notify". Some objects inherit both
+mechanisms,
+for example the Layer Dialog class:
+<pre>class LayerDlg(GtkWindow,gvsignaler.Signaler):<br>    def __init__(self):<br>        GtkWindow.__init__(self)<br>        self.set_title('Layers')<br>        self.set_usize(250, 500)<br>        self.set_border_width(3)<br>        self.set_policy(TRUE,TRUE,FALSE)<br>        self.connect('delete-event',self.close)<br>        shell = GtkVBox(spacing=3)<br>        self.add(shell)<br>       <br>        # Bunch of other code...<br><br>        # Layer list<br>        layerbox = GtkScrolledWindow()<br>        shell.pack_start(layerbox)<br>        if self.thumbnail:<br>            layerlist = GtkCList(cols=3)<br>        else:<br>            layerlist = GtkCList(cols=2)<br>            <br>        layerbox.add_with_viewport(layerlist)<br>        layerlist.set_shadow_type(SHADOW_NONE)<br>        layerlist.set_selection_mode(SELECTION_SINGLE)<br>        layerlist.set_row_height(THUMB_H + 4)<br>        layerlist.set_column_width(0, EYE_W)<br>        if self.thumbnail:<br>            layerlist.set_column_width(1, THUMB_W + 4)<br>        layerlist.connect('select-row', self.layer_selected)<br>        layerlist.connect('button-press-event', self.list_clicked)<br><br><br>        # Bunch of other code...<br><br>        # Publish signals<br>        self.publish('active-view-changed')<br>        <br></pre>
+In this case, 'delete-event' is a gtk signal (the little x on the
+layer dialog box being clicked), as are 'select-row' and
+'button-press-event', but 'active-view-changed' is
+a Signaler signal.
+<p>As a historical note, the GViewApp class used to be in openev.py,
+then
+was separated out to its own gviewapp.py file. </p>
+<p><a href="DEVCOURSE_tutorial1.html">Next</a><br>
+<a href="DEVCOURSE.html">Developer Course Outline</a><br>
+<a href="../openevmain.html">OpenEV Help</a><br>
+</p>
+</body>
+</html>

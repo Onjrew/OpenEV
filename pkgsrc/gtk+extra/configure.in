@@ -1,0 +1,119 @@
+# Process this file with autoconf to produce a configure script.
+AC_INIT(gtkextra)
+
+# Save this value here, since automake will set cflags later
+cflags_set=${CFLAGS+set}
+
+AC_DIVERT_PUSH(AC_DIVERSION_NOTICE)dnl
+# Making releases:
+#   GTK_EXTRA_MICRO_VERSION += 1;
+#   GTK_EXTRA_INTERFACE_AGE += 1;
+#   GTK_EXTRA_BINARY_AGE += 1;
+# if any functions have been added, set GTK_EXTRA_INTERFACE_AGE to 0.
+# if backwards compatibility has been broken,
+# set GTK_BINARY_AGE and GTK_EXTRA_INTERFACE_AGE to 0.
+
+GTK_EXTRA_MAJOR_VERSION=0
+GTK_EXTRA_MINOR_VERSION=99
+GTK_EXTRA_MICRO_VERSION=17
+GTK_EXTRA_INTERFACE_AGE=0
+GTK_EXTRA_BINARY_AGE=0
+GTK_EXTRA_VERSION=$GTK_EXTRA_MAJOR_VERSION.$GTK_EXTRA_MINOR_VERSION.$GTK_EXTRA_MICRO_VERSION
+dnl
+AC_DIVERT_POP()dnl
+
+AC_SUBST(GTK_EXTRA_MAJOR_VERSION)
+AC_SUBST(GTK_EXTRA_MINOR_VERSION)
+AC_SUBST(GTK_EXTRA_MICRO_VERSION)
+AC_SUBST(GTK_EXTRA_INTERFACE_AGE)
+AC_SUBST(GTK_EXTRA_BINARY_AGE)
+AC_SUBST(GTK_EXTRA_VERSION)
+
+# libtool versioning
+LT_RELEASE=$GTK_EXTRA_MAJOR_VERSION.$GTK_EXTRA_MINOR_VERSION
+LT_CURRENT=`expr $GTK_EXTRA_MICRO_VERSION - $GTK_EXTRA_INTERFACE_AGE`
+LT_REVISION=$GTK_EXTRA_INTERFACE_AGE
+LT_AGE=`expr $GTK_EXTRA_BINARY_AGE - $GTK_EXTRA_INTERFACE_AGE`
+AC_SUBST(LT_RELEASE)
+AC_SUBST(LT_CURRENT)
+AC_SUBST(LT_REVISION)
+AC_SUBST(LT_AGE)
+
+# For automake
+VERSION=$GTK_EXTRA_VERSION
+PACKAGE=gtk+extra
+
+# Initialize automake stuff
+AM_INIT_AUTOMAKE($PACKAGE, $VERSION, no-define)
+
+# Specify a configuration file
+AM_CONFIG_HEADER(config.h)
+
+# Build time sanity check...
+AM_SANITY_CHECK
+
+# Checks for programs.
+AC_PROG_CC
+AC_ISC_POSIX
+AM_PROG_CC_STDC
+AC_PROG_INSTALL
+AC_PROG_MAKE_SET
+
+# Initialize libtool
+AM_PROG_LIBTOOL
+
+AM_MAINTAINER_MODE
+
+AC_CANONICAL_HOST
+
+changequote(,)dnl
+if test "x$GCC" = "xyes"; then
+  case " $CFLAGS " in
+  *[\ \	]-Wall[\ \	]*) ;;
+  *) CFLAGS="$CFLAGS -Wall" ;;
+  esac
+fi
+changequote([,])dnl
+
+# Honor aclocal flags
+ACLOCAL="$ACLOCAL $ACLOCAL_FLAGS"
+
+# Checks for header files.
+AC_HEADER_STDC
+
+# Checks for typedefs, structures, and compiler characteristics.
+AC_C_CONST
+
+dnl header file checks
+AC_CHECK_HEADERS(unistd.h, AC_DEFINE(HAVE_UNISTD_H))
+AC_CHECK_HEADERS(dirent.h, AC_DEFINE(HAVE_DIRENT_H))
+AC_CHECK_HEADERS(fnmatch.h, AC_DEFINE(HAVE_FNMATCH_H))
+
+dnl NeXTStep cc seems to need this
+AC_MSG_CHECKING([for extra flags for POSIX compliance])
+AC_TRY_COMPILE([#include <dirent.h>], [DIR *dir;],
+  AC_MSG_RESULT(none needed),
+  gtk_save_CFLAGS=$CFLAGS
+  CFLAGS="$CFLAGS -posix"
+  AC_TRY_COMPILE([#include <dirent.h>], [DIR *dir;],
+    AC_MSG_RESULT(-posix),
+    AC_MSG_RESULT()
+    CFLAGS=$gtk_save_CFLAGS
+    AC_MSG_WARN([Could not determine POSIX flag. (-posix didn't work.)])))
+
+
+# Checks for typedefs, structures, and compiler characteristics.
+AC_C_CONST
+AC_C_INLINE
+
+# Find the GTK+ include and library directories.
+AM_PATH_GTK(1.2.0)
+
+AC_OUTPUT([
+Makefile
+gtkextra/Makefile
+gtkextra/gtkextrafeatures.h
+docs/Makefile
+gtkextra.spec
+gtkextra-config
+], [chmod +x gtkextra-config])

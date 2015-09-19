@@ -1,0 +1,23 @@
+#!/bin/sh
+
+#
+# Check parameter 1: platform
+#
+case "${1}" in
+    linux)   ARCHPATH=openev/Linux;;
+    solaris) ARCHPATH=openev/SunOS;;
+    irix)    ARCHPATH=openev/IRIX64;;
+    all)     ARCHPATH=openev/Linux openev/IRIX64 openev/SunOS;;
+    *)
+        echo "Platform must be one of linux, solaris, irix."
+        exit 1;;
+esac
+
+
+# Create a tar file, from delivery directory
+
+cd ..
+mv delivery openev
+tar -cvf openev.tar openev/INSTALL.TXT openev/license.txt openev/install openev/setup_openev openev/common ${ARCHPATH}
+mv openev delivery 
+cd delivery

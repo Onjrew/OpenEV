@@ -1,0 +1,8 @@
+ea30e85cffd7c5baf6efe493d21495a8  ChangeLog
+cc2024f64d5209ca47940c2211efefc8  libpthread32.a
+27a780236ba272c0c06a395944cf851d  pthread.def
+03b2432666b7ea29b3e1bf9add63cb94  pthread.dll
+34e2662c5ab43c3c6e7b48c0af28ad5f  pthread.h
+49fc724f5f1c12940fc2d4d39e4ee35c  pthread.lib
+f12a296de03f5a59f8bb1c126b5d3c81  sched.h
+fd73b47058c186ce45637a7bdc278d01  semaphore.h

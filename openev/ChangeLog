@@ -1,0 +1,1270 @@
+2007-06-01  Frank Warmerdam  <warmerdam@pobox.com>
+
+	* gvshapefile.c: rewind shapes before writing (bug 1557).
+
+2006-11-08  Frank Warmerdam  <warmerdam@pobox.com>
+
+	* gvviewarea.c: Improved signature for testing if glReadPixels() failed.
+	The old signature was too likely (1 in 64K times it would match).
+
+2006-03-25  Andrey Kiselev  <dron@ak4719.spb.edu>
+
+	* tools/reproject.py: Added new 'Reprojection' tool.
+
+	* pymod/gvutils.py: Added ability to assign tooltips to
+	GvOptionMenu control.
+
+2005-01-14  Frank Warmerdam  <warmerdam@pobox.com>
+
+	* gviewarea/gview: Added accessors on GvViewArea for flip flags,
+	and modified so they are saved/restored in project file.
+
+2004-10-07  Frank Warmerdam  <warmerdam@pobox.com>
+
+	* pymod/gvviewwindow.py: added case for opening raster files
+	with 2 bands where the second is an alpha band.  It creates it as
+	an RGBA layer.
+
+2004-09-30  Paul Spencer <pspencer@dmsolutions.ca>
+
+    * dbfopen.c: updated DBFIsAttributeNULL with code from
+    equivalent file from gdal so that empty integer values will
+    be interpreted as NULLs (instead of 0).
+
+2004-09-20  Paul Spencer <pspencer@dmsolutions.ca>
+
+    * gvraster.c: added patch for isnan support on win32
+
+2004-08-27  Paul Spencer <pspencer@dmsolutions.ca>
+
+    * pymod/gvclassifydlg.py: changed use of repr to str to prevent
+    floating point numbers from having excessive decimal places.  Also
+    modified the logic in the reclassify dialog to build the list of
+    choices in correct order (previously it came from dictionary keys)
+
+2004-08-20  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gvpquerylayer.{c,h}, pymod/gv.defs, pymod/gview.py:
+    GvPqueryLayer() constructor accepts passed in GvShapes.  
+    GvPqueryLayer now serializes and deserializes correctly.
+
+2004-08-17  Paul Spencer <pspencer@dmsolutions.ca>
+
+    * pymod/gv_ciet.c, pymod/gvmodule.c: added function to return arbitrary
+    columns of a gvrecords object as a python dictionary
+
+2004-08-16  Paul Spencer <pspencer@dmsolutions.ca>
+
+    * pymod/filedlg.py: modified handling of filters to repect order in which
+    they are specified when populating the dropdown list
+
+2004-07-24  Andrey Kiselev  <dron@ak4719.spb.edu>
+
+    * tools/fft.py: Added new 'Fast Fourier Transform' tool.
+
+    * pymod/gvprint.py: Added possibility to explicitly specify printed image
+    size; several GUI tweaks.
+
+2004-07-23  Paul Spencer <pspencer@dmsolutions.ca>
+
+    * pymod/gvclassifydlg.py: restructured signals for OK and apply
+    to prevent a problem where listeners to the ok signal or classifcation
+    -changed signal could be called before the classification had actually
+    been applied to the layer
+
+2004-07-20  Paul Spencer <pspencer@dmsolutions.ca>
+    
+    * pymod/filedly.py: added patch from Zak (zjames@dmsolutions.ca)
+    to handle manual input in a more reliable way
+    
+    * pymod/pgufont.py: added ability to load a font and report statistics
+    on the font such as text width and height
+
+2004-07-02  Julien Demaria  <dem@acri-st.fr>
+
+    * pymod/{gview.py, gviewapp.py, gvutils.py, gvviewwindow.py,
+    pathutils.py}: Enhance project files portability : now filesystem
+    filenames can be retrieved relatively to the project file if the
+    absolute path doesn't exist. Implement also path separator portability.
+    Use internally a PortablePath object (in pymod/pathutils.py).
+    Backward compatibility with old project files.
+    Tested between Linux, Solaris and Win32 systems.
+
+    * pymod/gview.py: last_strech restored in projects reloading
+
+    * pymod/gvutils: Change to don't crash OpenEV when a deserialization
+    of a layer fails in projects reloading.
+    Popup a gvutils.warning instead.
+
+    * pymod/gviewapp.py, xmlconfig/DefaultMenuFile.xml: add a
+    "File/Save Project as..." menu.
+
+    * pymod/gviewapp.py: Fixed a little bug in project filename saving :
+    .opf extension wasn't well added.
+
+2004-05-18  Andrey Kiselev  <dron@ak4719.spb.edu>
+
+    * tools/open_subarea.py: New 'Open Subarea' tool added.
+
+2004-05-12  Andrey Kiselev  <dron@ak4719.spb.edu>
+
+    * pymod/gvrasterpropdlg.py: Preliminary support for changing
+    projection on the fly.
+
+2004-05-12  Julien Demaria  <dem@acri-st.fr>
+
+    * pymod/gvmodule.c: Fix a bug in _wrap_gv_raster_layer_get_mesh_lod :
+    this wrapper created a python double from a C int and then the
+    mesh_lod was wrong (example 223.454).
+    The wrapper now returns an int.
+    This bug crashed OpenEV when for example we save a project,
+    then reload it : if the wrong mesh is big on a lot of images of the
+    project, this uses a lot of memory and done an allocation error.
+    Note that all projects saved until this fix have wrong mesh_lods...
+
+2004-04-21  Andrey Kiselev  <dron@ak4719.spb.edu>
+
+    * gvutils.c: Fix comparisons with NODATA value.
+
+    * pymod/gview.py: Fixed problem with reading NODATA value from
+    the project file.
+
+    * pymod/{gviewapp.py, gvviewwindow.py}: New option added: save
+    last visited directory in the config file.
+
+    * gvrastersource.c, pymod/gview.py: Fixed erroneous setting of the
+    minimum and maximum levels in greyscale lock mode as per bug
+    http://bugzilla.remotesensing.org/show_bug.cgi?id=270
+
+2004-04-04  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * Makefile.in: added various stuff related to installing into an 
+    OpenEV style tree.
+
+2004-02-18  Andrey Kiselev  <dron@ak4719.spb.edu>
+
+    * gvrastersource.c, pymod/gview.py: Fixed erroneous setting of the
+    minimum and maximum levels in greyscale lock mode as per bug
+    http://bugzilla.remotesensing.org/show_bug.cgi?id=270
+
+    * gvmesh.c, gvrasteraverage.c: Use gv_raster_get_nodata() instead of
+    GDALGetRasterNoDataValue().
+
+2004-02-10  Andrey Kiselev  <dron@ak4719.spb.edu>
+
+    * gvmanager.c, gvmanager.h, pymod/{gvmodule.c, gview.py,
+    gvviewwindow.py, gviewapp.py}: Added method open_gdal_dataset() to
+    load GDAL dataset without referencing by filename.
+
+2004-01-23  Andrey Kiselev  <dron@ak4719.spb.edu>
+
+    * pymod/gvrasterpropdlg.py: New control to display and change NODATA
+    value for viewed RasterSource.
+
+2004-01-22  Andrey Kiselev  <dron@ak4719.spb.edu>
+
+    * gvraster.c, gvraster.h: Use gv_raster_get_nodata() function to fetch
+    the NODATA value from the image using GDALGetRasterNoDataValue().
+
+    * gvrastersource.c, gvrasterlayer.h: Added methods
+    gv_raster_layer_nodata_set() and gv_raster_layer_nodata_get() to work
+    with nodata_* layer properties and method gv_raster_layer_type_get()
+    to query raster data type.
+
+    * gvutils.c: gv_format_point_query() returns "[NODATA]" label if value
+    marked as NODATA.
+
+    * pymod/gviewapp.py: New switch to control displaying "[NODATA]" marks
+    in the tracker tool. Tweaks in 'Preferences' dialog.
+
+    * pymod/gview.py: New methods in GvRasterLayer class: nodata_get(),
+    nodata_set(), type_get(). get_nodata() method now deprecated (though,
+    it does the same as nodata_get).
+
+    * pymod/{gv.defs, gvmodule.c}: Added wrappers for
+    gv_raster_layer_nodata_set(), gv_raster_layer_nodata_get() and
+    gv_raster_layer_type_get().
+
+2003-06-25  Paul Spencer  <pgs@magma.ca>
+
+    * gvshapes.c: added define of M_PI if not already defined.
+
+2003-05-27  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gvrenderinfo.c: Fixed support for getting ogr-pen-* pen names
+    from the "id" attribute as well as from the "p" pattern attribute.
+
+    * gvrecords.c: Added new support for efficient fixed schema/fixed
+    field length records.  Not yet complete. 
+
+    * gvshapefile.c: Added support for reading multi-part arcs as
+    a COLLECTION of lines.
+
+2003-05-22  Diana Esch-Mosher  <desch-mosher@lanl.gov>
+
+    * pymod/gvutils.py:  return from parse_accelerator 
+    incorrectly shifted
+
+2003-05-08  Paul Spencer    <pgs@magma.ca>
+
+    * gvviewarea.c: modified logic controlling adjustments
+    to use a step size of 1/4 the page size
+    
+    * pymod/gvogrfs.py: fixed a bug when params had attributes
+    with no values.
+
+2003-04-09  Paul Spencer    <pgs@magma.ca>
+
+    * gvrenderinfo.h,gvrenderinfo.c: added shadow, halo and
+    background color attributes to label tool
+    
+    * gvshapelayer.c: added initialization of shadow, halo
+    and background color attributes to label tool
+    
+    * gvshapeslayer.c: added rendering of halo and shadow
+    effects for label tool
+
+2003-04-08  Andrey Kiselev  <dron@ak4719.spb.edu>
+
+    * gvsymbolmanager.c: Added gv_symbol_manager_save_vector_symbol()
+    function to save vector symbols with new names.
+
+2003-04-07  Andrey Kiselev  <dron@ak4719.spb.edu>
+
+    * gvsymbolmanager.c: gv_symbol_manager_get_symbol() now able
+    to load and inject vector symbols.
+
+2003-04-07  Paul Spencer  <pgs@magma.ca>
+
+    * gvrenderinfo.h,gvrenderinfo.c: added pattern attribute to
+    pen objects
+    
+    * gvshapelayer.c: added initialization of pattern attribute
+    on new pen objects
+    
+    * gvshapeslayer.c: added rendering of patterns in pen objects
+
+2003-04-02  Paul Spencer  <pgs@magma.ca>
+
+    * pymod/gvmodule.c, pymod/gview.py: added wrapper for 
+    gv_format_point_query to gvmodule.c and added method to
+    GvViewArea to call it.
+
+2003-02-14  Paul Spencer  <pgs@magma.ca>
+
+    * pymod/filedlg.py: added ability to allow users to select mulitple 
+    files
+    
+    * pymodpgutextarea.py: added page_up/page_down functions.
+    
+    * gvrenderinfo.c, gvrenderinfo.h, gvshapelayer.c, gvshapeslayer.c added
+    support for line widths in PENs and _area_edge_width and _line_width
+    
+    * pymod/gvvectorpropdlg.py: added support for _area_edge_width,
+    _line_width, and _gl_antialias
+
+2003-01-06  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gvogr.c, pymod/gvviewwindow.py, pymod/gvogrdlg.py: added new dialog 
+    to allow selection from amoung OGR layers, and loading using an
+    user SQL query.
+
+2002-11-15  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gvrenderinfo/gvshapeslayer.c: added support for LABEL anchor
+    (justification) attribute. 
+
+2002-11-14  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gvsymbolmanager.c: Incorporated Pauls GvSymbolManager object, and
+    support for raster symbols.  Some work still outstanding.
+
+2002-10-30  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gvraster.c: modified to fill partial tiles with data extended out
+    from the valid data.  This fixes some esoteric "streaking" problems. 
+
+2002-10-08  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gvraster.c: Modified gv_raster_build_poly_transform() to 
+    back off using the highest possible order polynomial if the
+    CRS_compute_georef_equations() call fails.  This ensures that 
+    underdetermined sets of GCPs (ie. those with linear dependencies)
+    can still produce useful polynomials, even if they are only 1st order.
+
+2002-09-30  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gvnodetool.c, gvareatoolc, gvshapesfile.c: try to maintain closed
+    ring integrity while editing areas, and enforce it when saving to 
+    shapefiles.
+
+    * gvshapeslayer.c: Fixed some quirks with display list support.  
+    Ensure that selected shapes are drawn (get rid of hit_selected). 
+    Also ensure that the display list is wiped in case of selection or
+    display change events. 
+
+2002-09-27  Paul Spencer  <pgs@magma.ca>
+    
+    * gvshapeslayer.c, gvshapeslayer.h: added display lists to
+    speed up rendering of shapes layers and added antialiasing
+    support for line layers
+    * gvskirt.c: changed how skirts polygons are built and removed
+    the white lines.
+
+2002-09-16  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gvviewarea.c: Ensure depth buffer is cleared before doing
+    a render_to_func. This fixes problems printing 3D views at 1:1. 
+
+2002-09-12  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * oeattedit.py: Gillian added the ability to create new fields.
+
+2002-09-11  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gview.py, etc: modifications so that 3D views can be saved to
+    project files, and restored properly.
+
+    * gvviewarea.c: ensure GL_NORMALIZE and GL_DEPTH_TEST are
+    disabled in 2D mode (gl_view_area_expose()).
+
+2002-09-10  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * added get_height_scale() method on GvViewArea.
+
+2002-08-09  Paul Spencer <pgs@magma.ca>
+
+    * pymod/pgucombo.py: fixed a problem in set_popdown_strings
+
+    * pymod/pgucolor.py: added discrete color ramp support
+    
+    * pymod/gvclassification.py and gvclassifydlg.py: finished vector
+    classification support started by Frank.
+
+2002-07-24  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * Reimplemented the GvProperties using symbol tables and integer
+    quark ids.  Must faster performance with many properties in one list.
+    Memory for strings never recovered, but only one copy of any given
+    string in the string table.
+
+2002-07-23  Paul Spencer <pgs@magma.ca>
+
+    * added pgutextarea.py, a simple scrollable text widget (read-only)
+
+2002-07-18  Paul Spencer <pgs@magma.ca>
+
+    * gvshapefile.c, gvshapes.h: added gv_shapes_to_dbf to allow a
+    GvShapes container's attributes to be saved directly to a DBF
+    file without needing to save the whole shape file.
+    
+    * gvmodule.c: added wrapper for gv_shapes_to_dbf
+    
+    * gview.py: added GvShapes.save_to_dbf()
+
+2002-07-08  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gviewapp.py, gvviewwindow.py: Added load/save project support.
+
+    * gvviewarea.c/h: Added properties to the GvViewArea.
+
+2002-05-06  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gvshape.c/gvshapes.c/gvshape.h/gvshapeslayer.c: Added partial
+    support for the new GVSHAPE_COLLECTION primitive type.
+
+2002-03-21  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gvrenderinfo/gvvectorpropdlg: Added concept of _gv_ogrfs_point, 
+    _gv_ogrfs_line and _gv_ogrfs_area properties on GvShapesLayers to
+    indicate the styling for particular geometry types (as opposed to
+    the _gv_ogrfs which would apply to all). Use this for symbols and
+    labels in gvvectorpropdlg.py.  This responds to 528432 on SourceForge.
+
+2002-03-20  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gvviewarea/gvrasterlayer: added the render_exact flag to GvViewArea
+    indicating the proper resolution textures should be loaded and
+    used immediately rather than deferring their load till after the
+    current render.  This is used by the printing engine to ensure 
+    appropriate output.
+
+2002-03-07  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gvshape.c: added preliminary gv_shape_clip_to_rect() implementation.
+
+2002-03-06  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gvmesh.c/gvshapes.c: added default_height argument to add_height()
+    functions.  This is used when no value can be found for a mesh or
+    shape vertex.
+
+2002-02-22  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gvrenderinfo/gvshapelayer/gvshapeslayer: Added support for PEN and
+    BRUSH tools.  Currently just gets color ... other styling is ignored.
+
+2002-01-30  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gvviewlink.c: Implement more sophisticated state copying that is
+    aware of raw/geo, and projections.  It also preserves viewstate shape.
+
+    * gvviewarea: added set_state() and get_primary_raster() methods.
+
+2002-01-18  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gview.py: added the GvShapes.get_extents() method.
+
+2002-01-17  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gvselecttool.c: Fixed bug that was preventing shift-leftclick from
+    working to add/subtract a feature to/from the selection.
+
+2001-12-12  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gvtexturecache.c/gvviewarea.c: avoid purging textures used within this
+    render operation.  Avoid texture thrashing hell in at least some 
+    situations.
+
+    * gvviewarea.c: fixed fit_all_layers to fetch/compute the volume
+    for the 3d view setting.  Was uninitialized in some cases before.
+
+    * pymod/gvviewwindow.py: fixed invocation of 3d positioning dialog.
+
+    * html/*: updated mainwindow dialog and associated materials.
+
+2001-11-29  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gvraster.c, gvrasterlayer.c: Add use of autoscale_samples to
+    determine the number of samples requested from a raster for scaling.
+    Currently there is no gui element to set this preference.
+
+2001-11-28  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gvrasterlayer.c: added mesh_is_dirty flag, and code to update mesh
+    on redraw if it is dirty.  Flag is set on geotransform-changed signal
+    from prototype GvRaster.
+
+    * gvraster.c: added set_gcps(), get_gcps() and geotransform-changed 
+    signal.
+
+2001-11-14  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * pymod/pyshell.py: fixed overwrite problem on windows using
+    freeze()/thaw() on text widget.
+
+2001-11-12  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * pymod/gviewapp.py: moved GvViewApp and related code here from
+    openev.py.
+
+    * pymod/gvshell.py: moved shell instrinsics like display() and roi()
+    here from openev.py.
+
+    * pymod/pyshell.py: added locals pseudo-command to dump local vars.
+
+2001-11-09  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gvogr.cpp: copy over style string as _gv_ogrfs if available.
+
+2001-11-07  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * pymod/gvmodule.c: fixed serious memory leak in 
+    gv_shapes_get_properties.
+
+2001-10-25  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gvrasterlayer.c, pymod/openev.py: added support for a global 
+    interp_mode preference to control the default subpixel interpolation
+    mode of raster layers on creation.
+
+2001-10-22  Paul Spencer  <pgs@magma.ca>
+
+    * gvselecttool.c: in gv_selection_tool_deactivate(), moved call to 
+        base class deactivate to after the tool specific deactivation to 
+        ensure that the tool properly deregisters callbacks.
+
+2001-10-22  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gvviewarea.c: Call gv_view_area_state_changed() in 
+    gv_view_area_add_layer() to ensure a refresh.  
+    Bug 527 in DMSG Bugzilla.
+
+2001-10-17  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * added support for composing 2D complex PCT with 1D enhancement LUT.
+    GUI image enhancements now apply to complex layers as well.
+
+2001-10-16  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * pymod/gvviewwindow.py: added new enhancement options.
+
+    * pymod/gview.py: added various enhancement related stuff.
+
+    * gvrasterlayer.c: added autoscale and histogram functions on the
+    view. 
+
+    * gvraster.c: autoscale() can now be passed a sample set.
+
+2001-10-12  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * pymod/gvrasterpropdlg.py: improved logic for setting the initial
+    min and max of the scaling controls.  
+
+    * gviewarea.c/gvrasterlayer.c: 
+
+    GvLayer's now maintain a pending_idle flag indicating if they have 
+    pending idle work that will lead to a refined redraw. 
+
+    GvViewArea's now establish a timer after a redraw to keep track of
+    the elapsed time since the last redraw.  This can be used via
+    the gv_view_area_redraw_timeout() function for layer idle work handlers
+    to find out if it is time for an intermediate redraw. 
+
+    The gv_view_area_pending_idle_work() function may be used to check
+    if there are layers with pending idle work for a view.  
+
+    The GvRasterLayer idle work function now utilizes the above to ensure
+    that a redraw occurs only onces all idle work is finished or the
+    view wide timeout has occured.  This prevents extra redraws from
+    occuring when many raster layers are displayed.
+
+2001-10-11  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gvviewarea.c: modified to avoid doing re-render on WIN32 if
+    the view hasn't really changed.  This avoids slow rerenders with Mesa
+    on windows in response to window expose events generated by covering
+    dialogs.
+
+2001-09-26  Paul Spencer  <pgs@magma.ca>
+
+    * gtkcolorwell.c: fixed drawing code in _set_ functions to eliminate
+    gtkcritical when changing color of a color well and fixed 'new' to
+    not try to resize the preview widget.
+    
+    * gtkcolorwell.h: removed da member of gtkcolorwell class as it was
+    not referenced (related to above)
+
+2001-09-25  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gvrasterlayer.c: Ensure idle tasks are cleaned up in finalize.
+    Was causing occasional crashes. 
+
+2001-09-17  Paul Spencer  <pgs@magma.ca>
+
+    * pymod/gvogrfsgui.py: updated to work with ColorButton changes
+    
+    * pymod/pgucolor.py: moved a couple of lines from ColorButton to
+    gtkmissing.py
+    
+    * pymod/gtkmissing.py: added get_color and set_color to GtkColorWell
+    
+    * pymod/gvmodule.c: removed extraneous initialization in gtk_color_well_get_d
+
+2001-09-16  Paul Spencer  <pgs@magma.ca>
+    
+    * gtkcolorwell.c: modified render to honour use_alpha setting and
+    modified gtk_color_well_set_* to only call render/draw if widget
+    is realized.
+    
+    * pymod/gvmodule.c: removed extra declaration in gtk_color_well_get_d
+    
+    * pymod/gtkmissing.py: added get_d to GtkColorWell
+    
+    * pymod/pgucolor.py: removed GtkColorWell (in gtkmissing) and added
+    __init__ and get_color to ColorButton
+
+2001-09-15  Paul Spencer  <pgs@magma.ca>
+
+    * pymod/gvmodule.c: added python bindings for gtk_color_well_get_d
+    function.
+    
+    * pymod/pgucolor.py: added python wrapper class GtkColorWell and
+    modified ColorButton to extend GtkColorWell
+    
+    * gtkcolorwell.c: modified render code to honour transparency
+    Note that this is not quite complete as it currently always 
+    renders using transparency.
+
+2001-09-14  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * pymod/gv.defs,gtkmissing.py: implement python bindings for
+    the GtkColorWell class.
+
+2001-08-23  Paul Spencer <pgs@magma.ca>
+    
+    * pymod/gvlabeledit.py: added default_ogrfs = None to __init__ to allow
+    caller to override the default ogr feature spec
+
+2001-08-22  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gv_raster_layer_lut_put(): If any of the palette values have a
+    non-255 alpha, enable alpha blending. 
+
+    * gvmesh.c: Implement gv_mesh_reset_to_identity().  Use this 
+    in gv_raster_layer_new() instead of reversing the geo to pixel
+    transform for cases where it isn't cleanly invertible. 
+
+2001-08-16  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gvrasterconvert.c: fixed leakage of nodata_mask in convert
+    functions.
+
+2001-08-14  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * added standard deviation scaling support.
+
+2001-08-08  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gvshapefile.c: call SHPDestroyShape() on shapes after done converting
+    them into GvShapes. 
+
+    * gvshape.c, etc: modified GvShape objects to be reference counted.
+    Python GvShape maintains a reference to the C GvShape while the
+    python object is alive.  Resolves some serious memory leaks.
+
+    * gvmesh.c: fixed serious bug with edge tiles that are not of a
+    reduced size being collapsed to zero space.  Affects images that 
+    508 wide for instance. 
+
+    * gvrasterize.c: fixed leak of polyInts array.
+
+2001-08-07  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gvdata.c: implemented gv_data_registry_dump() for debugging 
+    creation and destruction of all GvData derived objects.
+
+    * gvmesh.c: implement finalize, remove normals support.
+
+    * pymod/gview.py: GvTool.get_view() now returns None if the view isn't
+    set yet.
+
+2001-08-07  Paul Spencer <pgs@magma.ca>
+    
+    * pymod/gvlabeledit.py: added code to pick out default colors for labels
+    and added a missing signal in the close() method
+
+2001-07-25  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * pymod/gvviewarea.py: fixed zoom ratio display so it is correct
+    when a layer is first loaded.
+
+2001-07-24  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gvrasterlut.c: added EV style 2D colormap for complex images.
+    Applied it in gvrasterpropdlg.py, gview.py, gvrasterlayer.c, etc.
+
+2001-07-23  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gvrasteraverage.c: added 8bit averaging scheme that works for
+    scaled phase.
+
+2001-07-17  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gvviewarea.c: fixed bug with flip_y introduced in mesh_is_raw 
+    changing support.
+
+2001-07-13  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gvskirt.c: new - build 3D skirt for raster layer.
+
+    * gvmesh.c: added gv_mesh_get_height().
+
+2001-07-03  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gvviewarea.c/gvrasterlayer.c: Added gv_*_{set,get}_raw() support.
+
+2001-06-30  Paul Spencer  <pgs@magma.ca>
+
+    * pymod/gvogrfsgui.py - hacked around an artefact of GtkSpinBox to
+    make the x and y offset widgets editable by hand.  
+
+    * pymod/gvclassificationdlg.py - modified the Ramp Menu to ensure
+    first item is visible (sometimes it was not rendering correctly).
+
+    * pymod/gvlegenddlg.py - modified window resize logic to layout the 
+    legend more accurately when the window is resized.          
+
+2001-06-27  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * pymod/openev.py, pymod/gvviewwindow.py, pymod/gvsdsdlg.py:
+
+    Add GDAL subdataset selection dialog, mostly for OGDI.
+
+2001-06-25  Gillian Walters <gwalter@atlsci.com>
+
+    * I've updated mkdist, install, and package in the openev/delivery
+    directory.  The changes I've made are:  
+
+    1) updated the python1.5 copies/compiles to python2.1
+    2) added the ramps directory
+    3) changed the old copy paths to the ones appropriate for where I am
+    building things
+    4) Removed the -z option in package's tar command (gsar3 and octane
+    don't like it).
+
+2001-06-22  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * pymod/layerdlg.py: Modified remove_view() to avoid calling 
+    self.viewmenu.get_active() when there may be no active menu item
+    left as this triggers a crash.
+
+2001-06-20  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gvdata.c: Fixed gv_data_set_name() to avoid emitting a metadata
+    changed event if the object is in the destroyed state. 
+
+2001-06-14  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gvviewarea.c: Added GDK_GLX_RED/GREEN/BLUE_SIZE attributes when
+    choosing visual to ensure we get the most capable, not least capable
+    x visual (especially when using raw X Mesa support)
+
+2001-06-11  Paul Spencer <pgs@magma.ca>
+
+    * pymod/pguentry.py: new file - added to simplify managing unsightly
+    gtk'isms on text boxes.
+    
+    * pymod/gvclassifydlg.py: modified to use pguentry.
+
+2001-05-25  Paul Spencer <pgs@magma.ca>
+
+    * pymod/gvclassifydlg.py: close reclassify dlg if required when the
+    classify dialog is closing.
+
+2001-05-24  Paul Spencer <pgs@magma.ca>
+
+    * pymod/gvclassifydlg.py: removed ramps from reclassify dialog and
+    enabled the first ramp in the config file to be the default ramp.
+
+    * pymod/gvlegenddlg.py: added resizing code to grow window to accomodate
+    more classes
+    
+2001-05-22  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * pymod/pyshell.py: Cntl-D behaviour fix from Jeffrey D. Collins.
+
+2001-05-15  Paul Spencer  <pgs@magma.ca>
+
+    * gvdata.c: added meta-changed signal for signaling changes to meta-data not related
+    to drawing (such as layer name changes) and modified set_name to send this signal.
+    
+    * gvdata.h: added meta-changed signal support
+
+    * pymod/gvutils.py: modified is_shapefile to use lower instead of
+    tolower
+
+2001-05-15  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gvviewwindow.py: modified to allow selection of shapefiles based
+    on .shp, .shx or .dbf.
+
+2001-05-14  Paul Spencer  <pgs@magma.ca>
+
+    * pymod/gvlegenddlg.py: modified to handle multi-line titles and 
+    improved the handling of spacing with large fonts selected.
+
+2001-05-12  Paul Spencer  <pgs@magma.ca>
+
+    * pymod/gvlegenddlg.py: modified to allow user defineable color sample
+    sizes through two preferences - 'legend-sample-x-size' and 
+    'legend-sample-y-size'.  If not available, the default size is 20 in 
+    both directions.
+
+2001-05-08  Paul Spencer  <pgs@magma.ca>
+
+    * pymod/gvlegenddlg.py: fixed problems with font handling that caused 
+    a crash when opening the legend dialog.
+
+    * pics/sym-*.xpm: icons added for each built in symbol for use with 
+    the GvSymbolStyle widget in gvogrfsgui.py
+    
+    * pymod/pgucolor.py: fixed bug that allowed multiple color choosers 
+    for a single color button at the same time.
+
+2001-05-07  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gvviewarea.c, gvshapeslayer.c, gvselecttool.c: Modifications to
+    ensure that text can be drawn if the origin is off the view port, and
+    to ensure that offsets for text being dragged is properly handled.
+
+    * pymod/gvclassifydlg.py: enable rescaling. 
+
+    * pymod/gvclassification.py: fixed problems with rescaling.
+
+2001-05-05  Paul Spencer  <pgs@magma.ca>
+
+    * pymod/gvlabeledit.py: added interactive mode where text changes are
+    reported on character basis, turned off by default.
+
+    * pymod/gvogrfsgui.py: added interactive text update plus changed direction
+    of dy offset
+
+2001-05-04  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * pymod/pgufilesel.py: implement support for remembering the 
+    last directory accessed whe file dialog reopened (Robert Rowe).
+    
+    * pymod/gvviewwindow.py: Allow opening multiples files based on
+    wildcards (Robert Rowe).
+
+2001-05-04  Paul Spencer  <pgs@magma.ca>
+
+    * pymod/ogrfsgui.py: bug fixes plus optional label offsets for 
+    GvLabelStyle.
+
+    * pymod/gvlabeledit.py: bug fixes plus added new method for starting
+    a new label.
+
+2001-05-02  Paul Spencer  <pgs@magma.ca>
+
+    * pymod/pgumenu.py: added pgumenu to provide a MenuFactory that supports
+    images in the menu.
+
+2001-05-01  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gvtessshape.c, gvtess.c: Fixed the Mesa 3.3 compatibility fixes. :-)
+
+    * gvwinprint.c: reimplemented to use StretchDIBits(), and to avoid
+    using negative heights to represent upsidedown coordinate systems.
+
+    * gvrenderinfo.c: modified to create an "X" sized box for empty
+    strings.
+
+2001-04-29  Paul Spencer  <pgs@magma.ca>
+
+    * pymod/pgufont.py: added to provide new font handling for labels.
+
+    * pymod/pgucombo.py: added to provide a convenient way of making
+    combo boxes that can't be edited.
+
+    * pymod/ogrfs.py: added has_part() to OGRFeatureStyle
+
+2001-04-26  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gvviewarea.c: call glFinish() before swapbuffer to fix lots of
+    problems under Mesa on Windows.  Note that Mesa bug report 419222
+    provides the correct fix in Mesa, but we workaround the problem. 
+
+2001-04-25  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gvrenderinfo.c, gvshapeslayer.c: added proper support for descenders.
+
+2001-04-24  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gvtess.c, gvtessshape.c: hopefully fixed compatibility issue with
+    Mesa 3.3 (see bug report 418325). 
+
+2001-04-23  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * Added set_properties(), and __delattr__ support for the GvShape
+    from python.
+
+    * pymod/gvselbrowser.py: added callback on oid text field.
+
+2001-04-22  Paul Spencer  <pgs@magma.ca>
+    * invdistance.c: added optional parameter for exponent to d in
+    IDW algorithm
+    
+    * invdistance.h: changed header for above change
+    
+    * gvutils.c: added gv_short_path_name for determining the 8.3 name
+    of a path/file in win32 (defaults to full path in linux)
+
+    * pymod/gvmodule.c: added _wrap_gv_short_path_name and changed
+     _wrap_WIDInterpolate
+
+2001-04-19  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gvmesh.h: don't include gvmesh.h!
+
+    * pymod/*.py: avoid use of += for compatibility with python 1.5.x.
+
+2001-04-16  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * pymod/gvvecpropdlg.py: Paul added symbol support.
+
+    * gvshapeslayer.c: Paul added filled start support.
+
+    * pymod/gvogrfs.py: Paul added OGRFeatureStyle class.
+
+2001-04-14  Paul Spencer  <pgs@magma.ca>
+
+    * pymod/pgucolor.py: added color_string_to_tuple() utility method
+
+2001-04-11  Paul Spencer  <pgs@magma.ca>
+
+    * pymod/pgucolor.py: modified to support opacity correctly
+
+2001-04-09  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gview.py: expose new entry points (ie subselection).
+
+    * gvogrfs.py: improved color handling.
+
+    * pymod/gvviewwindow.py: Use oeattedit.launch().
+
+    * pymod/openev.py: Instantiate GvSelectionManager.
+
+    * pymod/oeattedit.py: Upgraded to support subselection and use of
+    GvSelectionManager.
+
+    * pymod/gvselbrowser.py: New control for subselection browsing, 
+    and GvSelectionManager.
+
+    * pics/pan_{right,left}.xpm: New, for gvselbrowser right/left arrows.
+
+    * gvrenderinfo.c/h: New, code for parsing rendering information.
+
+    * gvshapeslayer.c/h: overhauled ogrfs drawing to use renderinfo, 
+    added selection box for text.
+
+    * gvshapelayer.c: added renderinfo, and subselection support.
+
+    * gvviewarea.c,h: added ability to query available fonts.
+
+    * gvselecttool.c: Don't allow deletes or moves in read-only layers.
+
+    * gvlayer.{c,h}: Added explicit view to GvLayer.
+
+2001-04-02  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gvraster/vecpropdlg.py: fixed some geometry quirks.
+
+    * gvraster.c/gv.defs/gview.py: Expose gv_raster_autoscale() to 
+    python.
+
+2001-03-29  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gvshapefile.c: Look for first non-NULL shape instead of the very
+    first shape when getting a template shape for setting output type.
+
+    * llrasterize.c/gvrasterize.c: Modified to support "fill_short" flag
+    indicating if slivers should be burned in or ignored.
+
+2001-03-28  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gvshapes.c: Modified to "look around a couple of pixels" when 
+    hitting no data values in add_height().
+
+    * gvmesh.c: Changed to try and fill in nodata values on mesh with
+    average of adjacent mesh points if possible.
+
+    * gvlayer.c/h: added explicit pointer to GvViewArea.
+
+    * gvviewarea.c: don't reset view transform in render_to_func at 1:1.
+
+2001-03-26  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gvviewarea.c: restructure bmfont handling to preserve GdkFont handle
+
+2001-03-22  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gvviewarea.c: fixed bug in gv_view_load_bmfont() with reporting
+    the error when a load fails.
+
+2001-03-21  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * pymod/gvvectorpropdlg.py: add support for labels in the drawing
+    style section.
+
+    * pymod/gvogrfs.py: new - parse OGR Feature Style strings.
+
+    * gvshapeslayer.c: allow setting _gv_ogrfs on layer, and add support 
+    for text from fields.
+
+    * Added legend and classification dialog into OpenEV itself. 
+
+2001-03-20  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * pymod/gview.py: added __str__ method on GvShape.  
+
+    * gvshapefile.c: fixed to use binary flag for dbf file. 
+
+    * pymod/gview.py, gvmodule.c: Fixed handling of fetching out-of-range
+    shapes from a GvShapes to return an IndexError exception instead of
+    crashing.  
+
+2001-03-13  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * pymod/gview.py: added GvShapes.add_field() and GvShapes.get_schema()
+    methods.
+
+2001-02-15  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gvprint.c: Fixed problem with print_handler not being de-initialized
+    after a file is complete. 
+
+2001-02-06  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * Build in OGR support on Windows.
+
+2001-02-03  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * Added gv_view_area_get_mode().
+
+2001-01-31  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * Added rough attempt to find and include libproj.so in 
+    delivery/mkdist.sh.
+
+    * delivery/setup_openev: modified to pass arguments other than -h on
+    to openev.py.
+
+2001-01-30  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gvaverage.c: added logic to try and preserve the standard deviation
+    in the complex averaging code. 
+
+    * gvmodule.c: Added access to GvManager.queue_task() from python.
+
+    * gvrasterlayer.c: No longer purges textures on a display-change.  
+    Added gv_raster_layer_purge_all_textures(), to clear textures on in 
+    cases where this is necessary.  Now can change alpha with 
+    texture_mode_set() without throwing away textures.
+
+    * gvmanager.c: added gv_manager_dump()
+
+2001-01-26  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gvshapeslayer.c: Draw points and symbols with z taken into account.
+
+    * gvshapes.c: Fixed add_height() code.  Was corrupting (transforming)
+    x and y coordinates.
+
+    * gvviewarea.c: ensure fit_all_layers(), Home, and fit_extents all
+    produce compatible results.  Route all view setting through 
+    gv_viewarea_set_3d_view().  Fix up default view.  Remove view setting
+    in get_volume() function.
+
+2001-01-23  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * Added GIF print support to gvprint.py.
+
+2001-01-19  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * Improved 3D near range calculation a bit - better for stuff with
+    small numbers like images georeferenced in lat/long.
+
+2001-01-18  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * Added gv_shapes_add_height() and python wrappers.
+
+2001-01-15  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * Added support for the view_background_color preference in 
+    gvviewwindow.py.
+
+2001-01-08  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * fixed additional window edge conditions in gv_raster_tile_get_gdal.
+
+2000-12-08  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * Fixed configure/configure.in to use $GL_LIBS as per the bug 
+    from Bernhard.
+
+2000-12-03  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * gvrasterize.c: fixed bug with allocation of nParts.
+
+2000-11-27  Frank Warmerdam  <warmerdam@pobox.com>
+
+    * fixed edge handling bugs with rasters smaller than one tile
+    in gvraster.c::gv_raster_tile_get_gdal().
+
+2000-11-13  Frank Warmerdam  <warmerda@cs46980-c>
+
+    * Fixed memory leak in gvogr.cpp with geometryless features.
+
+2000-10-31  Frank Warmerdam  <warmerda@cs46980-c>
+
+    * gvraster.c: Fixed serious bug with memory corruption
+    that is mostly likely to occur with large images.  See
+    Bug 120968 on SourceForge.
+
+2000-10-30  Frank Warmerdam  <warmerda@cs46980-c>
+
+    * pymod/gvviewwindow.py: Use new gdal.GetLastErrorMsg() call to
+    report a more detailed error message to the user if an open fails.
+
+2000-10-29  Frank Warmerdam  <warmerda@cs46980-c>
+
+    * gvshapefile.c: Modified to add one attribute if there are none,
+    to avoid problem reported by Alan R. of J2-Geomatics with saving
+    shapefiles and there not being useable in ArcView.
+
+2000-10-25    <srawlin@srawlin.atlsci.com>
+
+    * Release 1.0.0  Also created a branch in CVS (asi-rel-1-0-patches)
+    for Atlantis to maintain and patch.
+
+2000-10-24  Frank Warmerdam  <warmerda@cs46980-c>
+
+    * Modified gvogr.cpp to discard input features without any geometry.
+    Don't apply unset attributes as properties.  Modified gvviewwindow.py
+    ogr load code to not add empty layers to the view.
+    
+
+2000-10-18  Frank Warmerdam  <warmerda@cs46980-c>
+
+    * gvhtml.py: Fixed to avoid launching two browsers on NT.  Report
+    error if no browser found on unix.
+
+2000-10-06  Frank Warmerdam  <warmerda@cs46980-c>
+
+    * Added concept of background color to the GvViewArea.
+
+    * Set nodata value on GvRasterLayer (in gv_raster_layer_new()) if
+    one is present on the prototype GDALRasterBand.
+
+2000-09-29  Frank Warmerdam  <warmerda@home.com>
+
+    * Changed PrefDialog to allocate 900K+25% of file cache to GDAL
+    and remainder to GvRaster caching.  The old amount of 900K+10%
+    was too little in many cases.
+
+    * Changed the import to temporarily up GDAL cache to at least 
+    20MB. 
+
+2000-09-29  Steve Rawlinson  <srawlin@atlsci.com>
+
+    * Added Edit/GoTo function.  Involved adding new dialog to
+          gvviewwindow.py and gv_view_area_map_location function.
+          Also fixed focus problem with new Zoom Ratio menu item,
+          and changed position of boxes in Track Tool preference
+          tab to be more intuitive.
+
+2000-09-29  Frank Warmerdam  <warmerda@home.com>
+
+    * Fixed bugs in nodata handling in gvmodule, and gvrastersource.c.
+
+2000-09-28  Frank Warmerdam  <warmerda@home.com>
+
+    * Ensure that GvShapes.__getitem__() returns None for missing
+    GvShape's instead of a python GvShape with a "NULL" _o field. 
+
+2000-09-27  Frank Warmerdam  <warmerda@home.com>
+
+    * The GvRaster will down let GDAL down the decimation when the
+    sample type is GvSMSample instead of GvSMAverage.  This gives a
+    major performance boost for large images.
+
+    * Added "_sample()" functions for float, and complex data, and
+    use in gv_raster_new() 
+
+    * Added "default_raster_sample" preference.  It is used by
+    GvManager to default GvRaster sampling method, and is set by
+    the preferences dialog.  Updated help as well.
+
+    * Added gvclassifydlg.py, though it isn't hooked into the UI of
+    regular OpenEV yet.
+
+    * GvLegendDialog now locks down view, and auto-regenerates when
+    the legend properties information changes.
+
+2000-09-20  Frank Warmerdam  <warmerda@home.com>
+
+    * Added preliminary implementation of GvClassification and
+    GvLegendDialog. 
+
+    * Modified GvViewArea to allow any GDK support font name, not
+      just those in a predefined list. 
+
+    * Added support for text labels on GvPointShapes via the
+      _gv_ogrfs property based on the OGR label specification, and
+      bitmap fonts.
+
+    * Added GvData.set_properties() method. 
+
+2000-09-15  Frank Warmerdam  <warmerda@home.com>
+
+    * Added GvShape.destroy() method.
+
+2000-09-14  Frank Warmerdam  <warmerda@home.com>
+
+    * Added gvrasterize.c/h, and invdistance.c, algorithms for
+    rasterizing polygons and for interpolating rasters from point
+    data. 
+
+2000-08-25  Frank Warmerdam  <warmerda@home.com>
+
+    * gvraster*: added preliminary support for nodata values in raster
+    layers.  Currently not automatically initialized.
+
+    * gvrasterlut.c: Changed phase colour mapping to match what EV does.
+
+    * gvutils.c: added reporting of phase and magnitude in 
+    tracktool, and point query layer ... should be optional!
+
+    * gvviewwindow.c: fixed some serious bugs with sliders.
+
+    * gvraster.c: HasArbitraryOverviews() support added.
+
+    * ATP CDROM Finalized, and CVS tagged (Steve really)
+
+2000-08-23  Frank Warmerdam  <warmerda@home.com>
+
+    * gvraster/gvutils: PIXEL now a special projection name.
+
+    * Open3D: Wrote help topic (open3d.html).
+
+    * gvmesh.c: Fixed problems with detail > 8.
+
+    * gvmesh.c: Use nodata value if available, and avoid off-by-one
+    errors when setting mesh elevations from file.
+
+2000-08-18  Frank Warmerdam  <warmerda@home.com>
+
+    * gvrasterlayer.c: hack to work around loss of syncronization with
+    Xi Graphics X servers when loading too many textures in a row.
+
+2000-08-17  Frank Warmerdam  <warmerda@home.com>
+
+    * added scrollbar support to GvViewArea, and added a GtkScrolledWindow
+    around the view area in gvviewwindow.py.
+
+2000-07-27  Frank Warmerdam  <warmerda@home.com>
+
+    * Added boundary constraints for all editing modes (but not dragging
+    of selections).
+
+    * added editing of existing rectangles.
+
+2000-07-26  Frank Warmerdam  <warmerda@home.com>
+
+    * Added Paul Spencer's color swatch support. 
+
+    * Added rectangle editing mode.
+
+2000-07-24  Frank Warmerdam  <warmerda@home.com>
+
+    * Created a 0.8.2 binary release on windows.
+
+2000-07-25  Frank Warmerdam  <warmerda@rommel.atlsci.com>
+
+    * gvmanager/gvrasterlayer: added support for dequeuing old task
+    on the same raster layer.
+
+2000-07-18  Frank Warmerdam  <warmerda@home.com>
+
+    * gvrasterlayer.c: modified rules in idle handler to improve texture 
+    cache utilization.
+
+2000-07-17  Frank Warmerdam  <warmerda@home.com>
+
+    * gvareatool.c: <delete> now deletes last vertex of ring.  Ring
+    deleted when vertex count drops to zero.
+
+    * Added code to maintain last_draw_time in GvViewArea, and to
+    scale wait time by it in gvrasterlayer.c.
+
+    * gvpointtool.c/gvlinetool.c/gvnodetool.c: <delete> key will
+    now delete a node, and the whole ring or shape if their node
+    count drops to zero.
+
+2000-07-13  Frank Warmerdam 
+
+    * Issued 0.8.0 binary release on Windows.
+
+    

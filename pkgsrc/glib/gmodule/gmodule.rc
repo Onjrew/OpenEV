@@ -1,0 +1,30 @@
+#include <winver.h>
+
+VS_VERSION_INFO VERSIONINFO
+  FILEVERSION 1,3,1,BUILDNUMBER
+  PRODUCTVERSION 1,3,1,0
+  FILEFLAGSMASK 0
+  FILEFLAGS 0
+  FILEOS VOS__WINDOWS32
+  FILETYPE VFT_DLL
+  FILESUBTYPE VFT2_UNKNOWN
+  BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+      BLOCK "040904B0"
+      BEGIN
+	VALUE "CompanyName", "The GLib developer community"
+	VALUE "FileDescription", "GLib"
+	VALUE "FileVersion", "1.3.1.BUILDNUMBER"
+	VALUE "InternalName", "gmodule-1.3"
+	VALUE "LegalCopyright", "Copyright © 1998-2000 Tim Janik. Modified by the GLib Team and others 1998-2000."
+	VALUE "OriginalFilename", "gmodule-1.3.dll"
+	VALUE "ProductName", "GLib"
+	VALUE "ProductVersion", "1.3.1"
+      END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+      VALUE "Translation", 0x409, 1200
+    END
+  END

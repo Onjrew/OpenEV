@@ -1,0 +1,48 @@
+\documentclass{article}
+
+\begin{document}
+
+\title{Improvements to OpenEV}
+\date{2000-06-20}
+\author{OpenEV Project}
+\maketitle
+
+\section{Future Directions}
+
+As OpenEV matures, new tools and layer classes, and common UI elements
+will be added to enhance its capabilities.  The object oriented
+structure ensures that this growth is possible.
+
+The follow sections list ideas that could be added to OpenEV.
+
+\subsection{3D}
+
+One particular area for improvement in OpenEV is in its handling of 3D imagery.
+
+\begin{itemize}
+\item continuous LOD approach to rendering the 3D mesh is required to allow for
+interactive frame rates when dealing with large elevation datasets.
+\item intellegent tesselation of mesh
+\item 3D datasets, such as scene graph elements (e.g. city buildings) could be added.
+\item LUT for mesh would allow elevation data to be visualized without a drape
+\item lighting could be added for more realistic view, this would also facilitate viewing
+elevation data without a drape.
+\end{itemize}
+
+
+\subsection{R\&D Tools}
+
+From its conception OpenEV has been designed to be a R\&D tool.  
+
+\begin{itemize}
+\item Another important direction is coupling the display capabilities with
+a Python shell window, to create an interactive numerical analysis and
+image manipulation environment in the vein of Research Systems's IDL,
+or The Mathwork's MATLAB.  This will eventually become an integrated
+environment where the user is able to combine plug-in processing and
+analysis functions, plotting capabilities, image display, point and
+vector marking, and a powerful scripting language.  The goal is to
+build a platform for image processing R\&D.
+\end{itemize}
+
+\end{document}

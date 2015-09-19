@@ -1,0 +1,58 @@
+## Makefile for building the libintl DLL (called gnu-intl) with gcc on
+## Windows.
+
+## Use: make -f makefile.cygwin install
+
+# Change this to wherever you want to install the DLLs. This directory
+# should be in your PATH if it is not the Windows System32 directory.
+BIN = /windows/system
+
+OPTIMIZE = -g -O
+
+# We use GLib for some things
+GLIB = ../glib
+GLIB_VER = 1.3
+
+################################################################
+
+# Nothing much configurable below
+
+CC = gcc -mno-cygwin -mpentium -fnative-struct
+
+CP = cp
+INSTALL = install
+
+CFLAGS = $(OPTIMIZE) -I. -I.. -I$(GLIB) -DHAVE_CONFIG_H -DSTANDALONE_LIBINTL -DLC_MESSAGES=42
+
+all : \
+	libintl.h	\
+	gnu-intl.dll
+
+install : all
+	$(INSTALL) gnu-intl.dll $(BIN)
+
+intl_OBJECTS = \
+	bindtextdom.o	\
+	dcgettext.o	\
+	dgettext.o	\
+	gettext.o	\
+	finddomain.o	\
+	loadmsgcat.o	\
+	localealias.o	\
+	textdomain.o	\
+	l10nflist.o	\
+	explodename.o
+
+gnu-intl.dll : $(intl_OBJECTS) gnu-intl.def
+	$(GLIB)/build-dll gnu-intl - gnu-intl.def $(intl_OBJECTS) -L $(GLIB) -lglib-$(GLIB_VER) -lkernel32 $(LDFLAGS)
+
+.SUFFIXES: .c .o .i
+
+.c.o :
+	$(CC) $(CFLAGS) -c $<
+
+.c.i :
+	$(CC) $(CFLAGS) -E $< >$@
+
+clean:
+	-rm *.o *.dll *.a *.base *.exp

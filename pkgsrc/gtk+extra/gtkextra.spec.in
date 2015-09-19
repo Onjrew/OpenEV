@@ -1,0 +1,68 @@
+# Note that this is NOT a relocatable package
+
+%define major @GTK_EXTRA_MAJOR_VERSION@
+%define minor @GTK_EXTRA_MINOR_VERSION@
+%define micro @GTK_EXTRA_MICRO_VERSION@
+%define ver   %major.%minor.%micro
+%define rel      1
+%define prefix   /usr
+
+Summary: A library of gtk+ widgets
+Name: gtk+extra
+Version: %ver
+Release: %rel
+Copyright: LGPL
+Group: System Environment/Libraries
+Source: ftp://magnet.fsu.edu/~feiguin/gtk/src/gtk+extra-%version.tar.gz
+BuildRoot: /var/tmp/glib-%{PACKAGE_VERSION}-root
+URL: http://magnet.fsu.edu/~feiguin/gtk/index.html
+Docdir: %{prefix}/doc
+
+%description
+
+A library of dynamically linked gtk+ widgets including:
+GtkSheet, GtkPlot, and GtkIconList
+
+%package devel
+Summary: A library of gtk+ widgets
+Group: Development/Libraries
+
+%description devel
+The gtk+extra-devel package includes the static libraries, header files,
+and documentation for compiling programs that use gtk+extra widgets.
+
+%changelog
+* Wed Mar 15  2000 Conrad Steenberg <conrad@srl.caltech.edu>
+- First spec file
+
+%prep
+%setup
+
+%build
+CFLAGS="$RPM_OPT_FLAGS" ./configure --prefix=%prefix
+make
+
+%install
+rm -rf $RPM_BUILD_ROOT
+
+make prefix=$RPM_BUILD_ROOT%{prefix} install
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%post -p /sbin/ldconfig
+
+%postun -p /sbin/ldconfig
+
+%files
+%defattr(-, root, root)
+
+%doc INSTALL README docs/*.ChangeLog
+%{prefix}/lib/libgtkextra*.so.*
+
+%files devel
+%defattr(-, root, root)
+
+%{prefix}/lib/*a
+%{prefix}/include/*
+%{prefix}/bin/*

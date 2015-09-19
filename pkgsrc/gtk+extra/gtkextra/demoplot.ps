@@ -1,0 +1,4856 @@
+%!PS-Adobe-2.0
+%%Title: demoplot.ps
+%%Creator: GtkPlot v3.x Copyright (c) 1999 Adrian E. Feiguin
+%%CreationDate: Mon Jul 22 13:54:57 2002
+%%Magnification: 1.0000
+%%Orientation: Portrait
+/cp {closepath} bind def
+/c {curveto} bind def
+/f {fill} bind def
+/a {arc} bind def
+/ef {eofill} bind def
+/ex {exch} bind def
+/gr {grestore} bind def
+/gs {gsave} bind def
+/sa {save} bind def
+/rs {restore} bind def
+/l {lineto} bind def
+/m {moveto} bind def
+/rm {rmoveto} bind def
+/n {newpath} bind def
+/s {stroke} bind def
+/sh {show} bind def
+/slc {setlinecap} bind def
+/slj {setlinejoin} bind def
+/slw {setlinewidth} bind def
+/srgb {setrgbcolor} bind def
+/rot {rotate} bind def
+/sc {scale} bind def
+/sd {setdash} bind def
+/ff {findfont} bind def
+/sf {setfont} bind def
+/scf {scalefont} bind def
+/sw {stringwidth pop} bind def
+/tr {translate} bind def
+/JR {
+ neg 0
+ rmoveto
+} bind def
+/JC {
+ 2 div neg 0
+ rmoveto
+} bind def
+
+/ellipsedict 8 dict def
+ellipsedict /mtrx matrix put
+/ellipse
+{ ellipsedict begin
+   /endangle exch def
+   /startangle exch def
+   /yrad exch def
+   /xrad exch def
+   /y exch def
+   /x exch def   /savematrix mtrx currentmatrix def
+   x y tr xrad yrad sc
+   0 0 1 startangle endangle arc
+   savematrix setmatrix
+   end
+} def
+
+[ /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /space /exclam /quotedbl /numbersign /dollar /percent /ampersand /quoteright
+/parenleft /parenright /asterisk /plus /comma /hyphen /period /slash /zero /one
+/two /three /four /five /six /seven /eight /nine /colon /semicolon
+/less /equal /greater /question /at /A /B /C /D /E
+/F /G /H /I /J /K /L /M /N /O
+/P /Q /R /S /T /U /V /W /X /Y
+/Z /bracketleft /backslash /bracketright /asciicircum /underscore /quoteleft /a /b /c
+/d /e /f /g /h /i /j /k /l /m
+/n /o /p /q /r /s /t /u /v /w
+/x /y /z /braceleft /bar /braceright /asciitilde /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef /.notdef
+/space /exclamdown /cent /sterling /currency /yen /brokenbar /section /dieresis /copyright
+/ordfeminine /guillemotleft /logicalnot /hyphen /registered /macron /degree /plusminus /twosuperior /threesuperior
+/acute /mu /paragraph /periodcentered /cedilla /onesuperior /ordmasculine /guillemotright /onequarter /onehalf
+/threequarters /questiondown /Agrave /Aacute /Acircumflex /Atilde /Adieresis /Aring /AE /Ccedilla
+/Egrave /Eacute /Ecircumflex /Edieresis /Igrave /Iacute /Icircumflex /Idieresis /Eth /Ntilde
+/Ograve /Oacute /Ocircumflex /Otilde /Odieresis /multiply /Oslash /Ugrave /Uacute /Ucircumflex
+/Udieresis /Yacute /Thorn /germandbls /agrave /aacute /acircumflex /atilde /adieresis /aring
+/ae /ccedilla /egrave /eacute /ecircumflex /edieresis /igrave /iacute /icircumflex /idieresis
+/eth /ntilde /ograve /oacute /ocircumflex /otilde /odieresis /divide /oslash /ugrave
+/uacute /ucircumflex /udieresis /yacute /thorn /ydieresis] /isolatin1encoding exch def
+/Times-Roman-latin1
+    /Times-Roman findfont
+    dup length dict begin
+   {1 index /FID ne {def} {pop pop} ifelse} forall
+   /Encoding isolatin1encoding def
+    currentdict end
+definefont pop
+/Times-Italic-latin1
+    /Times-Italic findfont
+    dup length dict begin
+   {1 index /FID ne {def} {pop pop} ifelse} forall
+   /Encoding isolatin1encoding def
+    currentdict end
+definefont pop
+/Times-Bold-latin1
+    /Times-Bold findfont
+    dup length dict begin
+   {1 index /FID ne {def} {pop pop} ifelse} forall
+   /Encoding isolatin1encoding def
+    currentdict end
+definefont pop
+/Times-BoldItalic-latin1
+    /Times-BoldItalic findfont
+    dup length dict begin
+   {1 index /FID ne {def} {pop pop} ifelse} forall
+   /Encoding isolatin1encoding def
+    currentdict end
+definefont pop
+/AvantGarde-Book-latin1
+    /AvantGarde-Book findfont
+    dup length dict begin
+   {1 index /FID ne {def} {pop pop} ifelse} forall
+   /Encoding isolatin1encoding def
+    currentdict end
+definefont pop
+/AvantGarde-BookOblique-latin1
+    /AvantGarde-BookOblique findfont
+    dup length dict begin
+   {1 index /FID ne {def} {pop pop} ifelse} forall
+   /Encoding isolatin1encoding def
+    currentdict end
+definefont pop
+/AvantGarde-Demi-latin1
+    /AvantGarde-Demi findfont
+    dup length dict begin
+   {1 index /FID ne {def} {pop pop} ifelse} forall
+   /Encoding isolatin1encoding def
+    currentdict end
+definefont pop
+/AvantGarde-DemiOblique-latin1
+    /AvantGarde-DemiOblique findfont
+    dup length dict begin
+   {1 index /FID ne {def} {pop pop} ifelse} forall
+   /Encoding isolatin1encoding def
+    currentdict end
+definefont pop
+/Bookman-Light-latin1
+    /Bookman-Light findfont
+    dup length dict begin
+   {1 index /FID ne {def} {pop pop} ifelse} forall
+   /Encoding isolatin1encoding def
+    currentdict end
+definefont pop
+/Bookman-LightItalic-latin1
+    /Bookman-LightItalic findfont
+    dup length dict begin
+   {1 index /FID ne {def} {pop pop} ifelse} forall
+   /Encoding isolatin1encoding def
+    currentdict end
+definefont pop
+/Bookman-Demi-latin1
+    /Bookman-Demi findfont
+    dup length dict begin
+   {1 index /FID ne {def} {pop pop} ifelse} forall
+   /Encoding isolatin1encoding def
+    currentdict end
+definefont pop
+/Bookman-DemiItalic-latin1
+    /Bookman-DemiItalic findfont
+    dup length dict begin
+   {1 index /FID ne {def} {pop pop} ifelse} forall
+   /Encoding isolatin1encoding def
+    currentdict end
+definefont pop
+/Courier-latin1
+    /Courier findfont
+    dup length dict begin
+   {1 index /FID ne {def} {pop pop} ifelse} forall
+   /Encoding isolatin1encoding def
+    currentdict end
+definefont pop
+/Courier-Oblique-latin1
+    /Courier-Oblique findfont
+    dup length dict begin
+   {1 index /FID ne {def} {pop pop} ifelse} forall
+   /Encoding isolatin1encoding def
+    currentdict end
+definefont pop
+/Courier-Bold-latin1
+    /Courier-Bold findfont
+    dup length dict begin
+   {1 index /FID ne {def} {pop pop} ifelse} forall
+   /Encoding isolatin1encoding def
+    currentdict end
+definefont pop
+/Courier-BoldOblique-latin1
+    /Courier-BoldOblique findfont
+    dup length dict begin
+   {1 index /FID ne {def} {pop pop} ifelse} forall
+   /Encoding isolatin1encoding def
+    currentdict end
+definefont pop
+/Helvetica-latin1
+    /Helvetica findfont
+    dup length dict begin
+   {1 index /FID ne {def} {pop pop} ifelse} forall
+   /Encoding isolatin1encoding def
+    currentdict end
+definefont pop
+/Helvetica-Oblique-latin1
+    /Helvetica-Oblique findfont
+    dup length dict begin
+   {1 index /FID ne {def} {pop pop} ifelse} forall
+   /Encoding isolatin1encoding def
+    currentdict end
+definefont pop
+/Helvetica-Bold-latin1
+    /Helvetica-Bold findfont
+    dup length dict begin
+   {1 index /FID ne {def} {pop pop} ifelse} forall
+   /Encoding isolatin1encoding def
+    currentdict end
+definefont pop
+/Helvetica-BoldOblique-latin1
+    /Helvetica-BoldOblique findfont
+    dup length dict begin
+   {1 index /FID ne {def} {pop pop} ifelse} forall
+   /Encoding isolatin1encoding def
+    currentdict end
+definefont pop
+/Helvetica-Narrow-latin1
+    /Helvetica-Narrow findfont
+    dup length dict begin
+   {1 index /FID ne {def} {pop pop} ifelse} forall
+   /Encoding isolatin1encoding def
+    currentdict end
+definefont pop
+/Helvetica-Narrow-Oblique-latin1
+    /Helvetica-Narrow-Oblique findfont
+    dup length dict begin
+   {1 index /FID ne {def} {pop pop} ifelse} forall
+   /Encoding isolatin1encoding def
+    currentdict end
+definefont pop
+/Helvetica-Narrow-Bold-latin1
+    /Helvetica-Narrow-Bold findfont
+    dup length dict begin
+   {1 index /FID ne {def} {pop pop} ifelse} forall
+   /Encoding isolatin1encoding def
+    currentdict end
+definefont pop
+/Helvetica-Narrow-BoldOblique-latin1
+    /Helvetica-Narrow-BoldOblique findfont
+    dup length dict begin
+   {1 index /FID ne {def} {pop pop} ifelse} forall
+   /Encoding isolatin1encoding def
+    currentdict end
+definefont pop
+/NewCenturySchoolbook-Roman-latin1
+    /NewCenturySchoolbook-Roman findfont
+    dup length dict begin
+   {1 index /FID ne {def} {pop pop} ifelse} forall
+   /Encoding isolatin1encoding def
+    currentdict end
+definefont pop
+/NewCenturySchoolbook-Italic-latin1
+    /NewCenturySchoolbook-Italic findfont
+    dup length dict begin
+   {1 index /FID ne {def} {pop pop} ifelse} forall
+   /Encoding isolatin1encoding def
+    currentdict end
+definefont pop
+/NewCenturySchoolbook-Bold-latin1
+    /NewCenturySchoolbook-Bold findfont
+    dup length dict begin
+   {1 index /FID ne {def} {pop pop} ifelse} forall
+   /Encoding isolatin1encoding def
+    currentdict end
+definefont pop
+/NewCenturySchoolbook-BoldItalic-latin1
+    /NewCenturySchoolbook-BoldItalic findfont
+    dup length dict begin
+   {1 index /FID ne {def} {pop pop} ifelse} forall
+   /Encoding isolatin1encoding def
+    currentdict end
+definefont pop
+/Palatino-Roman-latin1
+    /Palatino-Roman findfont
+    dup length dict begin
+   {1 index /FID ne {def} {pop pop} ifelse} forall
+   /Encoding isolatin1encoding def
+    currentdict end
+definefont pop
+/Palatino-Italic-latin1
+    /Palatino-Italic findfont
+    dup length dict begin
+   {1 index /FID ne {def} {pop pop} ifelse} forall
+   /Encoding isolatin1encoding def
+    currentdict end
+definefont pop
+/Palatino-Bold-latin1
+    /Palatino-Bold findfont
+    dup length dict begin
+   {1 index /FID ne {def} {pop pop} ifelse} forall
+   /Encoding isolatin1encoding def
+    currentdict end
+definefont pop
+/Palatino-BoldItalic-latin1
+    /Palatino-BoldItalic findfont
+    dup length dict begin
+   {1 index /FID ne {def} {pop pop} ifelse} forall
+   /Encoding isolatin1encoding def
+    currentdict end
+definefont pop
+/Symbol-latin1
+    /Symbol findfont
+definefont pop
+/ZapfChancery-MediumItalic-latin1
+    /ZapfChancery-MediumItalic findfont
+    dup length dict begin
+   {1 index /FID ne {def} {pop pop} ifelse} forall
+   /Encoding isolatin1encoding def
+    currentdict end
+definefont pop
+/ZapfDingbats-latin1
+    /ZapfDingbats findfont
+    dup length dict begin
+   {1 index /FID ne {def} {pop pop} ifelse} forall
+   /Encoding isolatin1encoding def
+    currentdict end
+definefont pop
+0 792 translate
+1 -1 scale
+%%EndProlog
+
+
+gsave
+1 1 1 setrgbcolor
+n
+0 0 m
+612 0 l
+612 792 l
+0 792 l
+f
+s
+gsave
+1 1 1 setrgbcolor
+n
+91 47 m
+397 47 l
+397 245 l
+91 245 l
+f
+s
+gsave
+91 47 306 198 rectclip
+0 0 0 setrgbcolor
+0 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+244 245 m
+244 47 l
+s
+0 0 0 setrgbcolor
+0 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+91 162.5 m
+397 162.5 l
+s
+grestore
+0 0 0 setrgbcolor
+2 slw
+2 slc
+0 slj
+[] 0 sd
+91 245 m
+397 245 l
+s
+1 slw
+0 slc
+0 slj
+[] 0 sd
+91 245 m
+91 237 l
+s
+91 245 m
+91 253 l
+s
+244 245 m
+244 237 l
+s
+244 245 m
+244 253 l
+s
+397 245 m
+397 237 l
+s
+397 245 m
+397 253 l
+s
+167.5 245 m
+167.5 241 l
+s
+167.5 245 m
+167.5 249 l
+s
+320.5 245 m
+320.5 241 l
+s
+320.5 245 m
+320.5 249 l
+s
+0 0 0 setrgbcolor
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+91 261 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(-1.0) sw JC
+(-1.0) show
+grestore
+n
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+244 261 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(0.0) sw JC
+(0.0) show
+grestore
+n
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+397 261 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(1.0) sw JC
+(1.0) show
+grestore
+n
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+244 289 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(X Title) sw JC
+(X Title) show
+grestore
+n
+0 0 0 setrgbcolor
+2 slw
+2 slc
+0 slj
+[] 0 sd
+91 47 m
+397 47 l
+s
+1 slw
+0 slc
+0 slj
+[] 0 sd
+91 47 m
+91 55 l
+s
+244 47 m
+244 55 l
+s
+397 47 m
+397 55 l
+s
+167.5 47 m
+167.5 51 l
+s
+320.5 47 m
+320.5 51 l
+s
+0 0 0 setrgbcolor
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+91 43 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(-1.0) sw JC
+(-1.0) show
+grestore
+n
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+244 43 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(0.0) sw JC
+(0.0) show
+grestore
+n
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+397 43 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(1.0) sw JC
+(1.0) show
+grestore
+n
+0 0 0 setrgbcolor
+2 slw
+2 slc
+0 slj
+[] 0 sd
+91 245 m
+91 47 l
+s
+1 slw
+0 slc
+0 slj
+[] 0 sd
+91 245 m
+99 245 l
+s
+91 162.5 m
+99 162.5 l
+s
+91 80 m
+99 80 l
+s
+91 203.75 m
+95 203.75 l
+s
+91 121.25 m
+95 121.25 l
+s
+0 0 0 setrgbcolor
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+81 251 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(-1.0%) sw JR
+(-1.0%) show
+grestore
+n
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+81 168 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(0.0%) sw JR
+(0.0%) show
+grestore
+n
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+81 86 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(1.0%) sw JR
+(1.0%) show
+grestore
+n
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+30 146 translate
+270 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(Y Title) sw JC
+(Y Title) show
+grestore
+n
+0 0 0 setrgbcolor
+2 slw
+2 slc
+0 slj
+[] 0 sd
+397 245 m
+397 47 l
+s
+1 slw
+0 slc
+0 slj
+[] 0 sd
+397 245 m
+389 245 l
+s
+397 162.5 m
+389 162.5 l
+s
+397 80 m
+389 80 l
+s
+397 203.75 m
+393 203.75 l
+s
+397 121.25 m
+393 121.25 l
+s
+0 0 0 setrgbcolor
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+407 251 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(-1.0) show
+grestore
+n
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+407 168 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(custom label at 0.0) show
+grestore
+n
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+407 86 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(1.0) show
+grestore
+n
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+459 146 translate
+90 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(Y Title) sw JC
+(Y Title) show
+grestore
+n
+gsave
+gsave
+1 0 0 setrgbcolor
+1 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+n
+243 146.56 m
+243 146.56 l
+244 146 l
+244 146 l
+245 145.44 l
+245 145.44 l
+246 144.88 l
+246 144.88 l
+247 144.321 l
+247 144.321 l
+248 143.762 l
+248 143.762 l
+249 143.203 l
+249 143.203 l
+250 142.646 l
+250 142.646 l
+251 142.089 l
+251 142.089 l
+252 141.532 l
+252 141.532 l
+253 140.977 l
+253 140.977 l
+254 140.423 l
+254 140.423 l
+255 139.871 l
+255 139.871 l
+256 139.32 l
+256 139.32 l
+257 138.77 l
+257 138.77 l
+258 138.223 l
+258 138.223 l
+259 137.677 l
+259 137.677 l
+260 137.133 l
+260 137.133 l
+261 136.591 l
+261 136.591 l
+262 136.051 l
+262 136.051 l
+263 135.514 l
+263 135.514 l
+264 134.979 l
+264 134.979 l
+265 134.447 l
+265 134.447 l
+266 133.918 l
+266 133.918 l
+267 133.392 l
+267 133.392 l
+268 132.868 l
+268 132.868 l
+269 132.348 l
+269 132.348 l
+270 131.831 l
+270 131.831 l
+271 131.318 l
+271 131.318 l
+272 130.808 l
+272 130.808 l
+273 130.302 l
+273 130.302 l
+274 129.799 l
+274 129.799 l
+275 129.301 l
+275 129.301 l
+276 128.807 l
+276 128.807 l
+277 128.319 l
+277 128.319 l
+278 127.837 l
+278 127.837 l
+279 127.363 l
+279 127.363 l
+280 126.898 l
+280 126.898 l
+281 126.443 l
+281 126.443 l
+282 125.998 l
+282 125.998 l
+283 125.565 l
+283 125.565 l
+284 125.146 l
+284 125.146 l
+285 124.74 l
+285 124.74 l
+286 124.35 l
+286 124.35 l
+287 123.976 l
+287 123.976 l
+288 123.619 l
+288 123.619 l
+289 123.28 l
+289 123.28 l
+290 122.961 l
+290 122.961 l
+291 122.662 l
+291 122.662 l
+292 122.385 l
+292 122.385 l
+293 122.13 l
+293 122.13 l
+294 121.899 l
+294 121.899 l
+295 121.693 l
+295 121.693 l
+296 121.513 l
+296 121.513 l
+297 121.359 l
+297 121.359 l
+298 121.233 l
+298 121.233 l
+299 121.137 l
+299 121.137 l
+300 121.07 l
+300 121.07 l
+301 121.035 l
+301 121.035 l
+302 121.032 l
+302 121.032 l
+303 121.062 l
+303 121.062 l
+304 121.126 l
+304 121.126 l
+305 121.226 l
+305 121.226 l
+306 121.362 l
+306 121.362 l
+307 121.533 l
+307 121.533 l
+308 121.738 l
+308 121.738 l
+309 121.974 l
+309 121.974 l
+310 122.24 l
+310 122.24 l
+311 122.534 l
+311 122.534 l
+312 122.854 l
+312 122.854 l
+313 123.199 l
+313 123.199 l
+314 123.566 l
+314 123.566 l
+315 123.954 l
+315 123.954 l
+316 124.361 l
+316 124.361 l
+317 124.785 l
+317 124.785 l
+318 125.225 l
+318 125.225 l
+319 125.678 l
+319 125.678 l
+320 126.143 l
+320 126.143 l
+321 126.618 l
+321 126.618 l
+322 127.101 l
+322 127.101 l
+323 127.59 l
+323 127.59 l
+324 128.084 l
+324 128.084 l
+325 128.58 l
+325 128.58 l
+326 129.078 l
+326 129.078 l
+327 129.574 l
+327 129.574 l
+328 130.068 l
+328 130.068 l
+329 130.557 l
+329 130.557 l
+330 131.04 l
+330 131.04 l
+331 131.515 l
+331 131.515 l
+332 131.98 l
+332 131.98 l
+333 132.434 l
+333 132.434 l
+334 132.873 l
+334 132.873 l
+335 133.298 l
+335 133.298 l
+336 133.705 l
+336 133.705 l
+337 134.094 l
+337 134.094 l
+338 134.464 l
+338 134.464 l
+339 134.816 l
+339 134.816 l
+340 135.15 l
+340 135.15 l
+341 135.466 l
+341 135.466 l
+342 135.763 l
+342 135.763 l
+343 136.043 l
+343 136.043 l
+344 136.305 l
+344 136.305 l
+345 136.55 l
+345 136.55 l
+346 136.776 l
+346 136.776 l
+347 136.986 l
+347 136.986 l
+348 137.178 l
+348 137.178 l
+349 137.352 l
+349 137.352 l
+350 137.51 l
+350 137.51 l
+351 137.651 l
+351 137.651 l
+352 137.774 l
+352 137.774 l
+353 137.881 l
+353 137.881 l
+354 137.971 l
+354 137.971 l
+355 138.045 l
+355 138.045 l
+356 138.102 l
+356 138.102 l
+357 138.143 l
+357 138.143 l
+358 138.168 l
+358 138.168 l
+359 138.177 l
+359 138.177 l
+360 138.169 l
+360 138.169 l
+361 138.146 l
+361 138.146 l
+362 138.107 l
+362 138.107 l
+363 138.052 l
+363 138.052 l
+364 137.982 l
+364 137.982 l
+365 137.896 l
+365 137.896 l
+366 137.795 l
+366 137.795 l
+367 137.678 l
+367 137.678 l
+368 137.547 l
+368 137.547 l
+369 137.402 l
+369 137.402 l
+370 137.242 l
+370 137.242 l
+371 137.069 l
+371 137.069 l
+372 136.884 l
+372 136.884 l
+373 136.685 l
+373 136.685 l
+374 136.475 l
+374 136.475 l
+375 136.254 l
+375 136.254 l
+376 136.022 l
+376 136.022 l
+377 135.779 l
+377 135.779 l
+378 135.526 l
+378 135.526 l
+379 135.264 l
+379 135.264 l
+380 134.993 l
+380 134.993 l
+381 134.714 l
+381 134.714 l
+382 134.426 l
+382 134.426 l
+383 134.131 l
+383 134.131 l
+384 133.829 l
+384 133.829 l
+385 133.521 l
+385 133.521 l
+386 133.207 l
+386 133.207 l
+387 132.887 l
+387 132.887 l
+388 132.563 l
+388 132.563 l
+389 132.234 l
+389 132.234 l
+390 131.901 l
+390 131.901 l
+391 131.564 l
+391 131.564 l
+392 131.225 l
+392 131.225 l
+393 130.883 l
+393 130.883 l
+394 130.539 l
+394 130.539 l
+395 130.193 l
+395 130.193 l
+396 129.847 l
+s
+1 0 0 setrgbcolor
+1 slw
+1 slc
+0 slj
+[] 0 sd
+n
+240 137.75 m
+248 137.75 l
+s
+n
+244 137.75 m
+244 154.25 l
+s
+n
+240 154.25 m
+248 154.25 l
+s
+1 0 0 setrgbcolor
+2 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+n
+239 146 m
+244 141 l
+249 146 l
+244 151 l
+cp
+s
+1 0 0 setrgbcolor
+1 slw
+1 slc
+0 slj
+[] 0 sd
+n
+270.6 121.25 m
+278.6 121.25 l
+s
+n
+274.6 121.25 m
+274.6 137.75 l
+s
+n
+270.6 137.75 m
+278.6 137.75 l
+s
+1 0 0 setrgbcolor
+2 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+n
+269.6 129.5 m
+274.6 124.5 l
+279.6 129.5 l
+274.6 134.5 l
+cp
+s
+1 0 0 setrgbcolor
+1 slw
+1 slc
+0 slj
+[] 0 sd
+n
+301.2 113 m
+309.2 113 l
+s
+n
+305.2 113 m
+305.2 129.5 l
+s
+n
+301.2 129.5 m
+309.2 129.5 l
+s
+1 0 0 setrgbcolor
+2 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+n
+300.2 121.25 m
+305.2 116.25 l
+310.2 121.25 l
+305.2 126.25 l
+cp
+s
+1 0 0 setrgbcolor
+1 slw
+1 slc
+0 slj
+[] 0 sd
+n
+331.8 125.375 m
+339.8 125.375 l
+s
+n
+335.8 125.375 m
+335.8 141.875 l
+s
+n
+331.8 141.875 m
+339.8 141.875 l
+s
+1 0 0 setrgbcolor
+2 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+n
+330.8 133.625 m
+335.8 128.625 l
+340.8 133.625 l
+335.8 138.625 l
+cp
+s
+1 0 0 setrgbcolor
+1 slw
+1 slc
+0 slj
+[] 0 sd
+n
+362.4 129.5 m
+370.4 129.5 l
+s
+n
+366.4 129.5 m
+366.4 146 l
+s
+n
+362.4 146 m
+370.4 146 l
+s
+1 0 0 setrgbcolor
+2 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+n
+361.4 137.75 m
+366.4 132.75 l
+371.4 137.75 l
+366.4 142.75 l
+cp
+s
+1 0 0 setrgbcolor
+1 slw
+1 slc
+0 slj
+[] 0 sd
+n
+393 121.25 m
+401 121.25 l
+s
+n
+397 121.25 m
+397 137.75 l
+s
+n
+393 137.75 m
+401 137.75 l
+s
+1 0 0 setrgbcolor
+2 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+n
+392 129.5 m
+397 124.5 l
+402 129.5 l
+397 134.5 l
+cp
+s
+grestore
+gsave
+gsave
+1 0 0 setrgbcolor
+4 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+n
+244 146 m
+213.4 129.5 l
+182.8 121.25 l
+152.2 133.625 l
+121.6 137.75 l
+91 129.5 l
+s
+0 0 0 setrgbcolor
+0 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+244 146 m
+244 162.5 l
+s
+0 0 0 setrgbcolor
+0 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+244 146 m
+244 146 l
+s
+0 0 0 setrgbcolor
+0 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+213.4 129.5 m
+213.4 162.5 l
+s
+0 0 0 setrgbcolor
+0 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+213.4 129.5 m
+244 129.5 l
+s
+0 0 0 setrgbcolor
+0 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+182.8 121.25 m
+182.8 162.5 l
+s
+0 0 0 setrgbcolor
+0 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+182.8 121.25 m
+244 121.25 l
+s
+0 0 0 setrgbcolor
+0 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+152.2 133.625 m
+152.2 162.5 l
+s
+0 0 0 setrgbcolor
+0 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+152.2 133.625 m
+244 133.625 l
+s
+0 0 0 setrgbcolor
+0 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+121.6 137.75 m
+121.6 162.5 l
+s
+0 0 0 setrgbcolor
+0 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+121.6 137.75 m
+244 137.75 l
+s
+0 0 0 setrgbcolor
+0 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+91 129.5 m
+91 162.5 l
+s
+0 0 0 setrgbcolor
+0 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+91 129.5 m
+244 129.5 l
+s
+1 1 1 setrgbcolor
+0 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+n
+240 142 m
+248 142 l
+248 150 l
+240 150 l
+f
+s
+0 0 0 setrgbcolor
+2 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+n
+240 142 m
+248 142 l
+248 150 l
+240 150 l
+cp
+s
+1 1 1 setrgbcolor
+0 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+n
+209.4 125.5 m
+217.4 125.5 l
+217.4 133.5 l
+209.4 133.5 l
+f
+s
+0 0 0 setrgbcolor
+2 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+n
+209.4 125.5 m
+217.4 125.5 l
+217.4 133.5 l
+209.4 133.5 l
+cp
+s
+1 1 1 setrgbcolor
+0 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+n
+178.8 117.25 m
+186.8 117.25 l
+186.8 125.25 l
+178.8 125.25 l
+f
+s
+0 0 0 setrgbcolor
+2 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+n
+178.8 117.25 m
+186.8 117.25 l
+186.8 125.25 l
+178.8 125.25 l
+cp
+s
+1 1 1 setrgbcolor
+0 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+n
+148.2 129.625 m
+156.2 129.625 l
+156.2 137.625 l
+148.2 137.625 l
+f
+s
+0 0 0 setrgbcolor
+2 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+n
+148.2 129.625 m
+156.2 129.625 l
+156.2 137.625 l
+148.2 137.625 l
+cp
+s
+1 1 1 setrgbcolor
+0 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+n
+117.6 133.75 m
+125.6 133.75 l
+125.6 141.75 l
+117.6 141.75 l
+f
+s
+0 0 0 setrgbcolor
+2 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+n
+117.6 133.75 m
+125.6 133.75 l
+125.6 141.75 l
+117.6 141.75 l
+cp
+s
+1 1 1 setrgbcolor
+0 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+n
+87 125.5 m
+95 125.5 l
+95 133.5 l
+87 133.5 l
+f
+s
+0 0 0 setrgbcolor
+2 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+n
+87 125.5 m
+95 125.5 l
+95 133.5 l
+87 133.5 l
+cp
+s
+grestore
+gsave
+0 0 1 setrgbcolor
+0 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+n
+90 203.565 m
+90 203.565 l
+91 204.666 l
+91 204.666 l
+92 205.968 l
+92 205.968 l
+93 207.288 l
+93 207.288 l
+94 208.419 l
+94 208.419 l
+95 209.152 l
+95 209.152 l
+96 209.31 l
+96 209.31 l
+97 208.78 l
+97 208.78 l
+98 207.532 l
+98 207.532 l
+99 205.633 l
+99 205.633 l
+100 203.247 l
+100 203.247 l
+101 200.619 l
+101 200.619 l
+102 198.051 l
+102 198.051 l
+103 195.87 l
+103 195.87 l
+104 194.38 l
+104 194.38 l
+105 193.828 l
+105 193.828 l
+106 194.367 l
+106 194.367 l
+107 196.027 l
+107 196.027 l
+108 198.704 l
+108 198.704 l
+109 202.165 l
+109 202.165 l
+110 206.066 l
+110 206.066 l
+111 209.987 l
+111 209.987 l
+112 213.479 l
+112 213.479 l
+113 216.114 l
+113 216.114 l
+114 217.537 l
+114 217.537 l
+115 217.514 l
+115 217.514 l
+116 215.965 l
+116 215.965 l
+117 212.981 l
+117 212.981 l
+118 208.821 l
+118 208.821 l
+119 203.891 l
+119 203.891 l
+120 198.707 l
+120 198.707 l
+121 193.834 l
+121 193.834 l
+122 189.829 l
+122 189.829 l
+123 187.173 l
+123 187.173 l
+124 186.218 l
+124 186.218 l
+125 187.137 l
+125 187.137 l
+126 189.901 l
+126 189.901 l
+127 194.272 l
+127 194.272 l
+128 199.828 l
+128 199.828 l
+129 205.997 l
+129 205.997 l
+130 212.123 l
+130 212.123 l
+131 217.533 l
+131 217.533 l
+132 221.614 l
+132 221.614 l
+133 223.88 l
+133 223.88 l
+134 224.034 l
+134 224.034 l
+135 222.003 l
+135 222.003 l
+136 217.952 l
+136 217.952 l
+137 212.272 l
+137 212.272 l
+138 205.543 l
+138 205.543 l
+139 198.473 l
+139 198.473 l
+140 191.822 l
+140 191.822 l
+141 186.319 l
+141 186.319 l
+142 182.583 l
+142 182.583 l
+143 181.052 l
+143 181.052 l
+144 181.929 l
+144 181.929 l
+145 185.159 l
+145 185.159 l
+146 190.431 l
+146 190.431 l
+147 197.205 l
+147 197.205 l
+148 204.772 l
+148 204.772 l
+149 212.325 l
+149 212.325 l
+150 219.051 l
+150 219.051 l
+151 224.217 l
+151 224.217 l
+152 227.249 l
+152 227.249 l
+153 227.801 l
+153 227.801 l
+154 225.791 l
+154 225.791 l
+155 221.415 l
+155 221.415 l
+156 215.126 l
+156 215.126 l
+157 207.585 l
+157 207.585 l
+158 199.596 l
+158 199.596 l
+159 192.013 l
+159 192.013 l
+160 185.65 l
+160 185.65 l
+161 181.194 l
+161 181.194 l
+162 179.126 l
+162 179.126 l
+163 179.672 l
+163 179.672 l
+164 182.777 l
+164 182.777 l
+165 188.109 l
+165 188.109 l
+166 195.098 l
+166 195.098 l
+167 202.993 l
+167 202.993 l
+168 210.949 l
+168 210.949 l
+169 218.117 l
+169 218.117 l
+170 223.734 l
+170 223.734 l
+171 227.206 l
+171 227.206 l
+172 228.175 l
+172 228.175 l
+173 226.551 l
+173 226.551 l
+174 222.524 l
+174 222.524 l
+175 216.542 l
+175 216.542 l
+176 209.259 l
+176 209.259 l
+177 201.462 l
+177 201.462 l
+178 193.987 l
+178 193.987 l
+179 187.626 l
+179 187.626 l
+180 183.045 l
+180 183.045 l
+181 180.709 l
+181 180.709 l
+182 180.837 l
+182 180.837 l
+183 183.381 l
+183 183.381 l
+184 188.036 l
+184 188.036 l
+185 194.273 l
+185 194.273 l
+186 201.403 l
+186 201.403 l
+187 208.652 l
+187 208.652 l
+188 215.247 l
+188 215.247 l
+189 220.5 l
+189 220.5 l
+190 223.88 l
+190 223.88 l
+191 225.066 l
+191 225.066 l
+192 223.982 l
+192 223.982 l
+193 220.795 l
+193 220.795 l
+194 215.895 l
+194 215.895 l
+195 209.844 l
+195 209.844 l
+196 203.316 l
+196 203.316 l
+197 197.018 l
+197 197.018 l
+198 191.612 l
+198 191.612 l
+199 187.646 l
+199 187.646 l
+200 185.497 l
+200 185.497 l
+201 185.335 l
+201 185.335 l
+202 187.112 l
+202 187.112 l
+203 190.571 l
+203 190.571 l
+204 195.284 l
+204 195.284 l
+205 200.704 l
+205 200.704 l
+206 206.226 l
+206 206.226 l
+207 211.258 l
+207 211.258 l
+208 215.286 l
+208 215.286 l
+209 217.924 l
+209 217.924 l
+210 218.953 l
+210 218.953 l
+211 218.339 l
+211 218.339 l
+212 216.227 l
+212 216.227 l
+213 212.92 l
+213 212.92 l
+214 208.833 l
+214 208.833 l
+215 204.447 l
+215 204.447 l
+216 200.25 l
+216 200.25 l
+217 196.679 l
+217 196.679 l
+218 194.082 l
+218 194.082 l
+219 192.675 l
+219 192.675 l
+220 192.529 l
+220 192.529 l
+221 193.572 l
+221 193.572 l
+222 195.603 l
+222 195.603 l
+223 198.325 l
+223 198.325 l
+224 201.384 l
+224 201.384 l
+225 204.416 l
+225 204.416 l
+226 207.088 l
+226 207.088 l
+227 209.136 l
+227 209.136 l
+228 210.392 l
+228 210.392 l
+229 210.796 l
+229 210.796 l
+230 210.396 l
+230 210.396 l
+231 209.331 l
+231 209.331 l
+232 207.808 l
+232 207.808 l
+233 206.069 l
+233 206.069 l
+234 204.358 l
+234 204.358 l
+235 202.885 l
+235 202.885 l
+236 201.805 l
+236 201.805 l
+237 201.197 l
+237 201.197 l
+238 201.063 l
+238 201.063 l
+239 201.332 l
+239 201.332 l
+240 201.878 l
+240 201.878 l
+241 202.541 l
+241 202.541 l
+242 203.16 l
+242 203.16 l
+243 203.594 l
+243 203.594 l
+244 203.75 l
+244 203.75 l
+245 203.594 l
+245 203.594 l
+246 203.16 l
+246 203.16 l
+247 202.541 l
+247 202.541 l
+248 201.878 l
+248 201.878 l
+249 201.332 l
+249 201.332 l
+250 201.063 l
+250 201.063 l
+251 201.197 l
+251 201.197 l
+252 201.805 l
+252 201.805 l
+253 202.885 l
+253 202.885 l
+254 204.358 l
+254 204.358 l
+255 206.069 l
+255 206.069 l
+256 207.808 l
+256 207.808 l
+257 209.331 l
+257 209.331 l
+258 210.396 l
+258 210.396 l
+259 210.796 l
+259 210.796 l
+260 210.392 l
+260 210.392 l
+261 209.136 l
+261 209.136 l
+262 207.088 l
+262 207.088 l
+263 204.416 l
+263 204.416 l
+264 201.384 l
+264 201.384 l
+265 198.325 l
+265 198.325 l
+266 195.603 l
+266 195.603 l
+267 193.572 l
+267 193.572 l
+268 192.529 l
+268 192.529 l
+269 192.675 l
+269 192.675 l
+270 194.082 l
+270 194.082 l
+271 196.679 l
+271 196.679 l
+272 200.25 l
+272 200.25 l
+273 204.447 l
+273 204.447 l
+274 208.833 l
+274 208.833 l
+275 212.92 l
+275 212.92 l
+276 216.227 l
+276 216.227 l
+277 218.339 l
+277 218.339 l
+278 218.953 l
+278 218.953 l
+279 217.924 l
+279 217.924 l
+280 215.286 l
+280 215.286 l
+281 211.258 l
+281 211.258 l
+282 206.226 l
+282 206.226 l
+283 200.704 l
+283 200.704 l
+284 195.284 l
+284 195.284 l
+285 190.571 l
+285 190.571 l
+286 187.112 l
+286 187.112 l
+287 185.335 l
+287 185.335 l
+288 185.497 l
+288 185.497 l
+289 187.646 l
+289 187.646 l
+290 191.612 l
+290 191.612 l
+291 197.018 l
+291 197.018 l
+292 203.316 l
+292 203.316 l
+293 209.844 l
+293 209.844 l
+294 215.895 l
+294 215.895 l
+295 220.795 l
+295 220.795 l
+296 223.982 l
+296 223.982 l
+297 225.066 l
+297 225.066 l
+298 223.88 l
+298 223.88 l
+299 220.5 l
+299 220.5 l
+300 215.247 l
+300 215.247 l
+301 208.652 l
+301 208.652 l
+302 201.403 l
+302 201.403 l
+303 194.273 l
+303 194.273 l
+304 188.036 l
+304 188.036 l
+305 183.381 l
+305 183.381 l
+306 180.837 l
+306 180.837 l
+307 180.709 l
+307 180.709 l
+308 183.045 l
+308 183.045 l
+309 187.626 l
+309 187.626 l
+310 193.987 l
+310 193.987 l
+311 201.462 l
+311 201.462 l
+312 209.259 l
+312 209.259 l
+313 216.542 l
+313 216.542 l
+314 222.524 l
+314 222.524 l
+315 226.551 l
+315 226.551 l
+316 228.175 l
+316 228.175 l
+317 227.206 l
+317 227.206 l
+318 223.734 l
+318 223.734 l
+319 218.117 l
+319 218.117 l
+320 210.949 l
+320 210.949 l
+321 202.993 l
+321 202.993 l
+322 195.098 l
+322 195.098 l
+323 188.109 l
+323 188.109 l
+324 182.777 l
+324 182.777 l
+325 179.672 l
+325 179.672 l
+326 179.126 l
+326 179.126 l
+327 181.194 l
+327 181.194 l
+328 185.65 l
+328 185.65 l
+329 192.013 l
+329 192.013 l
+330 199.596 l
+330 199.596 l
+331 207.585 l
+331 207.585 l
+332 215.126 l
+332 215.126 l
+333 221.415 l
+333 221.415 l
+334 225.791 l
+334 225.791 l
+335 227.801 l
+335 227.801 l
+336 227.249 l
+336 227.249 l
+337 224.217 l
+337 224.217 l
+338 219.051 l
+338 219.051 l
+339 212.325 l
+339 212.325 l
+340 204.772 l
+340 204.772 l
+341 197.205 l
+341 197.205 l
+342 190.431 l
+342 190.431 l
+343 185.159 l
+343 185.159 l
+344 181.929 l
+344 181.929 l
+345 181.052 l
+345 181.052 l
+346 182.583 l
+346 182.583 l
+347 186.319 l
+347 186.319 l
+348 191.822 l
+348 191.822 l
+349 198.473 l
+349 198.473 l
+350 205.543 l
+350 205.543 l
+351 212.272 l
+351 212.272 l
+352 217.952 l
+352 217.952 l
+353 222.003 l
+353 222.003 l
+354 224.034 l
+354 224.034 l
+355 223.88 l
+355 223.88 l
+356 221.614 l
+356 221.614 l
+357 217.533 l
+357 217.533 l
+358 212.123 l
+358 212.123 l
+359 205.997 l
+359 205.997 l
+360 199.828 l
+360 199.828 l
+361 194.272 l
+361 194.272 l
+362 189.901 l
+362 189.901 l
+363 187.137 l
+363 187.137 l
+364 186.218 l
+364 186.218 l
+365 187.173 l
+365 187.173 l
+366 189.829 l
+366 189.829 l
+367 193.834 l
+367 193.834 l
+368 198.707 l
+368 198.707 l
+369 203.891 l
+369 203.891 l
+370 208.821 l
+370 208.821 l
+371 212.981 l
+371 212.981 l
+372 215.965 l
+372 215.965 l
+373 217.514 l
+373 217.514 l
+374 217.537 l
+374 217.537 l
+375 216.114 l
+375 216.114 l
+376 213.479 l
+376 213.479 l
+377 209.987 l
+377 209.987 l
+378 206.066 l
+378 206.066 l
+379 202.165 l
+379 202.165 l
+380 198.704 l
+380 198.704 l
+381 196.027 l
+381 196.027 l
+382 194.367 l
+382 194.367 l
+383 193.828 l
+383 193.828 l
+384 194.38 l
+384 194.38 l
+385 195.87 l
+385 195.87 l
+386 198.051 l
+386 198.051 l
+387 200.619 l
+387 200.619 l
+388 203.247 l
+388 203.247 l
+389 205.633 l
+389 205.633 l
+390 207.532 l
+390 207.532 l
+391 208.78 l
+391 208.78 l
+392 209.31 l
+392 209.31 l
+393 209.152 l
+393 209.152 l
+394 208.419 l
+394 208.419 l
+395 207.288 l
+395 207.288 l
+396 205.968 l
+s
+grestore
+gsave
+1 1 1 setrgbcolor
+n
+245 57 m
+347 57 l
+347 103 l
+245 103 l
+f
+s
+gsave
+1 0 0 setrgbcolor
+1 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+249 68 m
+279 68 l
+s
+1 0 0 setrgbcolor
+2 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+n
+259 68 m
+264 63 l
+269 68 l
+264 73 l
+cp
+s
+1 1 1 setrgbcolor
+n
+283 63 m
+332 63 l
+332 75 l
+283 75 l
+f
+s
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+283 72 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(Spline + EY) show
+grestore
+n
+gsave
+1 0 0 setrgbcolor
+4 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+249 81 m
+279 81 l
+s
+1 1 1 setrgbcolor
+0 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+n
+260 77 m
+268 77 l
+268 85 l
+260 85 l
+f
+s
+0 0 0 setrgbcolor
+2 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+n
+260 77 m
+268 77 l
+268 85 l
+260 85 l
+cp
+s
+1 1 1 setrgbcolor
+n
+283 75 m
+343 75 l
+343 87 l
+283 87 l
+f
+s
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+283 84 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(Line + Symbol) show
+grestore
+n
+gsave
+0 0 1 setrgbcolor
+0 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+249 93 m
+279 93 l
+s
+1 1 1 setrgbcolor
+n
+283 87 m
+338 87 l
+338 99 l
+283 99 l
+f
+s
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+283 96 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(Function Plot) show
+grestore
+n
+1 slw
+1 slc
+0 slj
+[] 0 sd
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+1 1 0.878431 setrgbcolor
+n
+91 316 m
+397 316 l
+397 514 l
+91 514 l
+f
+s
+gsave
+91 316 306 198 rectclip
+0 0 0 setrgbcolor
+0 slw
+1 slc
+0 slj
+[2 3] 0 sd
+106.3 514 m
+106.3 316 l
+s
+0 0 0 setrgbcolor
+0 slw
+1 slc
+0 slj
+[2 3] 0 sd
+136.9 514 m
+136.9 316 l
+s
+0 0 0 setrgbcolor
+0 slw
+1 slc
+0 slj
+[2 3] 0 sd
+167.5 514 m
+167.5 316 l
+s
+0 0 0 setrgbcolor
+0 slw
+1 slc
+0 slj
+[2 3] 0 sd
+198.1 514 m
+198.1 316 l
+s
+0 0 0 setrgbcolor
+0 slw
+1 slc
+0 slj
+[2 3] 0 sd
+228.7 514 m
+228.7 316 l
+s
+0 0 0 setrgbcolor
+0 slw
+1 slc
+0 slj
+[2 3] 0 sd
+259.3 514 m
+259.3 316 l
+s
+0 0 0 setrgbcolor
+0 slw
+1 slc
+0 slj
+[2 3] 0 sd
+289.9 514 m
+289.9 316 l
+s
+0 0 0 setrgbcolor
+0 slw
+1 slc
+0 slj
+[2 3] 0 sd
+320.5 514 m
+320.5 316 l
+s
+0 0 0 setrgbcolor
+0 slw
+1 slc
+0 slj
+[2 3] 0 sd
+351.1 514 m
+351.1 316 l
+s
+0 0 0 setrgbcolor
+0 slw
+1 slc
+0 slj
+[2 3] 0 sd
+381.7 514 m
+381.7 316 l
+s
+0 0 0 setrgbcolor
+0 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+91 514 m
+91 316 l
+s
+0 0 0 setrgbcolor
+0 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+121.6 514 m
+121.6 316 l
+s
+0 0 0 setrgbcolor
+0 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+152.2 514 m
+152.2 316 l
+s
+0 0 0 setrgbcolor
+0 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+182.8 514 m
+182.8 316 l
+s
+0 0 0 setrgbcolor
+0 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+213.4 514 m
+213.4 316 l
+s
+0 0 0 setrgbcolor
+0 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+244 514 m
+244 316 l
+s
+0 0 0 setrgbcolor
+0 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+274.6 514 m
+274.6 316 l
+s
+0 0 0 setrgbcolor
+0 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+305.2 514 m
+305.2 316 l
+s
+0 0 0 setrgbcolor
+0 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+335.8 514 m
+335.8 316 l
+s
+0 0 0 setrgbcolor
+0 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+366.4 514 m
+366.4 316 l
+s
+0 0 0 setrgbcolor
+0 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+397 514 m
+397 316 l
+s
+0 0 0 setrgbcolor
+0 slw
+1 slc
+0 slj
+[2 3] 0 sd
+91 502.353 m
+397 502.353 l
+s
+0 0 0 setrgbcolor
+0 slw
+1 slc
+0 slj
+[2 3] 0 sd
+91 479.059 m
+397 479.059 l
+s
+0 0 0 setrgbcolor
+0 slw
+1 slc
+0 slj
+[2 3] 0 sd
+91 455.765 m
+397 455.765 l
+s
+0 0 0 setrgbcolor
+0 slw
+1 slc
+0 slj
+[2 3] 0 sd
+91 432.471 m
+397 432.471 l
+s
+0 0 0 setrgbcolor
+0 slw
+1 slc
+0 slj
+[2 3] 0 sd
+91 409.176 m
+397 409.176 l
+s
+0 0 0 setrgbcolor
+0 slw
+1 slc
+0 slj
+[2 3] 0 sd
+91 385.882 m
+397 385.882 l
+s
+0 0 0 setrgbcolor
+0 slw
+1 slc
+0 slj
+[2 3] 0 sd
+91 362.588 m
+397 362.588 l
+s
+0 0 0 setrgbcolor
+0 slw
+1 slc
+0 slj
+[2 3] 0 sd
+91 339.294 m
+397 339.294 l
+s
+0 0 0 setrgbcolor
+0 slw
+1 slc
+0 slj
+[2 3] 0 sd
+91 316 m
+397 316 l
+s
+0 0 0 setrgbcolor
+0 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+91 514 m
+397 514 l
+s
+0 0 0 setrgbcolor
+0 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+91 490.706 m
+397 490.706 l
+s
+0 0 0 setrgbcolor
+0 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+91 467.412 m
+397 467.412 l
+s
+0 0 0 setrgbcolor
+0 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+91 444.118 m
+397 444.118 l
+s
+0 0 0 setrgbcolor
+0 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+91 420.824 m
+397 420.824 l
+s
+0 0 0 setrgbcolor
+0 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+91 397.529 m
+397 397.529 l
+s
+0 0 0 setrgbcolor
+0 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+91 374.235 m
+397 374.235 l
+s
+0 0 0 setrgbcolor
+0 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+91 350.941 m
+397 350.941 l
+s
+0 0 0 setrgbcolor
+0 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+91 327.647 m
+397 327.647 l
+s
+grestore
+0 0 0 setrgbcolor
+2 slw
+2 slc
+0 slj
+[] 0 sd
+91 514 m
+397 514 l
+s
+1 slw
+0 slc
+0 slj
+[] 0 sd
+91 514 m
+91 506 l
+s
+121.6 514 m
+121.6 506 l
+s
+152.2 514 m
+152.2 506 l
+s
+182.8 514 m
+182.8 506 l
+s
+213.4 514 m
+213.4 506 l
+s
+244 514 m
+244 506 l
+s
+274.6 514 m
+274.6 506 l
+s
+305.2 514 m
+305.2 506 l
+s
+335.8 514 m
+335.8 506 l
+s
+366.4 514 m
+366.4 506 l
+s
+397 514 m
+397 506 l
+s
+106.3 514 m
+106.3 510 l
+s
+136.9 514 m
+136.9 510 l
+s
+167.5 514 m
+167.5 510 l
+s
+198.1 514 m
+198.1 510 l
+s
+228.7 514 m
+228.7 510 l
+s
+259.3 514 m
+259.3 510 l
+s
+289.9 514 m
+289.9 510 l
+s
+320.5 514 m
+320.5 510 l
+s
+351.1 514 m
+351.1 510 l
+s
+381.7 514 m
+381.7 510 l
+s
+0 0 0 setrgbcolor
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+91 530 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(0.0) sw JC
+(0.0) show
+grestore
+n
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+121 530 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(0.1) sw JC
+(0.1) show
+grestore
+n
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+152 530 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(0.2) sw JC
+(0.2) show
+grestore
+n
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+182 530 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(0.3) sw JC
+(0.3) show
+grestore
+n
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+213 530 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(0.4) sw JC
+(0.4) show
+grestore
+n
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+244 530 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(0.5) sw JC
+(0.5) show
+grestore
+n
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+274 530 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(0.6) sw JC
+(0.6) show
+grestore
+n
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+305 530 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(0.7) sw JC
+(0.7) show
+grestore
+n
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+335 530 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(0.8) sw JC
+(0.8) show
+grestore
+n
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+366 530 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(0.9) sw JC
+(0.9) show
+grestore
+n
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+396 530 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(1.0) sw JC
+(1.0) show
+grestore
+n
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+244 558 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(X Title) sw JC
+(X Title) show
+grestore
+n
+0 0 0 setrgbcolor
+2 slw
+2 slc
+0 slj
+[] 0 sd
+91 316 m
+397 316 l
+s
+1 slw
+0 slc
+0 slj
+[] 0 sd
+91 316 m
+91 324 l
+s
+121.6 316 m
+121.6 324 l
+s
+152.2 316 m
+152.2 324 l
+s
+182.8 316 m
+182.8 324 l
+s
+213.4 316 m
+213.4 324 l
+s
+244 316 m
+244 324 l
+s
+274.6 316 m
+274.6 324 l
+s
+305.2 316 m
+305.2 324 l
+s
+335.8 316 m
+335.8 324 l
+s
+366.4 316 m
+366.4 324 l
+s
+397 316 m
+397 324 l
+s
+106.3 316 m
+106.3 320 l
+s
+136.9 316 m
+136.9 320 l
+s
+167.5 316 m
+167.5 320 l
+s
+198.1 316 m
+198.1 320 l
+s
+228.7 316 m
+228.7 320 l
+s
+259.3 316 m
+259.3 320 l
+s
+289.9 316 m
+289.9 320 l
+s
+320.5 316 m
+320.5 320 l
+s
+351.1 316 m
+351.1 320 l
+s
+381.7 316 m
+381.7 320 l
+s
+0 0 0 setrgbcolor
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+91 312 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(0.0) sw JC
+(0.0) show
+grestore
+n
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+121 312 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(0.1) sw JC
+(0.1) show
+grestore
+n
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+152 312 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(0.2) sw JC
+(0.2) show
+grestore
+n
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+182 312 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(0.3) sw JC
+(0.3) show
+grestore
+n
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+213 312 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(0.4) sw JC
+(0.4) show
+grestore
+n
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+244 312 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(0.5) sw JC
+(0.5) show
+grestore
+n
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+274 312 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(0.6) sw JC
+(0.6) show
+grestore
+n
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+305 312 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(0.7) sw JC
+(0.7) show
+grestore
+n
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+335 312 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(0.8) sw JC
+(0.8) show
+grestore
+n
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+366 312 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(0.9) sw JC
+(0.9) show
+grestore
+n
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+396 312 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(1.0) sw JC
+(1.0) show
+grestore
+n
+0 0 0 setrgbcolor
+2 slw
+2 slc
+0 slj
+[] 0 sd
+91 514 m
+91 316 l
+s
+1 slw
+0 slc
+0 slj
+[] 0 sd
+91 514 m
+99 514 l
+s
+91 490.706 m
+99 490.706 l
+s
+91 467.412 m
+99 467.412 l
+s
+91 444.118 m
+99 444.118 l
+s
+91 420.824 m
+99 420.824 l
+s
+91 397.529 m
+99 397.529 l
+s
+91 374.235 m
+99 374.235 l
+s
+91 350.941 m
+99 350.941 l
+s
+91 327.647 m
+99 327.647 l
+s
+91 502.353 m
+95 502.353 l
+s
+91 479.059 m
+95 479.059 l
+s
+91 455.765 m
+95 455.765 l
+s
+91 432.471 m
+95 432.471 l
+s
+91 409.176 m
+95 409.176 l
+s
+91 385.882 m
+95 385.882 l
+s
+91 362.588 m
+95 362.588 l
+s
+91 339.294 m
+95 339.294 l
+s
+91 316 m
+95 316 l
+s
+0 0 0 setrgbcolor
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+81 520 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(0.0) sw JR
+(0.0) show
+grestore
+n
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+81 496 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(0.1) sw JR
+(0.1) show
+grestore
+n
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+81 473 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(0.2) sw JR
+(0.2) show
+grestore
+n
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+81 450 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(0.3) sw JR
+(0.3) show
+grestore
+n
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+81 426 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(0.4) sw JR
+(0.4) show
+grestore
+n
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+81 403 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(0.5) sw JR
+(0.5) show
+grestore
+n
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+81 380 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(0.6) sw JR
+(0.6) show
+grestore
+n
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+81 356 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(0.7) sw JR
+(0.7) show
+grestore
+n
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+81 333 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(0.8) sw JR
+(0.8) show
+grestore
+n
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+n
+21 431 m
+37 431 l
+37 433 l
+21 433 l
+f
+s
+n
+35 402 m
+37 402 l
+37 433 l
+35 433 l
+f
+s
+n
+19 400 m
+35 400 l
+35 431 l
+19 431 l
+cp
+s
+gsave
+30 415 translate
+270 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(Y Title) sw JC
+(Y Title) show
+grestore
+n
+0 0 0 setrgbcolor
+2 slw
+2 slc
+0 slj
+[] 0 sd
+397 514 m
+397 316 l
+s
+1 slw
+0 slc
+0 slj
+[] 0 sd
+397 514 m
+389 514 l
+s
+397 490.706 m
+389 490.706 l
+s
+397 467.412 m
+389 467.412 l
+s
+397 444.118 m
+389 444.118 l
+s
+397 420.824 m
+389 420.824 l
+s
+397 397.529 m
+389 397.529 l
+s
+397 374.235 m
+389 374.235 l
+s
+397 350.941 m
+389 350.941 l
+s
+397 327.647 m
+389 327.647 l
+s
+397 502.353 m
+393 502.353 l
+s
+397 479.059 m
+393 479.059 l
+s
+397 455.765 m
+393 455.765 l
+s
+397 432.471 m
+393 432.471 l
+s
+397 409.176 m
+393 409.176 l
+s
+397 385.882 m
+393 385.882 l
+s
+397 362.588 m
+393 362.588 l
+s
+397 339.294 m
+393 339.294 l
+s
+397 316 m
+393 316 l
+s
+0 0 0 setrgbcolor
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+407 520 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(0.0) show
+grestore
+n
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+407 496 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(0.1) show
+grestore
+n
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+407 473 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(0.2) show
+grestore
+n
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+407 450 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(0.3) show
+grestore
+n
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+407 426 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(0.4) show
+grestore
+n
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+407 403 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(0.5) show
+grestore
+n
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+407 380 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(0.6) show
+grestore
+n
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+407 356 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(0.7) show
+grestore
+n
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+407 333 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(0.8) show
+grestore
+n
+gsave
+0 0.392157 0 setrgbcolor
+2 slw
+1 slc
+0 slj
+[6 4] 0 sd
+n
+90 513.731 m
+90 513.731 l
+91 513.708 l
+91 513.708 l
+92 513.683 l
+92 513.683 l
+93 513.656 l
+93 513.656 l
+94 513.627 l
+94 513.627 l
+95 513.596 l
+95 513.596 l
+96 513.563 l
+96 513.563 l
+97 513.527 l
+97 513.527 l
+98 513.489 l
+98 513.489 l
+99 513.448 l
+99 513.448 l
+100 513.403 l
+100 513.403 l
+101 513.356 l
+101 513.356 l
+102 513.305 l
+102 513.305 l
+103 513.25 l
+103 513.25 l
+104 513.192 l
+104 513.192 l
+105 513.129 l
+105 513.129 l
+106 513.063 l
+106 513.063 l
+107 512.991 l
+107 512.991 l
+108 512.915 l
+108 512.915 l
+109 512.833 l
+109 512.833 l
+110 512.747 l
+110 512.747 l
+111 512.654 l
+111 512.654 l
+112 512.555 l
+112 512.555 l
+113 512.45 l
+113 512.45 l
+114 512.338 l
+114 512.338 l
+115 512.219 l
+115 512.219 l
+116 512.093 l
+116 512.093 l
+117 511.958 l
+117 511.958 l
+118 511.816 l
+118 511.816 l
+119 511.664 l
+119 511.664 l
+120 511.504 l
+120 511.504 l
+121 511.334 l
+121 511.334 l
+122 511.153 l
+122 511.153 l
+123 510.963 l
+123 510.963 l
+124 510.761 l
+124 510.761 l
+125 510.547 l
+125 510.547 l
+126 510.322 l
+126 510.322 l
+127 510.084 l
+127 510.084 l
+128 509.832 l
+128 509.832 l
+129 509.567 l
+129 509.567 l
+130 509.288 l
+130 509.288 l
+131 508.993 l
+131 508.993 l
+132 508.683 l
+132 508.683 l
+133 508.357 l
+133 508.357 l
+134 508.014 l
+134 508.014 l
+135 507.654 l
+135 507.654 l
+136 507.275 l
+136 507.275 l
+137 506.878 l
+137 506.878 l
+138 506.461 l
+138 506.461 l
+139 506.024 l
+139 506.024 l
+140 505.566 l
+140 505.566 l
+141 505.087 l
+141 505.087 l
+142 504.586 l
+142 504.586 l
+143 504.061 l
+143 504.061 l
+144 503.513 l
+144 503.513 l
+145 502.941 l
+145 502.941 l
+146 502.344 l
+146 502.344 l
+147 501.721 l
+147 501.721 l
+148 501.072 l
+148 501.072 l
+149 500.395 l
+149 500.395 l
+150 499.691 l
+150 499.691 l
+151 498.959 l
+151 498.959 l
+152 498.197 l
+152 498.197 l
+153 497.406 l
+153 497.406 l
+154 496.584 l
+154 496.584 l
+155 495.732 l
+155 495.732 l
+156 494.848 l
+156 494.848 l
+157 493.932 l
+157 493.932 l
+158 492.983 l
+158 492.983 l
+159 492.001 l
+159 492.001 l
+160 490.986 l
+160 490.986 l
+161 489.936 l
+161 489.936 l
+162 488.853 l
+162 488.853 l
+163 487.734 l
+163 487.734 l
+164 486.58 l
+164 486.58 l
+165 485.391 l
+165 485.391 l
+166 484.167 l
+166 484.167 l
+167 482.906 l
+167 482.906 l
+168 481.61 l
+168 481.61 l
+169 480.277 l
+169 480.277 l
+170 478.909 l
+170 478.909 l
+171 477.504 l
+171 477.504 l
+172 476.063 l
+172 476.063 l
+173 474.587 l
+173 474.587 l
+174 473.075 l
+174 473.075 l
+175 471.527 l
+175 471.527 l
+176 469.945 l
+176 469.945 l
+177 468.328 l
+177 468.328 l
+178 466.677 l
+178 466.677 l
+179 464.993 l
+179 464.993 l
+180 463.276 l
+180 463.276 l
+181 461.526 l
+181 461.526 l
+182 459.745 l
+182 459.745 l
+183 457.934 l
+183 457.934 l
+184 456.093 l
+184 456.093 l
+185 454.224 l
+185 454.224 l
+186 452.327 l
+186 452.327 l
+187 450.404 l
+187 450.404 l
+188 448.456 l
+188 448.456 l
+189 446.485 l
+189 446.485 l
+190 444.491 l
+190 444.491 l
+191 442.477 l
+191 442.477 l
+192 440.443 l
+192 440.443 l
+193 438.392 l
+193 438.392 l
+194 436.326 l
+194 436.326 l
+195 434.245 l
+195 434.245 l
+196 432.153 l
+196 432.153 l
+197 430.05 l
+197 430.05 l
+198 427.94 l
+198 427.94 l
+199 425.823 l
+199 425.823 l
+200 423.703 l
+200 423.703 l
+201 421.581 l
+201 421.581 l
+202 419.459 l
+202 419.459 l
+203 417.341 l
+203 417.341 l
+204 415.228 l
+204 415.228 l
+205 413.122 l
+205 413.122 l
+206 411.027 l
+206 411.027 l
+207 408.944 l
+207 408.944 l
+208 406.877 l
+208 406.877 l
+209 404.826 l
+209 404.826 l
+210 402.797 l
+210 402.797 l
+211 400.789 l
+211 400.789 l
+212 398.808 l
+212 398.808 l
+213 396.854 l
+213 396.854 l
+214 394.93 l
+214 394.93 l
+215 393.04 l
+215 393.04 l
+216 391.185 l
+216 391.185 l
+217 389.368 l
+217 389.368 l
+218 387.592 l
+218 387.592 l
+219 385.859 l
+219 385.859 l
+220 384.171 l
+220 384.171 l
+221 382.532 l
+221 382.532 l
+222 380.943 l
+222 380.943 l
+223 379.406 l
+223 379.406 l
+224 377.925 l
+224 377.925 l
+225 376.501 l
+225 376.501 l
+226 375.136 l
+226 375.136 l
+227 373.832 l
+227 373.832 l
+228 372.591 l
+228 372.591 l
+229 371.416 l
+229 371.416 l
+230 370.308 l
+230 370.308 l
+231 369.268 l
+231 369.268 l
+232 368.299 l
+232 368.299 l
+233 367.402 l
+233 367.402 l
+234 366.577 l
+234 366.577 l
+235 365.828 l
+235 365.828 l
+236 365.153 l
+236 365.153 l
+237 364.556 l
+237 364.556 l
+238 364.037 l
+238 364.037 l
+239 363.596 l
+239 363.596 l
+240 363.234 l
+240 363.234 l
+241 362.952 l
+241 362.952 l
+242 362.75 l
+242 362.75 l
+243 362.629 l
+243 362.629 l
+244 362.588 l
+244 362.588 l
+245 362.629 l
+245 362.629 l
+246 362.75 l
+246 362.75 l
+247 362.952 l
+247 362.952 l
+248 363.234 l
+248 363.234 l
+249 363.596 l
+249 363.596 l
+250 364.037 l
+250 364.037 l
+251 364.556 l
+251 364.556 l
+252 365.153 l
+252 365.153 l
+253 365.828 l
+253 365.828 l
+254 366.577 l
+254 366.577 l
+255 367.402 l
+255 367.402 l
+256 368.299 l
+256 368.299 l
+257 369.268 l
+257 369.268 l
+258 370.308 l
+258 370.308 l
+259 371.416 l
+259 371.416 l
+260 372.591 l
+260 372.591 l
+261 373.832 l
+261 373.832 l
+262 375.136 l
+262 375.136 l
+263 376.501 l
+263 376.501 l
+264 377.925 l
+264 377.925 l
+265 379.406 l
+265 379.406 l
+266 380.943 l
+266 380.943 l
+267 382.532 l
+267 382.532 l
+268 384.171 l
+268 384.171 l
+269 385.859 l
+269 385.859 l
+270 387.592 l
+270 387.592 l
+271 389.368 l
+271 389.368 l
+272 391.185 l
+272 391.185 l
+273 393.04 l
+273 393.04 l
+274 394.93 l
+274 394.93 l
+275 396.854 l
+275 396.854 l
+276 398.808 l
+276 398.808 l
+277 400.789 l
+277 400.789 l
+278 402.797 l
+278 402.797 l
+279 404.826 l
+279 404.826 l
+280 406.877 l
+280 406.877 l
+281 408.944 l
+281 408.944 l
+282 411.027 l
+282 411.027 l
+283 413.122 l
+283 413.122 l
+284 415.228 l
+284 415.228 l
+285 417.341 l
+285 417.341 l
+286 419.459 l
+286 419.459 l
+287 421.581 l
+287 421.581 l
+288 423.703 l
+288 423.703 l
+289 425.823 l
+289 425.823 l
+290 427.94 l
+290 427.94 l
+291 430.05 l
+291 430.05 l
+292 432.153 l
+292 432.153 l
+293 434.245 l
+293 434.245 l
+294 436.326 l
+294 436.326 l
+295 438.392 l
+295 438.392 l
+296 440.443 l
+296 440.443 l
+297 442.477 l
+297 442.477 l
+298 444.491 l
+298 444.491 l
+299 446.485 l
+299 446.485 l
+300 448.456 l
+300 448.456 l
+301 450.404 l
+301 450.404 l
+302 452.327 l
+302 452.327 l
+303 454.224 l
+303 454.224 l
+304 456.093 l
+304 456.093 l
+305 457.934 l
+305 457.934 l
+306 459.745 l
+306 459.745 l
+307 461.526 l
+307 461.526 l
+308 463.276 l
+308 463.276 l
+309 464.993 l
+309 464.993 l
+310 466.677 l
+310 466.677 l
+311 468.328 l
+311 468.328 l
+312 469.945 l
+312 469.945 l
+313 471.527 l
+313 471.527 l
+314 473.075 l
+314 473.075 l
+315 474.587 l
+315 474.587 l
+316 476.063 l
+316 476.063 l
+317 477.504 l
+317 477.504 l
+318 478.909 l
+318 478.909 l
+319 480.277 l
+319 480.277 l
+320 481.61 l
+320 481.61 l
+321 482.906 l
+321 482.906 l
+322 484.167 l
+322 484.167 l
+323 485.391 l
+323 485.391 l
+324 486.58 l
+324 486.58 l
+325 487.734 l
+325 487.734 l
+326 488.853 l
+326 488.853 l
+327 489.936 l
+327 489.936 l
+328 490.986 l
+328 490.986 l
+329 492.001 l
+329 492.001 l
+330 492.983 l
+330 492.983 l
+331 493.932 l
+331 493.932 l
+332 494.848 l
+332 494.848 l
+333 495.732 l
+333 495.732 l
+334 496.584 l
+334 496.584 l
+335 497.406 l
+335 497.406 l
+336 498.197 l
+336 498.197 l
+337 498.959 l
+337 498.959 l
+338 499.691 l
+338 499.691 l
+339 500.395 l
+339 500.395 l
+340 501.072 l
+340 501.072 l
+341 501.721 l
+341 501.721 l
+342 502.344 l
+342 502.344 l
+343 502.941 l
+343 502.941 l
+344 503.513 l
+344 503.513 l
+345 504.061 l
+345 504.061 l
+346 504.586 l
+346 504.586 l
+347 505.087 l
+347 505.087 l
+348 505.566 l
+348 505.566 l
+349 506.024 l
+349 506.024 l
+350 506.461 l
+350 506.461 l
+351 506.878 l
+351 506.878 l
+352 507.275 l
+352 507.275 l
+353 507.654 l
+353 507.654 l
+354 508.014 l
+354 508.014 l
+355 508.357 l
+355 508.357 l
+356 508.683 l
+356 508.683 l
+357 508.993 l
+357 508.993 l
+358 509.288 l
+358 509.288 l
+359 509.567 l
+359 509.567 l
+360 509.832 l
+360 509.832 l
+361 510.084 l
+361 510.084 l
+362 510.322 l
+362 510.322 l
+363 510.547 l
+363 510.547 l
+364 510.761 l
+364 510.761 l
+365 510.963 l
+365 510.963 l
+366 511.153 l
+366 511.153 l
+367 511.334 l
+367 511.334 l
+368 511.504 l
+368 511.504 l
+369 511.664 l
+369 511.664 l
+370 511.816 l
+370 511.816 l
+371 511.958 l
+371 511.958 l
+372 512.093 l
+372 512.093 l
+373 512.219 l
+373 512.219 l
+374 512.338 l
+374 512.338 l
+375 512.45 l
+375 512.45 l
+376 512.555 l
+376 512.555 l
+377 512.654 l
+377 512.654 l
+378 512.747 l
+378 512.747 l
+379 512.833 l
+379 512.833 l
+380 512.915 l
+380 512.915 l
+381 512.991 l
+381 512.991 l
+382 513.063 l
+382 513.063 l
+383 513.129 l
+383 513.129 l
+384 513.192 l
+384 513.192 l
+385 513.25 l
+385 513.25 l
+386 513.305 l
+386 513.305 l
+387 513.356 l
+387 513.356 l
+388 513.403 l
+388 513.403 l
+389 513.448 l
+389 513.448 l
+390 513.489 l
+390 513.489 l
+391 513.527 l
+391 513.527 l
+392 513.563 l
+392 513.563 l
+393 513.596 l
+393 513.596 l
+394 513.627 l
+394 513.627 l
+395 513.656 l
+395 513.656 l
+396 513.683 l
+s
+grestore
+gsave
+gsave
+gsave
+92 317 306 198 rectclip
+1 1 0.878431 setrgbcolor
+n
+106.3 511.205 m
+136.9 511.205 l
+136.9 514 l
+106.3 514 l
+f
+s
+2 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+0 0 1 setrgbcolor
+n
+106.3 511.205 m
+136.9 511.205 l
+136.9 514 l
+106.3 514 l
+cp
+s
+grestore
+gsave
+92 317 306 198 rectclip
+1 1 0.878431 setrgbcolor
+n
+136.9 498.393 m
+167.5 498.393 l
+167.5 514 l
+136.9 514 l
+f
+s
+2 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+0 0 1 setrgbcolor
+n
+136.9 498.393 m
+167.5 498.393 l
+167.5 514 l
+136.9 514 l
+cp
+s
+grestore
+gsave
+92 317 306 198 rectclip
+1 1 0.878431 setrgbcolor
+n
+167.5 458.094 m
+198.1 458.094 l
+198.1 514 l
+167.5 514 l
+f
+s
+2 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+0 0 1 setrgbcolor
+n
+167.5 458.094 m
+198.1 458.094 l
+198.1 514 l
+167.5 514 l
+cp
+s
+grestore
+gsave
+92 317 306 198 rectclip
+1 1 0.878431 setrgbcolor
+n
+198.1 397.529 m
+228.7 397.529 l
+228.7 514 l
+198.1 514 l
+f
+s
+2 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+0 0 1 setrgbcolor
+n
+198.1 397.529 m
+228.7 397.529 l
+228.7 514 l
+198.1 514 l
+cp
+s
+grestore
+gsave
+92 317 306 198 rectclip
+1 1 0.878431 setrgbcolor
+n
+228.7 362.588 m
+259.3 362.588 l
+259.3 514 l
+228.7 514 l
+f
+s
+2 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+0 0 1 setrgbcolor
+n
+228.7 362.588 m
+259.3 362.588 l
+259.3 514 l
+228.7 514 l
+cp
+s
+grestore
+gsave
+92 317 306 198 rectclip
+1 1 0.878431 setrgbcolor
+n
+259.3 397.529 m
+289.9 397.529 l
+289.9 514 l
+259.3 514 l
+f
+s
+2 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+0 0 1 setrgbcolor
+n
+259.3 397.529 m
+289.9 397.529 l
+289.9 514 l
+259.3 514 l
+cp
+s
+grestore
+gsave
+92 317 306 198 rectclip
+1 1 0.878431 setrgbcolor
+n
+289.9 458.094 m
+320.5 458.094 l
+320.5 514 l
+289.9 514 l
+f
+s
+2 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+0 0 1 setrgbcolor
+n
+289.9 458.094 m
+320.5 458.094 l
+320.5 514 l
+289.9 514 l
+cp
+s
+grestore
+gsave
+92 317 306 198 rectclip
+1 1 0.878431 setrgbcolor
+n
+320.5 498.393 m
+351.1 498.393 l
+351.1 514 l
+320.5 514 l
+f
+s
+2 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+0 0 1 setrgbcolor
+n
+320.5 498.393 m
+351.1 498.393 l
+351.1 514 l
+320.5 514 l
+cp
+s
+grestore
+grestore
+gsave
+0.678431 0.847059 0.901961 setrgbcolor
+n
+269 327 m
+350 327 l
+350 361 l
+269 361 l
+f
+s
+gsave
+0 0.392157 0 setrgbcolor
+2 slw
+1 slc
+0 slj
+[6 4] 0 sd
+273 337 m
+303 337 l
+s
+0.678431 0.847059 0.901961 setrgbcolor
+n
+307 331 m
+346 331 l
+346 343 l
+307 343 l
+f
+s
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+307 340 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(Gaussian) show
+grestore
+n
+0.678431 0.847059 0.901961 setrgbcolor
+n
+307 343 m
+335 343 l
+335 355 l
+307 355 l
+f
+s
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+307 352 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Helvetica-latin1 ff 12 scf sf
+(V Bars) show
+grestore
+n
+1 1 0.878431 setrgbcolor
+n
+273 343 m
+303 343 l
+303 355 l
+273 355 l
+f
+s
+2 slw
+1 slc
+0 slj
+[] 0 sd
+[] 0 sd
+0 0 1 setrgbcolor
+n
+273 343 m
+303 343 l
+303 355 l
+273 355 l
+cp
+s
+1 slw
+1 slc
+0 slj
+[] 0 sd
+0 0 0 setrgbcolor
+[] 0 sd
+n
+269 327 m
+350 327 l
+350 361 l
+269 361 l
+cp
+s
+0 slw
+1 slc
+0 slj
+[] 0 sd
+n
+272 361 m
+353 361 l
+353 364 l
+272 364 l
+f
+s
+n
+350 330 m
+353 330 l
+353 364 l
+350 364 l
+f
+s
+gsave
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+244 15 translate
+0 rotate
+0 0 m
+1 -1 sc
+/Times-BoldItalic-latin1 ff 16 scf sf
+(DnD titles, legends and plots) sw JC
+(DnD titles, legends and plots) show
+grestore
+n
+gsave
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+gsave
+244 570 translate
+0 rotate
+0 0 m
+1 -1 sc
+113 JC
+/Times-Roman-latin1 ff 16 scf sf
+(You can use ) show
+0 -4 rmoveto
+/Times-Roman-latin1 ff 9 scf sf
+(subscripts) show
+/Times-Roman-latin1 ff 9 scf sf
+(s) stringwidth pop 0 exch neg exch rmoveto
+/Times-Roman-latin1 ff 9 scf sf
+(t) stringwidth pop 0 exch neg exch rmoveto
+/Times-Roman-latin1 ff 9 scf sf
+(p) stringwidth pop 0 exch neg exch rmoveto
+/Times-Roman-latin1 ff 9 scf sf
+(i) stringwidth pop 0 exch neg exch rmoveto
+/Times-Roman-latin1 ff 9 scf sf
+(r) stringwidth pop 0 exch neg exch rmoveto
+/Times-Roman-latin1 ff 9 scf sf
+(c) stringwidth pop 0 exch neg exch rmoveto
+/Times-Roman-latin1 ff 9 scf sf
+(s) stringwidth pop 0 exch neg exch rmoveto
+/Times-Roman-latin1 ff 9 scf sf
+(b) stringwidth pop 0 exch neg exch rmoveto
+/Times-Roman-latin1 ff 9 scf sf
+(u) stringwidth pop 0 exch neg exch rmoveto
+/Times-Roman-latin1 ff 9 scf sf
+(s) stringwidth pop 0 exch neg exch rmoveto
+0 4 rmoveto
+0 8 rmoveto
+/Times-Roman-latin1 ff 9 scf sf
+(superscripts) show
+grestore
+n
+gsave
+0 0 0 setrgbcolor
+[] 0 sd
+0 slw
+1 slc
+0 slj
+[] 0 sd
+n
+79 603 m
+413 603 l
+413 605 l
+79 605 l
+f
+s
+n
+411 582 m
+413 582 l
+413 605 l
+411 605 l
+f
+s
+n
+77 580 m
+411 580 l
+411 603 l
+77 603 l
+cp
+s
+gsave
+244 597 translate
+0 rotate
+0 0 m
+1 -1 sc
+330 JC
+/Times-Roman-latin1 ff 16 scf sf
+(Format text mixing ) show
+/Times-Bold-latin1 ff 16 scf sf
+(bold ) show
+0 0 rmoveto
+/Times-Italic-latin1 ff 16 scf sf
+(, italics, ) show
+/Symbol-latin1 ff 16 scf sf
+(greek ) show
+0 0 rmoveto
+/Times-Roman-latin1 ff 16 scf sf
+( and ) show
+/Times-Roman-latin1 ff 19 scf sf
+(different fonts) show
+grestore
+n
+gsave
+gsave
+306 443 translate
+47 47 scale
+48 48 8 [48 0 0 48 0 48]
+/scanline 48 3 mul string def
+{ currentfile scanline readhexstring pop } false 3
+colorimage
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFF000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000000000000000000000
+000000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000000000FFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFF000000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFF
+000000000000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000000000FFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000
+000000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000000000
+000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000000000FFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFF000000000000000000000000FFFFFFFFFFFFFFFFFF000000000000000000
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000000000FFFFFF000000000000000000FFFFFFFFFFFF
+FFFFFF0000000000000000FFFFFFFFFFFFFFFFFFFF000000000000000000000000000000FFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFF
+000000FFFFFFFFFFFFFFFFFF0000FFFFFFFFFFFFFFFFFFFFFFFFFF000000000000FFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000FF0000FFFFFFFFFFFFFF
+FFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFF000000FFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFF0000FF
+000000FFFFFFFFFFFFFFFFFFFFFFFF0000FFFFFFFFFFFFFFFFFFFF000000000000000000FFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000FFFFFFFFFFFFFF0000FFFFFFFF
+FF0000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFF000000FFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFF000000000000FFFFFF0000FF000000
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000FFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000FFFFFFFFFFFFFFFFFFFFFF0000FF0000
+FFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFF0000FF000000
+FFFFFF00FFFFFFFFFFFFFFFFFFFFFFFFFFFF0000FFFFFFFFFFFFFFFFFFFF000000000000FFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000FFFFFFFFFFFFFFFF0000FFFFFF0000FF
+FFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFF000000FFFFFFFFFFFF000000000000FFFFFF000000FFFFFF0000FFFFFFFF000000
+FFFFFF00FFFF00FFFFFFFFFFFFFFFFFFFFFF0000FFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000FFFFFFFFFFFFFFFF0000FFFFFFFFFFFFFFFFFF
+0000FF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFF0000000000000000FFFFFFFF000000
+FFFFFFFFFFFF00FFFFFFFFFFFFFFFFFFFFFF0000FFFFFFFFFFFFFFFFFFFF000000000000FFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000FFFFFFFFFF0000FFFFFFFFFFFFFFFFFFFFFFFF
+0000FF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFF000000FFFFFF0000FFFFFFFF000000
+FFFFFFFFFFFF00FFFF00FFFFFFFFFFFFFFFFFFFFFF0000FFFFFFFFFFFFFF000000FFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000FF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+0000FF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000000000FFFFFFFFFFFFFFFFFFFF
+000000FFFFFFFFFFFF00FFFF00FFFFFFFFFFFFFFFF0000FFFFFFFF000000FFFFFF000000FFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000000000FFFFFFFFFFFFFFFFFFFF
+000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000FFFFFFFF000000FFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFF00000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000000000FFFFFF0000000000FFFFFFFFFFFFFFFFFFFF
+FFFFFF000000000000FFFFFFFFFFFFFFFFFFFFFFFF000000000000FFFFFFFFFFFF000000FFFFFF
+FFFFFFFFFFFFFFFFFFFF0000FFFFFF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000000000FFFFFF0000FFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFF000000000000000000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFF0000FF0000FFFFFF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFF000000000000000000FFFFFF000000
+FFFFFF000000FFFFFF000000FFFFFF0000000000FF000000FFFFFF000000FFFFFF000000FFFFFF
+FF0000FFFFFF000000FFFFFF0000FFFFFFFF000000FFFFFF000000FFFFFF000000FFFFFF000000
+FFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000
+FFFFFFFFFFFFFFFFFFFFFFFF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000FFFFFFFFFFFFFFFF0000FF0000FFFFFF
+FFFFFFFFFFFFFFFFFF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000000000FFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000FFFFFFFFFF0000FFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000FFFFFFFFFFFF000000FFFFFF
+FFFFFFFFFFFFFFFFFF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000000000FFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000FF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFF000000000000FFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000FFFFFFFFFFFF0000FFFFFFFFFFFFFF000000FFFFFF
+FFFFFFFFFFFF0000FF000000000000000000000000000000000000000000000000000000FFFFFF
+FFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000000000FFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFF0000FFFFFFFFFFFFFFFFFF0000FFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFF0000FF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFF
+FFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFF0000FF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000FFFFFFFF000000FFFFFF
+FFFFFF0000FFFFFFFF000000FFFFFF0000FFFFFFFF000000000000000000FFFFFF000000000000
+FFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000000000FFFFFFFFFFFFFFFFFF
+FFFFFFFF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000FFFFFFFFFFFFFFFFFFFF
+FFFFFF0000FFFFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000000000
+FFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFF
+FF0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000FF000000FFFFFF
+0000FFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000000000
+FFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000000000FFFFFF000000FFFFFFFFFFFFFF0000FF0000
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF0000FF0000FF
+FFFFFFFFFFFFFFFFFF000000FFFFFFFF0000FFFFFF000000000000000000FFFFFF000000000000
+FFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFF000000000000FF0000FFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFF
+FFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000000000
+FFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFF000000FF0000FFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFF000000000000000000000000000000000000000000000000000000000000
+FFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000000000000000000000000000000000000000000000
+FFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000000000FFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFF000000
+FFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFF000000FFFFFF
+FFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFF
+FFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFF000000FFFFFF000000FFFFFF000000
+FFFFFF000000FFFFFF000000FFFFFF000000FFFFFF000000FFFFFF000000FFFFFF000000FFFFFF
+000000FFFFFF000000FFFFFF000000FFFFFF000000FFFFFF000000FFFFFF000000FFFFFF000000
+FFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFF000000FFFFFF000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000000000000000000000
+000000000000000000000000000000000000000000000000000000000000000000000000000000
+000000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFF000000
+FFFFFFFFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000
+FFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFF
+FFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFF000000FFFFFFFFFFFF000000
+FFFFFFFFFFFFFFFFFF000000000000FFFFFFFFFFFF000000000000FFFFFFFFFFFF000000FFFFFF
+FFFFFFFFFFFF000000FFFFFFFFFFFF000000000000FFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFF
+000000000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFF000000
+FFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFF000000
+FFFFFFFFFFFF000000FFFFFFFFFFFF000000000000000000FFFFFFFFFFFF000000FFFFFFFFFFFF
+FFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFF000000
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFF000000
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+grestore
+grestore
+showpage
+%%Trailer
+%%EOF

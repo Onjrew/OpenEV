@@ -1,0 +1,46 @@
+NM_ROOT = ..
+
+!INCLUDE $(NM_ROOT)/nmake.opt
+
+GTK_SRC	= $(NM_GTK_DIR)
+GLIB_SRC = $(NM_GLIB_DIR)
+GTKGLAREA = $(NM_GTKGLAREA_DIR)
+
+PYGTK_DLL	=	_gtk.dll
+PYGTKGL_DLL	=	_gtkgl.dll
+
+INC = -I$(GLIB_SRC) -I$(GTK_SRC) -I$(GTK_SRC)/gdk \
+	-I$(GTKGLAREA) -I$(GTKGLAREA)/gtkgl
+
+CFLAGS =	-I$(NM_PY_DIR)/Include  $(INC) $(NM_OPTFLAGS)
+
+LIBS = $(GTK_SRC)/gtk/gtk-1.3.lib \
+	$(GTK_SRC)/gdk/gdk-1.3.lib $(GLIB_SRC)/glib-1.3.lib \
+	$(GLIB_SRC)/gthread-1.3.lib \
+	GLU32.lib opengl32.lib gdi32.lib user32.lib
+
+default:	$(PYGTK_DLL)
+
+$(PYGTK_DLL):	gtkmodule.obj
+	link /dll /def:_gtk.def gtkmodule.obj $(LIBS) \
+		/LIBPATH:$(NM_PY_DIR)/libs \
+		/out:$(PYGTK_DLL)
+	
+$(PYGTKGL_DLL):	gtkglmodule.obj
+	link /dll /def:_gtkgl.def gtkglmodule.obj $(LIBS) \
+		/LIBPATH:$(NM_PY_DIR)/libs \
+		/out:$(PYGTKGL_DLL)
+	
+.c.obj:	
+	$(CC) $(CFLAGS) -c $*.c
+
+clean:
+	if exist *.obj del *.obj
+	if exist *.dll del *.dll
+	if exist *.lib del *.lib
+
+install:	default
+	copy $(PYGTK_DLL) $(NM_PYMOD_DIR)
+	copy *.py $(NM_PYMOD_DIR)
+
+

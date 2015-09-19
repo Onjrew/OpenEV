@@ -1,0 +1,4 @@
+LIBRARY		_gtk
+VERSION		1.0
+EXPORTS
+	init_gtk	@1

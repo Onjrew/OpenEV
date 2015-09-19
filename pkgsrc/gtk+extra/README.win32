@@ -1,0 +1,8 @@
+This file contains instructions for building Gtk+Extra on win32.  There's a 
+makefile.vc in the gtkextra directory, use it instead of makefile.msc (it's
+missing a lot of targets).  The makefile needs some values defined in
+nmake.opt.  Other than that, it should build fine.
+
+Note that the file example seems broken but most everything else seems okay.
+
+The resulting file is gtkextra-0.99.dll, put it in a directory in your path.

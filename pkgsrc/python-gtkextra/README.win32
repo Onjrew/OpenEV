@@ -1,0 +1,9 @@
+This file contains instructions for building python bindings for gtkextra.
+I've added a makefile.vc to the gtkextra directory that needs the nmake.opt
+in pkgsrc to work properly.  The makefile assumes that gtkextra is installed
+inpkgsrc\gtk+extra and pygtk is in pkgsrc\pygtk-0.6.6.
+
+The result is a _gtkextra.dll that should be placed in your python path
+somewhere.  You will also need the pygtkextra.py file.  You can import
+pygtkextra to access all the objects.
+

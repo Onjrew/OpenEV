@@ -1,0 +1,43 @@
+
+NM_ROOT = .
+!INCLUDE nmake.opt
+
+default: install
+
+install:
+	if not exist $(NM_BIN_DIR) mkdir $(NM_BIN_DIR)
+	if not exist $(NM_PYMOD_DIR) mkdir $(NM_PYMOD_DIR)
+	cd glib
+	nmake /f makefile.vc install
+	cd ..\gtk+
+	nmake /f makefile.vc install
+	cd ..\gtkglarea
+	nmake /f makefile.vc install
+	cd ..\pygtk-0.6.6
+	nmake /f makefile.vc install
+	cd ..\gtk+extra\gtkextra
+	nmake /f makefile.vc install
+	cd ..\..
+	rename pygtk-0.6.6 pygtk
+	cd python-gtkextra\gtkextra
+	nmake /f makefile.vc install
+	cd ..\..
+	rename pygtk pygtk-0.6.6
+	copy $(NM_INTL_DIR)\gnu-intl.dll $(NM_BIN_DIR)
+	copy $(NM_PTHREADS_DIR)\pthread.dll $(NM_BIN_DIR)
+
+clean:
+	cd glib
+	nmake /f makefile.vc clean
+	cd ..\gtk+
+	nmake /f makefile.vc clean
+	cd ..\pygtk-0.6.6
+	nmake /f makefile.vc clean
+	cd ..\gtkglarea
+	nmake /f makefile.vc clean
+	cd ..\gtk+extra\gtkextra
+	nmake /f makefile.vc clean
+	cd ..\..
+	cd python-gtkextra\gtkextra
+	nmake /f makefile.vc clean
+	cd ..\..

@@ -1,0 +1,4 @@
+LIBRARY		_gtkgl
+VERSION		1.0
+EXPORTS
+	init_gtkgl	@1

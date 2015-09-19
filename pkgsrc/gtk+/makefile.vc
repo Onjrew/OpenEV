@@ -1,0 +1,18 @@
+
+install:
+	cd gdk\win32	
+	nmake /f makefile.vc
+	cd ..
+	nmake /f makefile.vc install
+	cd ..\gtk
+	nmake /f makefile.vc install	
+	cd ..
+
+clean:
+	cd gdk\win32	
+	nmake /f makefile.vc clean
+	cd ..
+	nmake /f makefile.vc clean
+	cd ..\gtk
+	nmake /f makefile.vc clean
+	cd ..

@@ -1,0 +1,90 @@
+	Windows porting of GTK for GView
+	================================
+
+
+Get the following from http://user.sgic.fi/~tml/gimp/win32/downloads.html:
+
+  glib-src-20000416.zip
+  gtk+-src-20000416.zip
+  extralibs-src-20000416.zip
+
+
+GLIB
+----
+
+copy glib/makefile.msc glib/makefile.vc
+
+remove psapi.h include from glib/gmodule/gmodule-win32.c
+
+Update glib/makefile.vc to use nmake.opt, updating the BIN and
+PTHREADS macro definitions.
+
+
+
+Gtk
+---
+
+copy gtk+/gdk/win32/makefile.msc gtk+/gdk/win32/makefile.vc
+
+Remove #define for HAVE_WINTAB in gtk+/config.h
+
+change BUILDNUMBER in gtk+/gdk/win32/rc/gtk.rc to 0 (two places).
+
+copy gtk+/gdk/makefile.msc gtk+/gdk/makefile.vc
+
+remove wntab32x.lib from the link in gtk+/gdk/makefile.vc
+
+copy gtk+/gtk/makefile.msc gtk+/gtk/makefile.vc
+
+Add advapi32.lib to the link line in gtk+/gtk/makefile.vc 
+	          (just before gdi32.lib)
+
+Add makefile.vc to gtk+ directory (just copy from old version)
+
+Update gtk+/gdk/win32/makefile.vc to use nmake.opt, and set OPTIMIZE
+to $(NM_OPTFLAGS), get rid of if construct for flags.
+
+Update gtk+/gdk/makefile.vc to use nmake.opt:
+  - Set OPTIMIZE to $(NM_OPTFLAGS)
+  - Add an install target to copy *.dll to $(NM_BIN_DIR)
+
+Update gtk+/gtk/makefile.vc to use nmake.opt:
+  - Set OPTIMIZE to $(NM_OPTFLAGS)
+  - Update BIN to be $(NM_BIN_DIR)
+  - Update PTHREADS to be $(NM_PTHREADS_DIR)
+
+Modify gtk+/gdk/win32/gdkwindow-win32.c:
+  - in gdk_window_raise() remove BringWindowToTop call and replace with
+    gdk_window_show( window ) to ensure the window is restored from
+     inimization when _raise is called.
+
+
+GtkExtra
+--------
+
+copied gtk+extra/gtkextra/makefile.msc to gtk+extra/gtkextra/makefile.vc
+
+heavily modified makefile.vc to add missing targets.  Make sure to add
+a .obj for every .c file.
+
+
+Python-GtkExtra
+---------------
+
+created python-gtkextra/gtkextra/makefile.vc
+
+should work as is.
+
+Note, this makefile only works if the pygtk-0.6.6 directory is called
+pygtk, so pkgsrc/makefile.vc renames it temporary while running the python
+gtkextra build. 
+
+
+PyGtk
+-----
+
+Modify gtkmodule.c's PyGtkStyleHelper_GetItem function so that it
+checks that the GdkGC item is not NULL before trying to copy it
+(ie. make it consistent with pygtk-0.6.11).  
+
+

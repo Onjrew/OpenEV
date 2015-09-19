@@ -1,0 +1,7 @@
+*.pyc
+Makefile
+*.dll
+*.exp
+*.lib
+*.pdb
+*.ilk

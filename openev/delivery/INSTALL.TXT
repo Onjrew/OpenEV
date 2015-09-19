@@ -1,0 +1,9 @@
+OpenEV UNIX Installation
+
+To Install:
+   - go into the unix directory on the CD by typing "cd unix" from the CD root
+   - execute "./install [linux|solaris|irix|nt] [location]" ensuring you have write permission
+     to the location you specify
+
+To Run:
+- execute "[location]/bin/openev"

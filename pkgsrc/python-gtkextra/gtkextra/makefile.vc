@@ -1,0 +1,56 @@
+NM_ROOT = ..\..\
+
+!INCLUDE $(NM_ROOT)/nmake.opt
+GTKEXTRA	=	$(NM_ROOT)\gtk+extra
+PYGTKEXTRA_DLL	=	_gtkextra.dll
+PYGTK		=	$(NM_ROOT)
+INSTALL_DIR	=	$(NM_PYMOD_DIR)\pygtkextra
+
+INC = -I$(GLIB) -I$(GTK) -I$(GTK)\$(GDKSUB) -I$(GTKEXTRA) -I$(PYGTK)
+
+
+CFLAGS =	-I$(NM_PY_DIR)/Include  $(INC) $(NM_OPTFLAGS)
+
+LIBS = $(GTK)\gtk\gtk-1.3.lib \
+	$(GTK)\gdk\gdk-1.3.lib $(GLIB)\glib-1.3.lib \
+	$(GLIB)\gthread-1.3.lib $(GTKEXTRA)\gtkextra\gtkextra-0.99.lib \
+	GLU32.lib opengl32.lib gdi32.lib user32.lib $(PYGTK)\pygtk\_gtk.lib
+
+objs	=	gtkcolorcombo-support.obj \
+		gtkextramodule.obj \
+		gtkextra-support.obj \
+		gtkiconlistitem-type.obj \
+		gtkiconlist-support.obj \
+		gtkplotcanvaschild-type.obj \
+		gtkplotcanvas-support.obj \
+		gtkplotdata-support.obj \
+		gtkplotline-type.obj \
+		gtkplot-support.obj \
+		gtkplottext-type.obj \
+		gtkpsfont-type.obj \
+		gtksheetcellattr-type.obj \
+		gtksheetcellborder-type.obj \
+		gtksheetchild-type.obj \
+		gtksheetrange-type.obj \
+		gtksheet-support.obj
+
+default:	$(PYGTKEXTRA_DLL)
+
+$(PYGTKEXTRA_DLL):	$(objs)
+	link /dll $(objs) $(LIBS) /def:_gtkextra.def \
+		/LIBPATH:$(NM_PY_DIR)\libs \
+		/out:$(PYGTKEXTRA_DLL)
+	
+.c.obj:	
+	$(CC) $(CFLAGS) -c $*.c
+
+clean:
+	if exist *.obj del *.obj
+	if exist *.dll del *.dll
+	if exist *.lib del *.lib
+
+install:	$(PYGTKEXTRA_DLL)
+	if not exist $(INSTALL_DIR) mkdir $(INSTALL_DIR)
+	copy $(PYGTKEXTRA_DLL) $(INSTALL_DIR)
+	copy __init__.py $(INSTALL_DIR)
+	copy pygtkextra.py $(INSTALL_DIR)

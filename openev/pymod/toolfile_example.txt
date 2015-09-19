@@ -1,0 +1,7 @@
+# Example tool file for openev extension
+
+MODULE_NAME = toolexample
+TOOL_NAME = Stats_Tool
+TOOL_NAME=GeneralPOITool
+TOOL_NAME=GeneralROITool
+TOOL_NAME = Pixel_Tool

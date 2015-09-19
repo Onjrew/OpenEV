@@ -1,0 +1,66 @@
+## Makefile for building the libintl DLL (called gnu-intl.dll) with
+## Microsoft C.
+
+## Use: nmake -f makefile.msc install
+
+# Change this to wherever you want to install the DLLs. This directory
+# should be in your PATH if it is not the Windows System32 directory.
+BIN = \windows\system
+
+# Full optimization:
+OPTIMIZE = -Ox
+# Debugging:
+#OPTIMIZE = -Zi
+
+# GNU locale dir. backslashes should be doubled, as this goes into a C string.
+GNULOCALEDIR = c:\\windows\\gnu\\locale
+
+GLIB = ..\glib
+GLIB_VER = 1.3
+
+################################################################
+
+# Nothing much configurable below
+
+# cl -? describes the options
+CC = cl -G5 -GF $(OPTIMIZE) -W3 -MD -nologo -DMSVCRT
+
+LDFLAGS = /link
+
+CFLAGS = -I. -I.. -I$(GLIB) -DHAVE_CONFIG_H -DSTANDALONE_LIBINTL -DGNULOCALEDIR=\"$(GNULOCALEDIR)\" -DLOCALE_ALIAS_PATH=\"$(GNULOCALEDIR);.\" -DLC_MESSAGES=42
+
+all : \
+	libintl.h	\
+	gnu-intl.dll
+
+install : all
+
+intl_OBJECTS = \
+	bindtextdom.obj	\
+	dcgettext.obj	\
+	dgettext.obj	\
+	gettext.obj	\
+	finddomain.obj	\
+	loadmsgcat.obj	\
+	localealias.obj	\
+	textdomain.obj	\
+	l10nflist.obj	\
+	explodename.obj
+
+gnu-intl.dll : $(intl_OBJECTS) gnu-intl.def
+	$(CC) $(CFLAGS) -LD -Fegnu-intl.dll $(intl_OBJECTS) $(GLIB)\glib-$(GLIB_VER).lib $(LDFLAGS) /def:gnu-intl.def
+
+
+.c.obj :
+	$(CC) $(CFLAGS) -GD -c $<
+
+clean:
+	del config.h
+	del *.obj
+	del *.lib
+	del *.err
+	del *.map
+	del *.sym
+	del *.exp
+	del *.pdb
+	del *.ilk

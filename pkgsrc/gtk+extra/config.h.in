@@ -1,0 +1,30 @@
+/* config.h.in.  Generated automatically from configure.in by autoheader.  */
+
+/* Define to empty if the keyword does not work.  */
+#undef const
+
+/* Define if you have <unistd.h>.  */
+#undef HAVE_UNISTD_H
+
+/* Define as __inline if that's what the C compiler calls it.  */
+#undef inline
+
+/* Define if you need to in order for stat and other things to work.  */
+#undef _POSIX_SOURCE
+
+/* Define if you have the ANSI C header files.  */
+#undef STDC_HEADERS
+
+#undef HAVE_GETTEXT
+#undef HAVE_UNISTD_H
+#undef HAVE_DIRENT_H
+#undef HAVE_FNMATCH_H
+
+/* Define if you have the <dirent.h> header file.  */
+#undef HAVE_DIRENT_H
+
+/* Define if you have the <fnmatch.h> header file.  */
+#undef HAVE_FNMATCH_H
+
+/* Define if you have the <unistd.h> header file.  */
+#undef HAVE_UNISTD_H

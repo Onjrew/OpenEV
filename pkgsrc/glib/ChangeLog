@@ -1,0 +1,1456 @@
+2000-04-07  Sebastian Wilhelmi  <wilhelmi@ira.uka.de>
+
+	* grand.c (g_rand_new): Fixed bug. Thanks to Marko Kreen
+	<marko@l-t.ee> for reporting that.
+
+2000-03-26  Tor Lillqvist  <tml@iki.fi>
+
+	* README.win32: Tell about using the mingw-based gcc, which is
+	much easier than modifying the cygwin gcc to product mingw code
+	for the msvcrt runtime.
+
+	* makefile.cygwin.in (WIN32APIHEADERS): Kludge to make it work
+	with a "pure" mingw gcc, too.
+
+2000-03-24  Sebastian Wilhelmi  <wilhelmi@ira.uka.de>
+
+	* garray.c: Made GArray behave correctly. Now zero_terminated
+	really means, that the element array->data[array->len] exists and
+	is zeroed, and clear means that any unassigned elements obtained
+	through g_array_set_size (the only way to get unassigned elements
+	AFAICT) are zeroed. Added some macros to make the code more
+	obvoius. Also made GPtrArray zero elements after
+	g_ptr_array_set_size. This is done in a portbale way (assignment
+	of NULL instead of just memsetting it to zero), though that might
+	be more portability than we actually want.
+
+	* Makefile.am, gthread/Makefile.am, gmodule/Makefile.am,
+	tests/Makefile.am: Added various win32 related *.in files to
+	EXTRA_DIST to let 'make distcheck' procude all the corresponding
+	files, which it silently fails to do currently.
+
+2000-03-23  Sebastian Wilhelmi  <wilhelmi@ira.uka.de>
+
+	* configure.in: After finding the right thread library (containing
+	e.g. pthread_create) we now search for the right realtime library
+	(containing e.g. sched_get_priority_max). Makes the output of the
+	thread related libraries correct. 
+
+	* gtimer.c (g_usleep): The current implementation of g_usleep
+	(simply calling select) doesn't work reliable for multi-threaded
+	programs on some platforms (bad omen for the main loop....), so I
+	changed the implementation for thread-using programs to wait for a
+	GCond for the specified amount of time (NB: sleep and usleep are
+	not MT-safe in general, because they often use signals).
+
+Wed Mar 22 16:49:57 2000  Owen Taylor  <otaylor@redhat.com>
+
+	* gmem.c (g_mem_chunk_area_compare): Fix indentation.
+
+2000-03-22 Elliot Lee <sopwith@redhat.com>
+
+	* gmem.c (g_mem_chunk_area_compare): Fix 64-bitness bug in
+	comparing two pointers more than 4G apart.
+
+2000-03-22  Tor Lillqvist  <tml@iki.fi>
+
+	* gutils.c: Move Win32-only includes after inclusion of glib.h, so
+	that G_OS_WIN32 is defined.
+
+	* glibconfig.h.win32.in: Add GSystemThread.
+
+2000-03-22  Sebastian Wilhelmi  <wilhelmi@ira.uka.de>
+
+	* gutils.c (g_get_current_dir): Ok, Marcus Brinkmann
+	<Marcus.Brinkmann@ruhr-uni-bochum.de> convinced me, that 128 KB
+	path length might not be enough for the HURD. So I changed the
+	loop to at least avoid an integer overflow, which could happen at
+	beyond 2GB size ;-)
+
+	* configure.in: Test for sched_yield as the native yield function
+	first. Corrected typo g_thread_sleep -> g_usleep. Corrected
+	message for the pthread_create test. Negative Priorities are
+	allowed (and used on Solaris), so consider
+	sched_get_priority_min failed only if it returns -1, not <0. Check
+	for sched_get_priority_min also in -lrt, if not found in -lpthread
+	alone and add -lrt to G_THREAD_LIBS then. Remove special case
+	handling of priorities for older solaris versions and posix
+	threads. Thanks to Wan-Teh Chang <wtc@netscape.com> for suggesting
+	some of those changes.
+	
+	* config.guess, config.sub, ltconfig, ltmain.sh:
+	Upgrade to libtool 1.3.4.
+
+2000-03-21  Sebastian Wilhelmi  <wilhelmi@ira.uka.de>
+
+	* glib.h, configure.in, gutils.h: always define G_GNUC_EXTENSION,
+	even when not needed by GLib. That's actually also the way, the
+	GLib reference manual describes that macro. Therefore I had to
+	remove the lonesome #include <glibconfig.h> in gutils.c, which
+	doesn't seem to be needed there however. This change should make
+	Ben Gertzfield <che@debian.org> happy.
+
+	* gutils.c: Furthermore two warnings in gutils.c were voided,
+	which crept in due to my last change.
+
+	* gutils.c (g_get_current_dir): Allocate only up to 128KB for a
+	pathname. While this is an arbitrary value just like 2048, it
+	seems to be enough (after all, even 4GB is an arbitrary value).
+
+2000-03-20  Sebastian Wilhelmi  <wilhelmi@ira.uka.de>
+
+	* gmain.c (g_main_poll): Warn in case of an error during the call
+	to poll(2). Closes Bug#7564 as reported by David Helder
+	<dhelder@umich.edu>.
+
+	* gutils.c (g_get_current_dir): Make g_get_current_dir work on
+	systems with unlimited pathname length like the HURD (It worked
+	there before, but only for pathes shorter than 2048). Closes
+	Bug#4525 as reported by Marcus Brinkmann
+	<Marcus.Brinkmann@ruhr-uni-bochum.de>.
+
+2000-03-17  Sebastian Wilhelmi  <wilhelmi@ira.uka.de>
+
+	* giounix.c (g_io_unix_write, g_io_unix_read): Interpret EINTR as
+	G_IO_ERROR_AGAIN.
+
+2000-03-17  Sebastian Wilhelmi  <wilhelmi@ira.uka.de>
+
+	* configure.in: Added the missing POSIX_NO_YIELD and
+	POSIX_NO_PRIORITIES warning messages.
+
+	* configure.in: Use AC_TRY_RUN instead of AC_TRY_LINK, to test for
+	real thread support. On solaris pthread_create can be linked to
+	even in -lc, but it doesn't work then.
+
+	* configure.in: Don't use priorities for threads, when the
+	minimal/maximal priorities couldn't be determined at configure
+	time.
+	
+	* configure.in, gthread.c: Always define GSystemThread in
+	glibconfig.h to represent a system thread.
+
+	* configure.in: Do not use native recursive threads, when
+	possibe. We use some features, that they do not expose (namely the
+	depth counter).
+
+	* glib.h, gthread.c: Redefined GStaticRecMutex. The functions are
+	now implemented in a different way, which should be way
+	faster. Alsothere are now functions g_static_rec_mutex_unlock_full
+	and g_static_rec_mutex_lock_full to leave/enter a recursive mutex
+	completly.
+
+	* gthread.c (g_thread_self): Do not test the system_thread to be
+	non-zero to speed things up.
+	
+	* gthread.c (g_mutex_init): Therefore set the system_thread of the
+	main thread here.
+
+	* tests/thread-test.c: Rerun all tests once again, but this time
+	we fool the system into thinking, that the available thread system
+	is not native, but userprovided.
+	
+2000-03-13  Sebastian Wilhelmi  <wilhelmi@ira.uka.de>
+
+	* gqueue.c (g_queue_push_tail_link, g_queue_push_head_link): We
+	want the next and prev pointer of the inserted link to be NULL.
+
+2000-03-06  Sebastian Wilhelmi  <wilhelmi@ira.uka.de>
+
+	* configure.in: Another small change to the pthread_.. search
+	pattern. Should work *now* for AIX.
+
+2000-03-04  Tor Lillqvist  <tml@iki.fi>
+
+	* gwin32.c (g_win32_error_message): New function that returns the
+	message string for a Win32 error code.
+
+	* glib.h: Declare it.
+
+	* glib.def: Export it, plus g_node_copy.
+
+2000-03-03  Sebastian Wilhelmi  <wilhelmi@ira.uka.de>
+
+	* configure.in: Make the search for pthread_attr_... prototypes
+	find names at the start of a line also, like it is on AIX. Thanks
+	to Valdis Kletnieks <Valdis.Kletnieks@vt.edu> for the info.
+
+Wed Mar  1 10:39:39 2000  Tim Janik  <timj@gtk.org>
+
+	* gslist.c (g_slist_reverse): minor optimization.
+
+	* testglib.c (g_node_test): added a couple of tests for
+	g_node_copy().
+
+	* glib.h:
+	* gnode.c (g_node_copy): new function to copy subtrees,
+	supplied by dbsears@ix.netcom.com.
+	changed iterator to walk the children list backwards, so
+	we get down from O(n^2) to O(n).
+
+	* gnode.c (g_node_first_sibling): applied patch from
+	dbsears@ix.netcom.com to optimize access if node->parent
+	is present.
+
+	* gutils.c (g_get_any_init): backed out HAVE_PW_GECOS check around
+	assignment of g_real_name, sicne HAVE_PW_GECOS is never defined and
+	thus breaks the original code.
+
+	* merged changes from 1.2.7.
+
+Fri Jan 28 11:37:41 2000  Owen Taylor  <otaylor@redhat.com>
+
+        Bug #4156 - Changes vaguely modelled after Scott Gifford's patch
+
+        * gtimer.c (g_timer_elapsed): Never report negative times -
+        clip times to 0.
+
+        * gmain.c (g_timeout_prepare): Guard against unexpected
+        clock shifts by never setting a timeout of more than
+        data->interval msecs.
+
+2000-02-27  Tor Lillqvist  <tml@iki.fi>
+
+	* glib.def: Add new functions.
+
+2000-02-23  Tor Lillqvist  <tml@iki.fi>
+
+	* README.win32: Add a missing step to the setup instructions for
+	gcc-2.95.2. Thanks to Arnaud Charlet.
+
+	* glib.def: Add missing entry point.
+
+2000-02-18  Sebastian Wilhelmi  <wilhelmi@ira.uka.de>
+
+	* configure.in: Changed GCC version test to also accept major
+	versions > 2. Thanks to Ben Gertzfield <che@debian.org> for
+	pointing this out.
+
+Thu Feb 17 12:53:44 2000  Tim Janik  <timj@gtk.org>
+
+        * gstring.c: changed g_str_hash() to a 31 bit version based on
+	a submission by Karl Nelson and hand optimized ad absurdum by
+	various people ;)
+
+	* gstring.c: applied patch from havoc for new gstring functions,
+	added some more sanity checks, coding style fixups.
+
+2000-02-13  Havoc Pennington  <hp@pobox.com>
+
+	* tests/string-test.c (main): Add tests for the new GString 
+	features
+
+	* testglib.c (main): Add tests for the new GString features
+
+	* gstring.c (g_string_insert_len): New function; insert 
+	a given length of string at a given position. 
+	(g_string_append): reimplement in terms of g_string_insert_len
+	(g_string_append_len): new function
+	(g_string_insert_c): accept -1 for "pos" arg to mean "append"
+	(g_string_append_c): reimplement in terms of g_string_insert_c
+	(g_string_prepend): reimplement in terms of g_string_insert_len
+	(g_string_prepend_len): new function
+	(g_string_prepend_c): reimplement in terms of g_string_insert_c
+	(g_string_insert): reimplement in terms of g_string_insert_len
+
+	* glib.h: Declare g_string_insert_len, g_string_append_len,
+	g_string_prepend_len
+	
+Sun Feb 13 08:16:47 2000  Tim Janik  <timj@gtk.org>
+
+	* configure.in: wtf??? someone destroyed the configure.in, reverting to
+	an older version from Feb 4 which apears to still work.
+
+2000-02-07  Tor Lillqvist  <tml@iki.fi>
+
+	* gmodule.rc.in gthread.rc.in: Move to corresponding subdirectories.
+
+	* Makefile.am
+	* gmodule/Makefile.am
+	* gthread/Makefile.am: Change accordingly.
+	
+	* makefile.cygwin: Corresponding changes, some cleanup.
+
+2000-02-05  Tor Lillqvist  <tml@iki.fi>
+
+	* glib.rc.in gmodule.rc.in gthread.rc.in: New files, for putting
+	version info in the DLLs on Win32.
+
+	* Makefile.am: Generate corresponding *.rc files and distribute
+	them.
+
+	* makefile.cygwin.in: Add rules to automatically bump a "build
+	number" in the version info in the rc files each time the DLL is
+	built. But do this only for the person who releases binaries. If
+	others build the DLLs, the build number is set to zero.
+
+Fri Feb  4 19:36:05 2000  Tim Janik  <timj@gtk.org>
+
+	* glib.h: 
+	* gdataset.c: return stolen data from g_datalist_id_remove_no_notify()
+	and g_dataset_id_remove_no_notify() to avoid second lookup for common
+	use.
+
+2000-02-01  Tor Lillqvist  <tml@iki.fi>
+
+	* glib.h
+	* gstrfuncs.c (g_filename_to_utf8, g_filename_from_utf8): New
+	functions for conversion between UTF-8 and the encoding expected
+	by C runtime functions like open() and stat(), and returned by
+	readdir().
+
+	Implement them on Win32 where we use the system "ANSI" codepage,
+	which might be single-byte or double-byte. On Unix, just skip the
+	issue for now and provide dummy implementations that return a copy
+	of the argument.
+
+	* README.win32
+	* build-dll
+	* glib.def: Minor updates.
+
+Wed Jan 26 05:24:38 2000  Tim Janik  <timj@gtk.org>
+
+	* glib.h:
+	* gmain.c: s/current_time/dispatch_time/ for the dispatch() handlers.
+	refetch the current time after invocation of poll() to cover up for
+	the time spent in that function call.
+
+Fri Jan 21 10:18:24 2000  Owen Taylor  <otaylor@redhat.com>
+
+	* glib.h (G_N_ELEMENTS): Added G_N_ELEMENTS macro to determine
+	the number of elements in an array.
+
+Sun Jan  9 13:28:36 2000  Tim Janik  <timj@gtk.org>
+
+	* gstrfuncs.c (g_strtod): correctly fetch the current locale,
+	fix from owen.
+
+1999-12-16  Tor Lillqvist  <tml@iki.fi>
+
+	* gmodule/gmodule-win32.c: Use FormatMessage to translate system
+	error codes into textual messages.
+
+1999-11-25  Sebastian Wilhelmi  <wilhelmi@ira.uka.de>
+
+	* glib.h (G_TRYLOCK): This of course should return TRUE in a
+	program with a thread-disabled GLib.
+
+1999-11-18  Tor Lillqvist  <tml@iki.fi>
+
+	* glib.def: g_strjoin was missing.
+
+1999-11-16  Sebastian Wilhelmi  <wilhelmi@ira.uka.de>
+
+	* acconfig.h, config.h.win32.in, configure.in: Renamed
+	GLIB_SIZEOF_PTHREAD_T to GLIB_SIZEOF_SYSTEM_THREAD to reflect
+	changed meaning.
+
+	* configure.in: Cope with systems, that have a pthread_t type,
+	that is not a pointer. Hint from Karl Nelson
+	<kenelson@ece.ucdavis.edu>. Define GLIB_SIZEOF_SYSTEM_THREAD to 4
+	for Solaris. Cope with systems, that have no default mutex
+	initialize, like obviously most DCE systems.
+
+	* glib.h, gthread.c: Changed the prototype of thread_create and
+	thread_self to return the system thread into provided memory
+	instead of a return value. This is necessary, as HPUX has a
+	pthread_t, that is bigger than the biggest integral type there.
+
+	* gthread.c: system_thread is no longer a pointer, but an memory
+	area of size GLIB_SIZEOF_SYSTEM_THREAD. Changed the
+	zeroinitialization and the tests for zeroness accordingly.
+
+1999-11-09  Sebastian Wilhelmi  <wilhelmi@ira.uka.de>
+
+	* configure.in: Create docs/glib-config.1 from
+	docs/glib-config.1.in. Makes 'make distcheck' happy (and me too).
+
+	* glib-config.1: Removed from CVS, as it is a generated file.
+
+1999-11-08  Sebastian Wilhelmi  <wilhelmi@ira.uka.de>
+
+        * configure.in: Make the test for getpwuid_r work on newer AIX
+        versions, too. Still works on Solaris and Linux. Patch from Craig
+        Rodrigues <rodrigc@mediaone.net>.
+
+1999-11-08  Tor Lillqvist  <tml@iki.fi>
+
+	* gwin32.c (g_win32_getlocale): Look at env vars LC_ALL, LC_CTYPE
+	and LANG first. Some refinements to the sublanguage logic.
+
+1999-11-04  Tor Lillqvist  <tml@iki.fi>
+
+	* makefile.{cygwin,msc}.in: Add gwin32 object. Add rule to make .i
+	(preprocessed source) files.
+
+1999-11-01  Tor Lillqvist  <tml@iki.fi>
+
+	* glib.h
+	* glib.def: Rename Win32-only functions from gwin_* to g_win32_*
+	to match the GLib naming conventions.
+
+	* gutils.c
+	* gwin32.c
+	* testglib.c
+	* Makefile.am: Move the Win32-only functions to the new
+	file gwin32.c
+
+1999-10-31  Tor Lillqvist  <tml@iki.fi>
+
+	* gutils.c (gwin_getlocale): New Win32-specific function, returns
+	a Unixish current locale string (en, zh_TW etc).
+
+	* glib.h: Declare it.
+
+	* glib.def: Export it.
+
+	* testglib.c: Test it.
+
+	* gmessages.c (Win32: ensure_stdout_valid): Some improvements,
+	make sure we don't call AllocConsole several times, which I think
+	has happened.
+
+Sun Oct 31 18:55:01 1999  ape@spacetec.no  (Asbjorn Pettersen)
+
+	* gcache.c (g_cache_remove): Test if node is NULL.
+	If not tested, GIMP's script-fu will crash. 
+
+Sun Oct 17 18:11:40 1999  Tim Janik  <timj@gtk.org>
+
+        * gdataset.c (g_data_set_internal): remove g_dataset_global_lock around
+        destroy() notification here as well.
+
+1999-10-15  Sebastian Wilhelmi  <wilhelmi@ira.uka.de>
+
+        * gdataset.c (g_datalist_clear_i): Avoid Freezing, when g_datalist
+        is called recursivly. Reported by Ola Andersson <rand@ling.umu.se>.
+
+Tue Oct 12 14:17:12 1999  Tim Janik  <timj@gtk.org>
+
+	* glib.h: removed useless g_string(x) macro that cluttered the namespace
+	and was just a poor wrapper around the cpp '#' symbol, use #x if you
+	need to work around this.
+	added new macro G_STRINGIFY(arg) that will convert arg to a string,
+	no matter whether it contains macros or not.
+
+1999-10-12  Tor Lillqvist  <tml@iki.fi>
+
+	* config.h.win32.in: Define the new GLIB_SIZEOF_* constants here,
+	too.
+
+	* glib.h: Small Win32 comments improvement.
+
+Tue Oct 12 12:16:12 1999  Tim Janik  <timj@gtk.org>
+
+	* gmessages.c (g_printf_string_upper_bound): completly new implementation
+	for printf string upper bounds calculation.
+	we handle all glibc 2.1 format specifiers now, except for positional
+	parameters (%nn$...) and wide char strings, plus some obscure upper
+	case variants of the standard conversions. this fixes a lot of
+	bugs in the old code, i.e.
+	- NULL format strings
+	- floats with exponents >+24
+	- %G
+	- precision specifications in general
+	- negative field widths
+	- %p for SIZEOF_VOID_P > 4 platforms
+	we now issue warnigns in places where the old code would have
+	caused buffer overruns anyways. warnings are suppressed when invoked
+	from glogv(), to avoid infinite recursions if someone passes a log
+	message that comes with really obscure format specifications.
+
+Tue Oct 12 11:49:00 1999  Tim Janik  <timj@gtk.org>
+
+	* gstrfuncs.c: nuked old g_printf_string_upper_bound() version.
+
+Tue Oct 12 03:34:40 1999  Tim Janik  <timj@gtk.org>
+
+	* glib.h: added GFloatIEEE754 and GDoubleIEEE754 unions to access sign,
+	mantissa and exponent of IEEE floats and doubles (required by the new
+	version of g_printf_string_upper_bound). the unions are endian specific,
+	we handle G_LITTLE_ENDIAN and G_BIG_ENDIAN as of currently. ieee floats
+	and doubles are supported (used for storage) by at least intel, ppc and
+	sparc, reference:
+        http://twister.ou.edu/workshop.docs/common-tools/numerical_comp_guide/ncg_math.doc.html
+	
+Mon Oct 11 18:01:49 1999  Tim Janik  <timj@gtk.org>
+
+	* configure.in: added additional checks to figure sizes of size_t,
+	ptrdiff_t and intmax_t (required by g_printf_string_upper_bound).
+
+Wed Oct  6 12:44:23 PDT 1999 Manish Singh <yosh@gimp.org>
+
+	* configure.in: blah. use G_WITH_CYGWIN instead of G_HAVE_CYGWIN
+
+1999-10-05  Tor Lillqvist  <tml@iki.fi>
+
+	* glib.h: (Win32) Drop the mapping of POSIX function names to the
+	underscored versions, it's unnecessary after all. With MSVC we get
+	them from oldnames.lib, with gcc-2.95 and mingw32 from
+	-lmoldname-msvc. Add comment about what headers to include for
+	prototypes.
+
+	* glibconfig.h.win32.in: Don't define WIN32 and NATIVE_WIN32.
+
+	* gerror.c (g_on_error_query): (Win32) Slightly increased verbosity.
+
+	* build-dll: Don't strip.
+
+	* tests/string-test.c tests/dirname-test.c: Use G_OS_WIN32.
+
+	* glib.def: Add g_thread_use_default_impl.
+
+Sun Oct  3 19:46:55 PDT 1999 Manish Singh <yosh@gimp.org>
+
+	* configure.in: use G_HAVE_CYGWIN instead of G_OS_FEATURE_CYGWIN
+
+Sun Oct  3 19:25:42 PDT 1999 Manish Singh <yosh@gimp.org>
+
+	* acconfig.h
+	* configure.in
+	* glibconfig.h.win32: G_OS_FOO #defines. I *think* I got the cygwin
+	and beos stuff right, but I haven't tested it. The respective
+	porters should fix any screwups
+
+	* glib.h
+	* gerror.c
+	* gmain.c
+	* gmessages.c
+	* gscanner.c
+	* gthread.c
+	* gtimer.c
+	* gutils.c
+	* testglib.c: use G_OS stuff
+
+Wed Sep 22 01:53:18 1999  Tim Janik  <timj@gtk.org>
+
+	* glib.h (NULL): define NULL as (0L) if __cplusplus is defined, to
+	avoid "ANSI C++ forbids implicit conversion from `void *' in argument
+	passing" errors upon NULL usage in C++ programs (gcc-2.95 is on crack
+	for erroring out on this, instead of just issueing a warning).
+
+	* glib.h (g_trash_stack_pop): use uncasted NULL again.
+	
+Fri Sep 17 10:24:45 1999  Tim Janik  <timj@gtk.org>
+
+	* gmem.c (g_mem_chunk_compute_size) (g_mem_chunk_new): applied patch
+	from Soeren Sandmann <sandmann@daimi.au.dk>, to force mem chunk's area
+	sizes to be a multitiple of atom_size, and to eliminate the MAX_MEM_AREA
+	restriction of 65536 bytes. we also catch cases where users pass an area
+	size < atom size with a return_if_fail statement now (which is ok,
+	because previously this lead to memory corruption anyways).
+
+Thu Sep 16 13:19:54 1999  Tim Janik  <timj@gtk.org>
+
+	* glib.h (g_trash_stack_pop): add explicit (GTrashStack*) cast for NULL
+	pointer to cure ANSI C++ error.
+
+Mon Sep 13 23:25:59 1999  Tim Janik  <timj@gtk.org>
+
+	* gmessages.c (g_logv): in case we have to abort the program,
+	debugging is enabled and we are not called recursively, try
+	to abort with raise (SIGTRAP) first, so developers may ignore
+	certain failure conditions during debugging stage.
+
+Thu Aug 26 15:09:36 1999  Tim Janik  <timj@gtk.org>
+
+	* Makefile.am:
+	* gmodule/Makefile.am:
+	* gthread/Makefile.am: added --export-dynamic so we can load dynmic
+	modules, (required, according to the libtool 1.3.3 docu).
+
+1999-07-23  Sebastian Wilhelmi  <wilhelmi@ira.uka.de>
+
+	* grand.c (g_rand_new): Use /dev/urandom, as it doesn't block,
+	which /dev/random might do. Do not XOR the time, when getting the
+	seed form /dev/urandom, as this is good itself. Prevent the
+	initial seed from being zero, which causes the PRNG to produce
+	only zeros. Hints from Colin Plumb <colin@pgp.com>.
+
+1999-08-17  Tor Lillqvist  <tml@iki.fi>
+
+	* glib.h (g_trash_stack_push): Add a cast.
+
+	* gslist.c
+	* glist.c: Make the inline functions static inline, and add
+	separate extern wrappers. Not all compilers produce callable entry
+	points for inline functions, even if gcc does.
+
+Sun Aug 15 02:47:14 1999  Tim Janik  <timj@gtk.org>
+
+	* glib.h (g_trash_stack_pop): eliminate memset() call, since string.h
+	has not neccessarily been included prior to glib.h.
+
+Mon Aug  2 21:03:10 1999  Tim Janik  <timj@gtk.org>
+
+	* configure.in: added --enable-msg-prefix option.
+
+	* gmessages.c (g_log_default_handler): feature "prg_name (pid:%u): "
+	if --enable-msg-prefix was selected (use "(process:%u): " if
+	g_get_prgname () returns NULL, along the lines of g_on_error_query).
+
+1999-08-03  Tor Lillqvist  <tml@iki.fi>
+
+	* glib.h
+	* gstrfuncs.c
+	* tests/strfunc-test.c: Rename g_strccpy to g_strcompress and
+	g_strecpy to g_strescape per Tim Janik's suggestion. Dropped the
+	destination parameter, always g_malloc a new string.  Fix bug in
+	g_strcompress, octal digits were gobbled up without limit, should
+	use max three.
+
+	Sources that use g_strescape must have ifdefs to be compilable
+	both with GLib 1.2 and 1.3.
+
+Sat Jul 31 17:52:03 PDT 1999 Manish Singh <yosh@gimp.org>
+
+	* glib.h
+	* gstrfuncs.c: the #define for g_strescape interfered with the
+	compilation of the function, so just remove the function and
+	note that it's deprecated in the header
+
+1999-08-01  Tor Lillqvist  <tml@iki.fi>
+
+	* gstrfuncs.c (g_strccpy, g_strecpy): New functions.
+
+	* glib.h: Declare and document them. Define the deprecated
+	g_strescape as a macro that calls g_strecpy.
+
+	* tests/strfunc-test.c (main): Test them.
+
+	* makefile.{cygwin,msc}.in
+	* tests/makefile.{cygwin,msc}.in: Remove gstack and its test
+	program.
+
+	* glib.def: Additions and removals.
+
+	* README.win32: Improve gcc build instructions.
+
+	* build-dll: Also build import library for MSVC.
+
+Sat Jul 24 20:11:35 1999  Tim Janik  <timj@gtk.org>
+
+	* merged GLib 1.3.0 with glib-1.2.3 from Fri Jul 16 22:18:36.
+	* incorporated proposed cleanups from gtk-devel-list.
+
+	* bumped version number to GLib-1.3.1
+
+	* glib.h:
+	* gqueue.c:
+	* gstring.c:
+	* glist.c:
+	removed string tokenisation (we got g_strsplit() and g_strjoin()
+	already) and readline functions.
+	s/g_list_delete/g_list_delete_link.
+	implemented g_slist_delete_link.
+	removed notion of g_ATEXIT() macro in glib.h, this is an *internal*
+	macro, g_atexit() is provided for public consumption.
+	added GTrashStack inline utility functions.
+	reimplement double eneded queues.
+	removed GStack implementation, people can use a queue or a (singly)
+	linked list for this task.
+	deprecated g_strescape(), we need the SunOS variants here.
+
+	* gdate.c: added DEBUG_MSG() macro to wrap old messages.
+	
+	* *.*: CVS merges.
+
+	* upgrade to libtool 1.3.3.
+
+1999-07-21  Tor Lillqvist  <tml@iki.fi>
+
+	Win32: With the latest gcc (2.95, pre-release), we can have binary
+ 	compatibility with MSVC by using the switch -fnative-struct. No
+ 	longer build DLLs with .gcc in the name when using gcc.
+
+	* README.win32: Renew gcc build instructions.
+
+	* build-dll: Comments change, handle also .a files.
+
+	* makefile.cygwin.in
+	* tests/makefile.cygwin.in: Remove .gcc from DLL name.
+	
+1999-07-13  Tor Lillqvist  <tml@iki.fi>
+
+	* README.win32: Correct URL for mingw runtime sources.
+
+	* build-dll: Combine commands with &&.
+
+	* glib.h: Map also rmdir() and hypot() for MSVCRT library.
+
+	* makefile.cygwin.in
+	* tests/makefile.cygwin.in: New DLL naming style. GCC-compiled DLLs are
+ 	now called *.gcc.dll, to avoid binary incompatibilities with
+ 	MSVC-compiled versions.
+
+	* makefile.msc.in: Cosmetics.
+
+1999-07-07  Sebastian Wilhelmi  <wilhelmi@ira.uka.de>
+
+	* configure.in: Test for pthread_join rather than for
+	pthread_create to determine the right thread-lib. Makes it work on
+	mips-sgi-irix6.5. Hitn from to Jari Vuoksenranta
+	<javu@piano.ux.phys.jyu.fi>.
+
+1999-07-02  Tor Lillqvist  <tml@iki.fi>
+
+	* README.win32: Note about need to fix another bug in the mingw32
+ 	headers.
+
+	* makefile.msc.in: Debugging turned on via an nmake variable,
+	no need to edit the makefile.
+
+1999-07-01  Sebastian Wilhelmi  <wilhelmi@ira.uka.de>
+
+	* configure.in, acconfig.h, gutils.c: Added a g_memmove
+	replacement for platforms without memmove, where bcopy can't
+	handle overlapping copies and the corresponding checks, which is
+	taken form the PERL Configure routine.
+
+	* glib.h: Updated the commentary about g_memmove to be right and
+	more GLib-like.
+	
+	* configure.in: Removed test for rand_r, as it isn't used anymore.
+
+1999-06-30  Sebastian Wilhelmi  <wilhelmi@ira.uka.de>
+
+	* glib.h, grand.c: Finally removed the g_random_normal and
+	g_rand_normal functions.
+
+1999-06-28  Tor Lillqvist  <tml@iki.fi>
+
+	* glib.def: Add missing export of g_strncasecmp.
+
+1999-06-21  Jose Mercado  <jmercado@mit.edu>
+
+	* glib.spec.in: Changed version number (1.1->1.3) in files section
+	to allow rpm to build packages again.
+
+1999-06-21  Tor Lillqvist  <tml@iki.fi>
+
+	* README.win32: Update the pthreads snapshot version we want.
+	Advice how to hand-expand the makefile.*.in files.
+
+	* config.h.win32.in: Define values needed by Sebastian Wilhelmi's
+	new thread stuff.
+
+	* glib.def: Add new functions.
+
+	* glibconfig.h.win32.in: Update the pthreads snapshot version.
+	Fix typo.
+
+	* gthread.c: Include config.h, guard inclusion of unistd.h.  When
+ 	using gcc on Win32, g_thread_functions_for_glib_use must be marked
+ 	for export here, too.
+
+	* gtimer.c: Implement g_usleep on native Win32 using Sleep (which
+	only has millisecond granularity, though).
+	
+	* makefile.cygwin.in
+	* makefile.msc.in: Update pthreads snapshot version. File
+	name changes. Remove testgthread.
+
+	* tests/makefile.cygwin.in
+	* tests/makefile.msc.in: Add thread-test. Link with gthread lib.
+
+1999-06-18  Jeff Garzik  <jgarzik@pobox.com>
+
+	* tests/Makefile.am:  Re-order tests in alpha order.
+
+1999-06-18  Sebastian Wilhelmi  <wilhelmi@ira.uka.de>
+
+	* configure.in: Changed test for pthread_attr_setstacksize from
+	AC_TRY_COMPILE to AC_TRY_LINK.
+
+1999-06-17  Sebastian Wilhelmi  <wilhelmi@ira.uka.de>
+
+	* configure.in, acglib.m4, acconfig.h, glib.h, gthread.c:
+	Completed the thread support in GLib. Thread creation,
+	prioritizing threads, yielding, joining threads as well as
+	reader/writer locks and recursive mutexes are now in place. Please
+	test heavily on your platform. It is so far tested on
+	Linux/i386/pthreads, Solaris/Sparc/pthreads and
+	Solaris/Sparc/solaristhreads.
+
+	* gtimer.c, glib.h: Implement g_usleep (gulong microseconds) for
+	thread safe sleeping. (sleep() is not MT-safe at all!)
+
+	* gutils.c: Avoid compiler warning.
+
+	* tests/Makefile.am, tests/thread-test.c: New program to test some
+	aspects of the thread implementation.
+
+	* gthread.c, Makefile.am: Renamed from gmutex.c to reflect the
+	change of content.
+
+	* configure.in: Purged all appearances of nspr. 
+
+Wed Jun  2 11:42:46 PDT 1999 Manish Singh <yosh@gimp.org>
+
+	* acinclude.m4
+	* config.guess
+	* config.status
+	* ltconfig
+	* ltmain.sh: upgrade to libtool 1.3.2 (BeOS changes merged)
+
+1999-05-29  Tor Lillqvist  <tml@iki.fi>
+
+	* gstrfuncs.c (g_strescape): Backslashify also '"' characters.
+
+	* glib.h: Document g_strescape.
+
+1999-05-12  Tor Lillqvist  <tml@iki.fi>
+
+	* glib.h (Win32): Map fileno to _fileno for mingw32. Map fstat to
+ 	_fstat.
+
+	* README.win32: Advice also to remove -lmoldname in the
+ 	patch to the egcs-1.1.2 spec file.
+
+Wed May 12 00:23:55 CDT 1999 Shawn T. Amundson <amundson@gtk.org>
+
+	* gmodule/Makefile.am: Another small fix.
+
+1999-05-08  Tor Lillqvist  <tml@iki.fi>
+
+	* Makefile.am tests/Makefile.am: Correct rules for making the
+	win32-related files that are made from corresponding .in files.
+	Is there a cleaner way than explicitly writing rules that invoke
+	config.status?
+
+Fri Jul 16 22:18:36 PDT 1999 Manish Singh <yosh@gimp.org>
+
+	* ltconfig
+	* ltmain.sh: upgrade to libtool 1.3.3
+
+1999-06-18  Sebastian Wilhelmi  <wilhelmi@ira.uka.de>
+
+	* gdate.c, gstrfuncs.c, gstring.c: Fixed the use of the
+	is..... and to..... macros, which take unsigned chars, not chars!
+	Thanks to Morten Welinder <terra@diku.dk> for pointing this out.
+
+Thu Jun  3 16:30:31 PDT 1999 Manish Singh <yosh@gimp.org>
+
+	* gerror.c (g_on_error_query): check isatty() before querying so
+	we don't loop endlessly
+
+Sat May 29 11:16:29 PDT 1999 Manish Singh <yosh@gimp.org>
+
+	* acinclude.m4
+	* config.guess
+	* config.status
+	* ltconfig
+	* ltmain.sh: upgrade to libtool 1.3.2
+
+1999-05-26  Sebastian Wilhelmi  <wilhelmi@ira.uka.de>
+
+	* gmain.c: provide a poll prototype for SunOS, as they do not do
+	it self. Hint from Christian Parg <cparg@fs-design.de>.
+
+Tue May 25 12:23:07 1999  Owen Taylor  <otaylor@redhat.com>
+
+	* gstrfuncs.c (g_strchug): Use g_memmove() not memmove().
+	(Reported by Charles Levert <charles@comm.polymtl.ca>)
+
+Mon May 10 22:03:52 CDT 1999 Shawn T. Amundson <amundson@gtk.org>
+
+	* Released GLib 1.2.3
+
+1999-05-08  Tor Lillqvist  <tml@iki.fi>
+
+	* Makefile.am tests/Makefile.am: Correct rules for making the
+	win32-related files that are made from corresponding .in files.
+	Is there a cleaner way than explicitly writing rules that invoke
+	config.status?
+	
+Sat May  1 10:18:01 PDT 1999 Manish Singh <yosh@gimp.org>
+
+	* acinclude.m4
+	* config.guess
+	* config.status
+	* ltconfig
+	* ltmain.sh: upgrade to libtool 1.3
+
+1999-04-30  Tor Lillqvist  <tml@iki.fi>
+
+	* Makefile.am: Don't distribute glibconfig.h.win32.in, but
+	glibconfig.h.win32. Generate it when making a dist. Also generate
+	makefile.msc and config.h.win32 from corresponding .in files when
+	making dist.
+
+	* configure.in: Also substitute @GLIB_INTERFACE_AGE@ and
+	@GLIB_BINARY_AGE@ (needed in config.h.win32).
+	
+	* glibconfig.h.win32.in: Use static mutex structure and initial
+	value corresponding to the 1999-04-07 snapshot of pthreads-win32.
+
+	* tests/Makefile.am: Distribute makefile.msc. Generate it when
+	making dist.
+
+	* tests/makefile.msc.in: New file.
+
+	* tests/node-test.c: Include <stdlib.h> for exit().
+
+Thu Apr 29 02:16:36 1999  Tim Janik  <timj@gtk.org>
+
+	* gstrfuncs.c: minor code cleanups.
+
+Tue Apr 27 13:11:29 1999  Owen Taylor  <otaylor@redhat.com>
+
+	* gmain.c (g_main_poll): Mask out ERR HUP and NVAL from
+	the events field so we don't give IRIX fits.
+
+Tue Apr 20 08:42:22 1999  Tim Janik  <timj@gtk.org>
+
+	* gscanner.c (g_scanner_unexp_token): behave conservative with
+	G_TOKEN_IDENTIFIER_NULL and always assume scanner->value.v_string
+	to be "null" in that case.
+
+1999-04-20  Havoc Pennington  <hp@pobox.com>
+
+	* gutils.c (g_vsnprintf):  When using the vsnprintf()
+	implementation, '\0'-terminate the resulting string
+	and return its length rather than -1.
+
+Mon Apr 19 13:42:21 1999  Owen Taylor  <otaylor@redhat.com>
+
+	* gmain.c (g_main_iterate): Added missing
+	#ifdef G_THREADS_ENABLED. (I never liked G_THREADS_ENABLED in
+	the first place!)
+
+1999-04-18  Havoc Pennington  <hp@pobox.com>
+
+	* gutils.c (g_snprintf): When using the vsnprintf()
+	implementation, '\0'-terminate the resulting string
+	and return its length rather than -1.
+
+Fri Apr 16 06:52:07 1999  Tim Janik  <timj@gtk.org>
+
+	* gscanner.c (g_scanner_unexp_token): feature G_TOKEN_EOF as a valid
+	expected token as well, so we get "- expected end of file" instead of
+	"- expected (unknown) token <0>".
+
+Tue Apr 13 16:16:14 CDT 1999 Shawn T. Amundson <amundson@gtk.org>
+
+	* Released GLib 1.2.2
+
+1999-04-12  Elliot Lee  <sopwith@mh69.mh.cuc.edu>
+
+	* g_strchug(): s/strcpy/memmove/
+
+1999-04-12  Sebastian Wilhelmi  <wilhelmi@ira.uka.de>
+
+	* configure.in: Adjusted the test for an unimplemented
+	getpwuid_r. Info from Michael Pruett <mikep@ugcs.caltech.edu>.
+
+Sun Apr 11 15:07:34 1999  Tim Janik  <timj@gtk.org>
+
+	* configure.in: bumped versin number to GLib 1.2.2, interface 2,
+	binary 2.
+	
+	* NEWS: updates.
+
+Sun Apr 11 14:37:06 1999  Tim Janik  <timj@gtk.org>
+
+	* gstrfuncs.c (g_strcasecmp): always check for s1, s2 != NULL.
+
+Sat Apr 10 19:30:50 1999  Tim Janik  <timj@gtk.org>
+
+	* glib.h: removed braces around inline strings for the G_GNUC_FUNCTION
+	and G_GNUC_PRETTY_FUNCTION macros, so the macros can be used for compile
+	time string concatenation.
+
+Thu Apr  8 19:53:19 1999  Owen Taylor  <otaylor@redhat.com>
+
+	* gmain.c (g_main_iterate): Check for two threads
+	calling g_main_iterate at once.
+
+	* gmain.c: If the set of poll file descriptors changes
+	during a call to poll(), abort that call, and start
+	a new poll. My test program still segfaults
+	obscurely on glibc 2.0 (in read()!!!), but now it works on
+	glibc 2.1, so I'll blame something else for the other segfault.
+
+1999-03-31  Sebastian Wilhelmi  <wilhelmi@ira.uka.de>
+
+	* configure.in: Fixed slight bug, that made configure hang on some
+	systems. Please do not merge this into 1.3 branch. It's taken care
+	of differently there. Info from J. Rhett Aultman
+	<cuplan@alley.gator.net>
+	
+Wed Mar 24 21:23:47 CST 1999 Shawn T. Amundson <amundson@gtk.org>
+
+	* Released GLib 1.2.1
+
+	* README:
+	  INSTALL: 
+	  NEWS: 
+	  sanity_check: updated
+
+	* glibconfig.h.win32.in:
+	  Makefile.am:
+ 	  docs/glib-config.1.in:
+	  docs/Makefile.am: Added files used to generate new files.
+
+	* glibconfig.h.win32:
+	  docs/glib-config.1: Removed, now generated.
+
+	* configure.in: Added to output now-generated files.
+	
+Tue Mar 23 13:43:39 PST 1999 Manish Singh <yosh@gimp.org>
+
+	* giounix.c: add user_data param to check and prepare functions
+
+Mon Mar 22 03:54:43 1999  Tim Janik  <timj@gtk.org>
+
+	* glib.h:
+	* gmain.c: add user_data to the GSource ->check and ->prepare functions,
+	so it can be used to e.g. pass a GPollFd.
+	(g_main_poll): only add poll records with an events mask != 0 to the
+	fd_array. don't even bother calling poll_func() if fds=timeout=0.
+	added debugging printouts around poll_func() invokation that can be
+	enabled with #define G_MAIN_POLL_DEBUG.
+
+Fri Mar 19 16:29:50 PST 1999 Manish Singh <yosh@gimp.org>
+
+	* acinclude.m4
+	* config.guess
+	* config.sub
+	* ltconfig
+	* ltmain.sh: upgrade to libtool 1.2f
+
+	* autogen.sh: libtool is not required to autogen glib
+
+	* acconfig.h: remove WITH_SYMBOL_UNDERSCORE (not explictly
+	needed)
+
+1999-03-18  Sebastian Wilhelmi  <wilhelmi@ira.uka.de>
+
+	* gmem.c: Fixed another stupid fault of mine: Did
+	s/g_static_/g_private_/g
+
+Wed Mar 17 03:17:42 1999  Tim Janik  <timj@gtk.org>
+	
+	* configure.in bumped versin number to GLib 1.2.1, interface 1,
+	binary 1.
+	
+	* NEWS: updates.
+
+	* glib.h: added GLIB_CHECK_VERSION() macro similar to
+	GTK_CHECK_VERSION().
+
+Sun Mar 14 17:50:35 1999  Tim Janik  <timj@gtk.org>
+
+	* gmem.c (g_mem_chunk_*): changed a bunch of g_assert() statements
+	to g_return_if_fail().
+	(g_mem_profile): 
+	(g_mem_chunk_print): 
+	(g_mem_chunk_info): removed some extraneous "\n"s at the end of the log
+	messages.
+
+	* gtimer.c (g_timer_*):	changed a bunch of g_assert() statements
+	to g_return_if_fail().
+	* grel.c (g_*): changed a bunch of g_assert() statements to
+	g_return_if_fail() and added some extra ones to check relation != NULL.
+
+1999-03-12  Sebastian Wilhelmi  <wilhelmi@ira.uka.de>
+
+	* configure.in: Also accept _Pctime_r instead of ctime_r, while
+	seraching for the right `_REENTRANT' flag. This is for Digital
+	UNIX 4.0d. Thanks to Sascha Brawer <sb@adasys.ch>.
+
+Tue Mar  9 23:25:50 1999  Tim Janik  <timj@gtk.org>
+
+	* configure.in: check for working realloc (NULL,).
+	* gmem.c (g_realloc): use malloc() for initial allocation on systems
+	where realloc(NULL,) will not work (this is the case on SunOS, reported
+	by Tom Geiger).
+
+Mon Mar  8 07:42:08 1999  Tim Janik  <timj@gtk.org>
+
+	* ghook.c (g_hook_unref): when !hook_list->is_setup, wrap the
+	flag around the call to g_hook_free() to avoid spurious
+	warnings (happens during destruction phase).
+
+1999-03-03  Sebastian Wilhelmi  <wilhelmi@ira.uka.de>
+
+	* glibconfig.h.win32, config.h.win32: Moved G_THREADS_IMPL_POSIX
+	from config.h.win32 to glibconfig.h.win32
+
+	* acconfig.h, configure.in, config.h.win32: Added test for DCE
+	versions of mutex_trylock and cond_timedwait. The win32 versions
+	are posix, aren't they?
+
+1999-03-02  Sebastian Wilhelmi  <wilhelmi@ira.uka.de>
+
+	* gmem.c: Fixed a stupid cut'n'paste error of mine. Thanks to
+	Friedrich Dominicus <Friedrich.Dominicus@inka.de>
+
+1999-03-01  Sebastian Wilhelmi  <wilhelmi@ira.uka.de>
+
+        * gutils.c (g_get_any_init): Fixed yet another bloody
+        implementation of getpwuid_r on AIX. Thanks to Olaf Dietsche
+        <olaf.dietsche+list.gtk@netcologne.de>. I would like a configure
+        test better than that, but have no idea, how to do that easily.
+
+Sun Feb 21 22:11:51 CST 1999  Shawn T. Amundson <amundson@gtk.org>
+
+	* Released GLib 1.2.0
+
+	* AUTHORS: updated
+
+Wed Feb 24 00:08:42 CST 1999 Shawn T. Amundson <amundson@gtk.org>
+
+	* *.[ch]: inserted additional note to look for ChangeLog and
+	  AUTHORS file for a log of modifications.
+
+Sun Feb 21 14:01:00 1999  Dr Mike <drmike@redhat.com>
+
+	* Made specfile generated, tweaked slightly
+	
+Sat May  8 06:00:17 CDT 1999 Shawn T. Amundson <amundson@gtk.org>
+
+	* configure.in
+	  gmodule/Makefile.am
+	  gthread/Makefile.am: Better testing reveals better
+	  methods.  Fixes for BeOS.
+
+Sat May  8 01:52:29 CDT 1999 Shawn T. Amundson <amundson@gtk.org>
+
+	* configure.in
+	  gerror.c
+	  gmain.c
+	  gstrfuncs.c
+	  gutils.c
+	  ltconfig
+	  ltmain.sh
+	  gmodule/Makefile.am
+	  gmodule/gmodule.c
+	  gmodule/gmoduleconf.h.in
+          gmodule/gmodule-beos.c
+	  gthread/Makefile.am: Port to BeOS by myself and Richard Offer.
+
+1999-05-06  Tor Lillqvist  <tml@iki.fi>
+
+	* makefile.msc.in makefile.cygwin.in glibconfig.h.win32.in
+ 	config.h.win32.in tests/makefile.msc.in tests/makefile.cygwin.in:
+ 	New files, used to generate corresponding non-.in files when
+ 	making a dist. This is just so the version numbers will be kept in
+ 	synch automatically.
+
+	* configure.in: Also substitute @GLIB_MAJOR_VERSION@,
+ 	@GLIB_MINOR_VERSION@, and @GLIB_INTERFACE_AGE@.
+	
+	* Makefile.am tests/Makefile.am: Also distribute makefile.cygwin.
+	
+	* gerror.c (g_on_error_query): On Win32, put up a MessageBox and
+ 	then exit.
+
+	* glib.def: Add a couple of functions.
+	
+Sat May  1 10:26:20 PDT 1999 Manish Singh <yosh@gimp.org>
+
+	* acinclude.m4
+	* config.guess
+	* config.status
+	* ltconfig
+	* ltmain.sh: upgrade to libtool 1.3
+
+1999-04-25  Tor Lillqvist  <tml@iki.fi>
+
+	* README.win32: More editing.
+	* build-dll: Use gcc, not ld to link.
+	* glib.h: On native Win32 use _unlink().
+	* gscanner.c: Use corrent NATIVE_WIN32 feature test macro,
+	not _MSC_VER.
+	* gstring.c: Include <io.h> on Win32 for _read prototype.
+	* gutils.c: Remove old IO channel code (was in #if 0).
+	* makefile.cygwin: Don't need to link with kernel32 and msvcrt
+	explicitly, they are included anyway.
+
+1999-04-24  Tor Lillqvist  <tml@iki.fi>
+
+	Support added for building using a GNU toolchain on Win32,
+	i.e. gcc -mno-cygwin on cygwin (a.k.a. mingw32, using egcs-1.1.2).
+
+	* README.win32: Updated.
+	* build-dll makefile.cygwin tests/makefile.cygwin: New files.
+	* glib.h glib.def glibconfig.h.win32: Slight updates. 
+	* gmain.c: No need to include <fcntl.h> and <io.h> on Win32.
+	* gmain.c gutils.c testglib.c tests/string-test.c: Test for
+	NATIVE_WIN32, not _MSC_VER.
+	* gmutex.c: Must declare g_thread_functions_for_glib_use as
+	exported (using the GUTILS_C_VAR macro).
+	* gutils.c gmodule/libgplugin_[ab].c: LibMain not needed.
+	* gmodule/gmoduleconf.h.win32: Need underscore with gcc.
+	* gthread/gthread.c: With gcc on Win32, must use memcpy to assign
+	value of g_thread_functions_for_glib_use (?).
+	* makefile.msc tests/makefile.msc: Cosmetics.
+
+Fri Apr 23 14:29:25 BST 1999  Tony Gale <gale@gtk.org>
+
+	* glib.h: Fix typo in g_string_ncasecmp macro (by me).
+	  Add b_string_strncasecmp macro.
+
+1999-04-22  Sebastian Wilhelmi  <wilhelmi@ira.uka.de>
+
+	* gutils.c (g_get_any_init): use sysconf (_SC_GETPW_R_SIZE_MAX) as
+	the new initinal bufsize for getpwuid_r on systems, that support
+	this. Hint from Holger Duerer <H.Duerer@zait.uni-bremen.de>.
+
+Sat Apr 17 20:55:13 BST 1999  Tony Gale <gale@gtk.org>
+
+	* glib.h, gstring.c: Add new g_string functions for reading
+	  from file/socket descriptors, and tokenising strings.
+
+	  Added various g_string macros.
+
+Tue Apr 13 23:28:32 1999  Tor Lillqvist  <tml@iki.fi>
+
+	* README.win32: Mention the tests directory.
+
+	* glib.def: Add the functions from grand.c.
+
+	* glibconfig.h.win32: Add unsigned max values, and the format
+ 	strings.
+
+	* makefile.msc: Add grand.
+
+	* tests/{date-test,node-test}.c: Include <stdlib.h> for exit().
+
+	* tests/makefile.msc: New file.
+
+1999-04-12  Sebastian Wilhelmi  <wilhelmi@ira.uka.de>
+
+	* glib.h: Moved struct declaration up. Style fixes.
+
+	* grand.c: Style fixes. Only try to open /dev/random once.
+
+	* tests/rand-test.c (main): New tests; Slight bug fix. 
+
+1999-04-09  Sebastian Wilhelmi  <wilhelmi@ira.uka.de>
+
+	* grand.c, tests/rand-test.c: New files to implement the Mersenne
+	Twister Pseudo Random Number Generator.
+
+	* glib.h, AUTHORS, Makefile.am, tests/Makefile.am: Changed
+	accordingly.
+
+Thu Apr  8 21:12:30 CDT 1999 Shawn T. Amundson <amundson@gtk.org>
+
+	* Released GLib 1.3.0
+
+1999-03-30  Sebastian Wilhelmi  <wilhelmi@ira.uka.de>
+
+	* configure.in: Added a check for the right format to printf and
+	scanf long longs. It is %qi instead of %lli on FreeBSD for
+	whatever reason.
+
+1999-03-28  Raja R Harinath  <harinath@cs.umn.edu>
+
+	* Makefile.am (glibconfig.h): Make sure `glibconfig.h' exists
+	after the rule is fired.
+	(install-exec-local): Install glibconfig.h only if the contents
+	are different from the currently installed glibconfig.h.
+
+1999-03-26  Raja R Harinath  <harinath@cs.umn.edu>
+
+	* Makefile.am (configexecincludedir): Rename from 
+	configincludedir so that glibconfig.h will be installed 
+	as part of `make install-exec'. 
+
+Thu Mar 25 22:45:47 1999  Tor Lillqvist  <tml@iki.fi>
+
+	* config.h.win32: Update version numbers.
+
+	* glibconfig.h.win32: Update version numbers and pthreads-win32-
+ 	related magic values.
+
+	* README.win32: Some improvements.
+
+	* makefile.msc: Add gqueue and gstack. Correct version number.
+
+Fri Mar 19 16:29:50 PST 1999 Manish Singh <yosh@gimp.org>
+
+	* acinclude.m4
+	* config.guess
+	* config.sub
+	* ltconfig
+	* ltmain.sh: upgrade to libtool 1.2f
+
+	* autogen.sh: libtool is not required to autogen glib
+
+	* acconfig.h: remove WITH_SYMBOL_UNDERSCORE (not explictly
+	needed)
+
+1999-03-18  Jeff Garzik  <jgarzik@pobox.com>
+
+	* glib.def: Add new g_list, g_stack, g_queue functions.
+
+1999-03-18  Sebastian Wilhelmi  <wilhelmi@ira.uka.de>
+
+	* configure.in: added new AC_SUBST(GTHREAD_COMPILE_IMPL_DEFINES)
+	to hold various defines to get the right thread implementation on
+	different platforms. Also look in -ldce for pthread_create. Should
+	make it work on HP-UX 10.x. Information from "D. Emilio Grimaldo
+	Tunon" <emilio_tunon@nl.compuware.com>.
+
+1999-03-17  Jeff Garzik  <jgarzik@pobox.com>
+
+	* gstack.c, gqueue.c:
+	Add copyright, clean up code a bit.
+
+1999-03-17  Sebastian Wilhelmi  <wilhelmi@ira.uka.de>
+
+	* configure.in: Added missing values for G_MAXU(SHORT|INT|LONG) on
+	platforms with only /usr/include/values.h.
+
+	* acconfig.h: Removed unnecessary macros.
+
+        * glibconfig.h.win32, config.h.win32: Moved G_THREADS_IMPL_POSIX
+	from config.h.win32 to glibconfig.h.win32. Taken from glib 1.2
+	branch.
+
+	* configure.in: Also accept _Pctime_r instead of ctime_r, while
+	seraching for the right `_REENTRANT' flag. This is for Digital
+	UNIX 4.0d. Taken from glib 1.2 branch.
+
+Wed Mar 17 03:14:56 1999  Tim Janik  <timj@gtk.org>
+
+	* glib.h: added GLIB_CHECK_VERSION() macro similar to
+	GTK_CHECK_VERSION().
+
+Wed Mar 17 01:46:28 1999  Tim Janik  <timj@gtk.org>
+
+        * merges from glib-1-2:
+        
+Sun Mar 14 17:50:35 1999  Tim Janik  <timj@gtk.org>
+
+        * gmem.c (g_mem_chunk_*): changed a bunch of g_assert() statements
+        to g_return_if_fail().
+        (g_mem_profile):
+        (g_mem_chunk_print):
+        (g_mem_chunk_info): removed some extraneous "\n"s at the end of the log
+        messages.
+
+        * gtimer.c (g_timer_*): changed a bunch of g_assert() statements
+        to g_return_if_fail().
+        * grel.c (g_*): changed a bunch of g_assert() statements to
+        g_return_if_fail() and added some extra ones to check relation != NULL.
+
+Tue Mar  9 23:25:50 1999  Tim Janik  <timj@gtk.org>
+
+        * configure.in: check for working realloc (NULL,).
+        * gmem.c (g_realloc): use malloc() for initial allocation on systems
+        where realloc(NULL,) will not work (this is the case on SunOS, reported
+        by Tom Geiger).
+
+Mon Mar  8 07:42:08 1999  Tim Janik  <timj@gtk.org>
+
+        * ghook.c (g_hook_unref): when !hook_list->is_setup, wrap the
+        flag around the call to g_hook_free() to avoid spurious
+        warnings (happens during destruction phase).
+
+1999-03-02  Sebastian Wilhelmi  <wilhelmi@ira.uka.de>
+
+        * gmem.c: Fixed a stupid cut'n'paste error of mine. Thanks to
+        Friedrich Dominicus <Friedrich.Dominicus@inka.de>
+
+1999-03-16  Timur Bakeyev  <mc@bat.ru>
+
+	* configure.in: Fix problem with pthread_create in libc, as running
+	"gcc test.c -l " is not legal.
+
+1999-03-16  Sebastian Wilhelmi  <wilhelmi@ira.uka.de>
+
+	* tests/type-test.c: Added a test for the
+	G_(U)?INT(16|32|64)_FORMAT and G_(MIN|MAX|MAXU)(SHORT|INT|LONG)
+	macros.
+
+	* configure.in: Removed G_(U)?INT8_FORMAT again, as it can't be
+	used for scanf.
+
+	* configure.in: Added the macros G_MAXU(SHORT|INT|LONG). I do not
+	know how to handle these on platforms with /usr/include/values.h,
+	but without /usr/include/limits.h. Please someone add this.
+
+
+1999-03-15  Sebastian Wilhelmi  <wilhelmi@ira.uka.de>
+
+	* configure.in: Added the macros G_(U)?INT(8|16|32|64)_FORMAT to
+	use for printf and (much more important) scanf format strings for
+	the corresponding GLib types. 
+
+	* glib.h Added G_(U)?(SHORT|INT|LONG)_FORMAT for consistency. It
+	however makes no sense to also provide G_(FLOAT|DOUBLE)_FORMAT, as
+	they are different for printf (f for both) and scanf (f for float,
+	lf for double). Defining G_INT_FORMAT makes sense however, as we
+	might want to define gint to something different than int someday
+	in the future. Idea from Sascha Brawer <sb@adasys.ch>.
+	
+1999-03-14  Jeff Garzik  <jgarzik@pobox.com>
+
+	* gdate.c:
+	Commented out debugging output.
+
+	* tests/Makefile.am, tests/date-test.c:
+	Added test of the GDate module, based closely on testgdate.c.
+
+	* tests/Makefile.am:
+	Bugfix - compile tests with @GLIB_DEBUG_FLAGS@.
+
+1999-03-14  Raja R Harinath  <harinath@cs.umn.edu>
+
+	* configure.in (glibconfig.h): Remove widechar tests and defines.
+	(fd_set): Change the grep for `fd_mask' to search for `fd_set'.
+	* gerror.c (fd_mask): Remove conditional typedef.  It is not used
+	elsewhere in the file.
+	* gmain.c (fd_mask): Likewise.
+
+1999-03-12  Sebastian Wilhelmi  <wilhelmi@ira.uka.de>
+
+	* configure.in: Test for posix threads first, then for dce threads.
+
+1999-03-11  Sebastian Wilhelmi  <wilhelmi@ira.uka.de>
+
+	* configure.in: Revamped the thread configure stuff. Now dce
+	threads (old posix draft) are recogniced. This is necessary,
+	because dce threads are in fact working quite differently from
+	posix threads. Also changed the conditions for checking for MT
+	safe functions a bit, because G_THREADS_IMPL_NONE still have to
+	compile thread safe. NOTE: Please do not commit my change to
+	glib-1-2/{acconfig.h,configure.in,config.h.win32} from 1999-03-03,
+	as the current change will take care of that too.
+
+Tue Mar  9 14:37:32 1999  Jeff Garzik  <jgarzik@pobox.com>
+
+	* Makefile.am, glib.h, gstack.c, gqueue.c,
+	  tests/Makefile.am, tests/queue-test.c, tests/stack-test.c:
+	Added stack, queue ADTs and related tests.
+
+	* glib.h, glist.c:
+	New g_list_delete() function.
+
+Sat Mar  6 11:03:08 1999  Asbjorn Pettersen  <ape@lrdpf.spacetec.no>
+
+	* gutils.c (g_get_any_init): add OS/2 changes.
+	change '\\' in HOME to '/'.
+
+1999-03-03  Josh MacDonald  <jmacd@spin.dsl.pacbell.net>
+
+	* glib.def: g_spaced_primes_closest was omitted here, so I
+	couldn't build Xdelta on Windows.
+
+1999-03-01  Sebastian Wilhelmi  <wilhelmi@ira.uka.de>
+
+	* gutils.c (g_get_any_init): Fixed yet another bloody
+	implementation of getpwuid_r on AIX. Thanks to Olaf Dietsche
+	<olaf.dietsche+list.gtk@netcologne.de>. I would like a configure
+	test better than that, but have no idea, how to do that easily.
+
+Sat Feb 27 01:18:47 1999  Tim Janik  <timj@gtk.org>
+
+	* ChangeLog: moved old ChangeLog to ChangeLog.pre-1-2, and started
+	new one.
+
+	* configure.in: set glib version to 1.3.0.

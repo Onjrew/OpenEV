@@ -1,0 +1,113 @@
+Tue Feb 22 20:27:21 2000  Janne Löf  <jlof@mail.student.oulu.fi>
+
+	* : gkglarea-1.2.2 released
+
+Fri Jan  7 14:42:33 2000  Janne Löf  <jlof@mail.student.oulu.fi>
+
+	* : rewrote windows port. It actually works now.
+
+Wed Dec 22 22:22:14 1999  Janne Löf  <jlof@mail.student.oulu.fi>
+	
+	* gtkgl/gdkgl.c (gdk_gl_make_current): context switching tried to be too smart.
+
+1999-09-28  Janne Löf  <jlof@val334.oulu.fi>
+
+	* examples/*.c: added color buffer sizes to attribute lists.
+
+1999-09-25  Janne Löf  <jlof@mail.student.oulu.fi>
+
+	* gtkgl/gdkgl.c (gdk_gl_make_current):
+	Do not call glXMakeCurrent if context is already current context.
+	
+
+1999-07-30  Jame Henstridge  <james@daa.com.au>
+
+	* gtkgl.m4: changed the order of libraries on the link lines.  If
+	you used static libraries, the tests would fail.
+
+Sun May 30 14:15:40 1999  Janne Löf  <jlof@mail.student.oulu.fi>
+
+	* gtkgl/gdkgl.c, gtkgl/gdkgl.h, gtkgl/gtkglarea.c:
+	attrlist is now passed to gdk_gl_context_share_new
+	* gtkgl/win32:
+	beginnings of windows port
+	
+
+Thu Apr 29 13:34:58 1999  Janne Löf  <jlof@mail.student.oulu.fi>
+
+	* gtkgl/gdkgl.c (gdk_gl_pixmap_new): buffer size test fixed.
+
+Sun Mar 28 22:06:44 1999  Janne Löf  <jlof@mail.student.oulu.fi>
+
+	* gtkgl/gtkglarea.c, gtkgl/gtkglarea.h:
+	Added gtk_gl_area_swap_buffers, fixes spelling of gtk_gl_area_swapbuffers.
+
+	* docs/HOWTO.txt, docs/gtkglarea.txt:
+	Updated documentation
+
+Wed Feb 24 17:41:35 1999  Janne Löf  <jlof@mail.student.oulu.fi>
+	
+	* gtkgl/gtkglarea.h, gtkgl/gtkglarea.c:
+	Big change in achitecture, GtkGLArea is now derived from GtkDrawingArea
+	widget.
+
+	* README, gtkglarea.spec, docs/gtkglarea.txt:
+	similar to GtkDrawingArea -> derived from GtkDrawingArea
+
+
+Wed Feb 24 14:13:41 1999  Janne Löf  <jlof@mail.student.oulu.fi>
+
+	* gtkglarea.spec.in: Copyright is LGPL not GPL
+
+Wed Feb 24 13:49:34 1999  Janne Löf  <jlof@mail.student.oulu.fi>
+
+	* Makefile.am, configure.in, gtkglarea.spec.in:
+	Generate RPM spec file automatically.
+
+	* examples/gdkfont.c, examples/glpixmap.c, examples/simple.c:
+	* examples/viewlw.c, examples/zktor.c:
+	Changed gtk_container_border_width() to gtk_container_set_border_width().
+	
+Sat Feb 20 03:47:36 1999  Janne Löf  <jlof@mail.student.oulu.fi>
+
+	* gtkglarea.spec: RPM spec file, contributed by Ray Glendenning
+
+Wed Feb 17 13:36:19 1999  Janne Löf  <jlof@mail.student.oulu.fi>
+
+	* configure.in: Library version number bumped up.
+
+	* gtkgl/gtkglarea.h, gtkgl/gtkglarea.c:
+	API change, use of gtk_gl_area_begingl()/gtk_gl_area_endgl() is now
+	discouraged altough they are still there, gtk_gl_area_make_current()
+	should be used instead.
+	
+	* README, docs/HOWTO.txt, docs/gtkglarea.txt, examples/README:
+	New API changes are now documented.
+	
+	* examples/gdkfont.c, examples/simple.c, examples/viewlw.c, examples/zktor.c:
+	Examples now use gtk_gl_area_make_current, zktor.c has rudimentary support for
+	3DFX acceleration, but this is #ifdef'ed out by default.
+	
+	* examples/object3d.h, examples/object3d.c:
+	Removed, I must have checked in some experimental version, these files dont belong here.
+	
+Wed Feb 17 01:58:41 1999  Janne Löf  <jlof@mail.student.oulu.fi>
+
+	* configure.in:
+	* gtkgl.m4:
+	fixed a slight bug in library detection code
+
+	* glutil.h:
+	* glutil.c:
+	How did these get to CVS? They don't belong here.
+	
+Tue Feb  2 13:21:04 1999  Janne Löf  <jlof@mail.student.oulu.fi>
+
+	* autogen.sh: New file
+
+	* gtkgl.m4: New file, provides AM_PATH_GTKGL autoconf macro
+
+	* Makefile.am: installs gtkgl.m4 to $(datadir)/aclocal
+
+	* examples/Makefile.am: LDADD path now uses $top_builddir instead of $top_srcdir
+

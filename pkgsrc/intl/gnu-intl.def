@@ -1,0 +1,7 @@
+EXPORTS
+	_nl_msg_cat_cntr
+	gettext__
+	dgettext__
+	dcgettext__
+	textdomain__
+	bindtextdomain__

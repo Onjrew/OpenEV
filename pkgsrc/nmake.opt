@@ -1,0 +1,19 @@
+NM_BIN_DIR	=	c:\cietmap\bin
+NM_PYMOD_DIR	=	c:\cietmap\pymod
+NM_PY_DIR	=	c:\PROGRA~1\Python
+NM_OPTFLAGS	=	-MD -Ox
+#enable to debug glib.
+#DEBUG =
+NM_GTK_DIR	=	$(NM_ROOT)\gtk+
+NM_GLIB_DIR	=	$(NM_ROOT)\glib
+NM_INTL_DIR	=	$(NM_ROOT)\intl
+NM_PTHREADS_DIR	=	$(NM_ROOT)\pthreads
+NM_GTKGLAREA_DIR =	$(NM_ROOT)\gtkglarea
+
+PKGSRC		=	c:\projects\dmsolutions\ciet\pkgsrc
+GTK		=	$(PKGSRC)\gtk+
+GDKSUB		=	gdk
+GLIB		=	$(PKGSRC)\glib
+GMODULE		=	$(PKGSRC)\glib\gmodule
+GLIB_VER	=	1.3
+GTK_VER		=	1.3

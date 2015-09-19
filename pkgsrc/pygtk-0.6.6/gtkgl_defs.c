@@ -1,0 +1,5 @@
+    { "gdk_gl_query", _wrap_gdk_gl_query, 1 },
+    { "gdk_gl_use_gdk_font", _wrap_gdk_gl_use_gdk_font, 1 },
+    { "gtk_gl_area_get_type", _wrap_gtk_gl_area_get_type, 1 },
+    { "gtk_gl_area_make_current", _wrap_gtk_gl_area_make_current, 1 },
+    { "gtk_gl_area_swap_buffers", _wrap_gtk_gl_area_swap_buffers, 1 },

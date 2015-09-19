@@ -1,0 +1,15 @@
+This is a hastily done port to Win32 of the "intl" part of the GNU C
+library.
+
+This is to be used by GTk+, the GIMP etc, because these sources are
+licensed under the under the LGPL (GNU Library General Public
+License). The same sources are also part of GNU gettext, but there
+they are under the GPL.
+
+To use Microsoft's compiler and tools, build using nmake -f makefile.msc.
+
+To use gcc, you already should have built GLib with gcc, and thus read
+and followed the instructions in GLib's README.win32 file. Build using
+make -f makefile.cygwin.
+
+--tml@iki.fi
