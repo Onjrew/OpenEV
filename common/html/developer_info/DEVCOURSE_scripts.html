@@ -1,0 +1,56 @@
+<html>
+<head>
+<title>Scripting with OpenEV/GDAL</title>
+</head>
+<body BGCOLOR="#FFFFFF">
+<body>
+<h1>Scripting with OpenEV/GDAL</h1>
+
+OpenEV and GDAL's python functions can also be used in standalone scripts.
+For example, the following script takes in a shapefile and picks out
+the shapes that have [field] = [value], where [field] is one of the
+shape's attributes, and [value] is one of the values that attribute can
+take on.  It saves these to a file [inputfile]_[field]_[value].shp, where
+[inputfile] is the input shapefile name minus its extension.
+<pre>
+import gview
+import sys
+
+if __name__ == '__main__':
+
+    if len(sys.argv) < 4:
+        print "Query_polygons.py: "
+        print "    Get relevant polygons from a vector layer."
+        print ""
+        print "Usage: Query_polygons.py shapefile field value"
+    else:
+        fshp = sys.argv[1]
+        field = sys.argv[2]
+        value = sys.argv[3]
+        fshp2 = fshp[:-4] + '_' + field + '_' + value + '.shp'
+        
+        # Turn the shapefile into a GvShapes object
+        sdata=gview.GvShapes(shapefilename=fshp)
+
+        # Create a new shapes object to store the 
+        # selected shapes
+        new_shapes=gview.GvShapes()
+    
+        for shp_indx in range(len(sdata)):
+            temp_shp = sdata[shp_indx]
+            if temp_shp is None:
+                continue
+            
+            if temp_shp.get_property(field) == value:
+                new_shapes.append(temp_shp.copy())
+
+        new_shapes.save_to(fshp2)  # save the selected shapes to a file
+
+</pre>
+<p>
+<a href="DEVCOURSE_building_maintenance.html">Next</a><br>
+<a href="DEVCOURSE.html">Developer Course Outline</a><br>
+<a href="../openevmain.html">OpenEV Help</a><br>
+
+</body>
+</html>

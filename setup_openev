@@ -1,0 +1,22 @@
+
+# Setup Environment Variables for OpenEV
+
+PYTHONHOME=${OPENEVHOME}
+PYTHONPATH=${OPENEVHOME}/pymod:${PYTHONPATH}
+LD_LIBRARY_PATH=${OPENEVHOME}/lib:${LD_LIBRARY_PATH}
+PATH=${OPENEVHOME}/bin:${PATH}
+
+# check for accelerated hardware flag
+if [ "${1}" = "-h" ]; then
+    shift
+    echo "Setup for user installed hardware acceleration"
+else
+    echo "Default software rendering mode (use -h if accelerated video card installed)."
+    LD_LIBRARY_PATH=${OPENEVHOME}/lib/Mesa:${LD_LIBRARY_PATH}
+fi
+
+export PYTHONHOME PYTHONPATH LD_LIBRARY_PATH PATH
+
+
+# Run OpenEV
+${OPENEVHOME}/pymod/openev.py "$@"

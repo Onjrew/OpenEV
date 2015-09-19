@@ -1,0 +1,130 @@
+<html>
+<head>
+<title>Python</title>
+</head>
+
+<body BGCOLOR="#FFFFFF">
+
+<body>
+<h1><a name="section1">Python</a></h1>
+<pre>
+
+Python is an open source interpreted, object-oriented, high-level programming 
+language with dynamic semantics. Its high-level built in data structures, 
+combined with dynamic typing and dynamic binding, make it very attractive for 
+Rapid Application Development, as well as for use as a scripting or glue 
+language to connect existing components together. 
+
+ o Relatively simple syntax, but a full fledged language.  
+
+ o Extensive standard libraries include string manipulation, subprocesses, 
+   file access, math, sockets, time. 
+
+ o Fairly easy to make C code callable from Python, normally by writing
+   a layer of "glue" code.  In some cases the glue code can be automatically
+   generated using mechanisms like SWIG (used for GDAL).
+
+ o Python has built in data types for things like lists, tuples, and 
+   dictionaries.
+
+ o Python is the scripting language for OpenEV, and Peppers and a good
+   chunk of each is written directly in Python.  Atlantis has also implemented
+   Python access to GDAL and the OGR projection services. 
+
+ o Python has many rich extension packages, including NumPy (Numeric Python)
+   an interpreted array math environment vaguely like Matlab or IDL.
+
+ o Python is not very declarative, thus relatively few errors can be found
+   at compile time.  It is much more easy to write code that compiles, but 
+   fails at runtime than in more declarative languages like Java.  Python
+   is a weakly typed language. 
+
+ o Debugging environments do exist for Python; however, I haven't had much
+   success with them.  On the plus side, the fact that python "crashes" are
+   normally just generates run-time exceptions which report a traceback can
+   make fixing errors fairly easy.  I personally, have often sunk back to the
+   level of debugging by adding print statements in Python.
+
+   I think it would be useful for us to review python IDE environments like
+   IDLE to see if we should be using them. (talk to Paul about his experiences)
+ 
+ o Python is compiled on the fly, so generally instead of the 
+   edit-compile-link-run cycle, you just have the edit-run cycle.  However,
+   generally speaking you do have to restart the application which is often
+   the "heavy" part of the whole debugging cycle. 
+
+ o It is possible to use a conventional debugger (ie. gdb) to debug problems
+   in C modules called from Python.  However, you can't get any meaningful
+   traceback information from the Python side of stuff. 
+
+</pre>
+
+<h1><a name="section2">Python Bindings</a></h1>
+<pre>
+
+Example of implementing a Gtk style binding for a C function to be
+accessable from Python.  Gtk style bindings are used for the bulk of the
+OpenEV C entry points (and Peppers?).  
+
+The declarations file (gv.defs) contains information on each class, and 
+method along with the methods return type, and types passed to it.  
+
+(define-object GvRasterLayer (GvLayer))
+
+(define-func gv_raster_layer_zoom_set
+  int
+  ((GvRasterLayer layer)
+   (int max_mode)
+   (int min_mode)))
+
+...
+
+Once processed C wrapper code is created that presents a function style
+interface to the method.  To make it operate like a method on a class, the
+following Python wrapper code is added to the class (in gview.py in this case).
+Note the style of inline documentation which can be extracted and placed on
+the web. 
+
+  class GvRasterLayer(GvLayer):
+    ...
+    def zoom_set(self,mag_mode,min_mode):
+        """Set interpolation method
+
+        I believe mag_mode sets the interpolation mode when zooming in past
+        1:1 on a texture, and min_mode is the interpolation mode used for
+        downsampling from the texture, but I am not sure.  Both default to
+        bilinear, and are normally changed together.
+        
+        mag_mode -- One of gview.RL_FILTER_BILINEAR or gview.RL_FILTER_NEAREST.
+        min_mode -- One of gview.RL_FILTER_BILINEAR or gview.RL_FILTER_NEAREST.
+        """
+        return _gv.gv_raster_layer_zoom_set( self._o, mag_mode, min_mode )
+
+
+A significant portion of C functions/methods cannot be automatically wrapped
+like the above, so instead custom C code is written to wrap them.  This is
+normally required in cases where pointers to basic data types are passed or
+where it is desired to translate things into more natural Python data types
+(like tuples or dictinoaries).  The following is an example of a simple 
+C binding to expose a function to Python.  Note that a Python "method" style
+wrapper is still generally required, like the other method. 
+
+static PyObject *
+_wrap_gv_layer_extents(PyObject *self, PyObject *args)
+{
+    PyObject *layer;
+    GvRect rect;
+
+    if (!PyArg_ParseTuple(args, "O!:gv_layer_extents", &PyGtk_Type, &layer))
+        return NULL;
+    gv_layer_extents(GV_LAYER(PyGtk_Get(layer)), &rect);
+    return Py_BuildValue("(ffff)", rect.x, rect.y, rect.width, rect.height);
+}
+</pre>
+<a href="COURSE1_numpy.html">Next</a><br>
+<a href="COURSE1_oev_talk.html">Frank's Course Outline</a><br>
+<a href="../openevmain.html">OpenEV Help</a>
+</body>
+</html>
+
+

@@ -1,0 +1,143 @@
+<html>
+<head>
+<title>OpenEV Components</title>
+</head>
+<body BGCOLOR="#FFFFFF">
+
+<body>
+<h1> OpenEV Components</h1>
+<h2>GTK</h2>
+A complete description of GTK can be found at the 
+<a href="http://www.gtk.org/">GTK Website</a>.  A few points are
+noted here:
+<p>
+
+<ul>
+<li> GTK+ stands for "The GIMP Toolkit", and was created as part of the GIMP
+  ("GNU Image Manipulation Program") implementation. It is used for
+  creating graphical user interfaces.
+
+<li> It is written in c, and in version 1.2.x (the version that OpenEV
+     uses), it is composed of three main libraries: 
+  <ol>
+  <li> glib- provides definitions and routines for lists, trees, memory 
+     allocation,basic data types (points, lines), etc.
+  <li> gdk ("The GIMP Drawing Kit")- provides functions to trap keyboard and
+     mouse events, and also to create a drawable window and draw basic 
+     objects such as lines, points, rectangles etc.  The code in gdk is
+     highly platform-dependent: event trapping, window drawing are
+     very different between X-windows systems such as Linux, and Windows.
+     gdk wraps these functions into a common API so that the gtk code can
+     be less platform dependent.  Events include button press/click/releases,
+     key pressing, cursor motion, etc.
+  <li> gtk - provides more advanced widgets such as buttons, toolbars, 
+     menus, tree views, file selection dialogs.  For instance, the gtk 
+     button (gtkbutton.c) contains functions that know how to draw a button 
+     in a window, and functions to execute when gdk events are trapped 
+     (eg. what to do when the button is pressed, how to show it is 
+     raised/lowered, etc).  These are based heavily on gdk functions.
+   </ol>
+<li> All of OpenEV's windows (the main viewing window, dialogs, etc.) build
+upon the GtkWindow class.
+<li> There is a helpful online <a href="http://www.moeraki.com/pygtktutorial/pygtktutorial/index.html">tutorial</a> describing GTK's python bindings 
+with examples.
+</ul>
+
+<h2>OpenGL</h2>
+
+<ul>
+<li> OpenGL defines a hardware-independent software interface to graphics 
+  hardware.  It specifies how various drawing-related functions should
+  be defined (names, parameters, etc.).  The advantage of this is that
+  code using this API can work with any hardware that supplies an OpenGL 
+  driver.
+
+<li> Mesa implements this API in software- if <path to OpenEV>/lib/Mesa 
+  is added to your LD_LIBRARY_PATH variable on Linux/Unix, Mesa (libGL.so,
+  libGLU.so) will be used.  Hardware-accelerated platforms provide the 
+  interface without the need for Mesa, and are faster (though sometimes
+  flakey).  Mesa relies on having
+  the "glx" extension on X-Windows systems and the "wgl" routines on 
+  Windows.  These extend the window systems enough so that the basic OpenGL
+  commands can be defined in an efficient manner.  For instance, on X 
+  servers, the glx extension allows OpenGL to bypass the X server's 
+  involvement and render graphics directly in places where it is necessary for 
+  performance.  For more on Mesa, see <a href="http://www.mesa3d.org/">this site</a>.
+
+<li> The actual OpenGL commands in OpenEV are all at the c-level.
+</ul>
+
+An example of OpenGL commands follows:
+<pre>
+    if (view->dragging_mode)
+    {
+        gvgeocoord x[4], y[4];
+
+        gv_view_area_map_pointer( view, 
+                                  view->state.mpos_x, view->state.mpos_y,
+                                  x+0, y+0 );
+        gv_view_area_map_pointer( view, 
+                                  view->last_mpos_x, view->state.mpos_y,
+                                  x+1, y+1 );
+        gv_view_area_map_pointer( view, 
+                                  view->last_mpos_x, view->last_mpos_y,
+                                  x+2, y+2 );
+        gv_view_area_map_pointer( view, 
+                                  view->state.mpos_x, view->last_mpos_y,
+                                  x+3, y+3 );
+
+	glColor3f(1.0, 0.5, 0.0);
+	glBegin(GL_LINE_LOOP);
+	glVertex2(x[0], y[0]);
+	glVertex2(x[1], y[1]);
+	glVertex2(x[2], y[2]);
+	glVertex2(x[3], y[3]);
+	glEnd();
+    }
+</pre>
+
+This is the piece of code that draws the little orange rectangle when
+you left-click and drag to zoom in on a region.  It takes the corner
+coordinates of the area you dragged out, maps them into georeferenced
+coordinates (the gv_view_area_map_pointer calls), sets the drawing
+colour to orange (the glColor3f command), specifies that it is beginning
+to draw a closed loop (the glBegin call), draws the vertices, then
+ends the loop with glEnd.  Mesa or your hardware driver provide the
+definitions of the OpenGL commands (glColor3f, glBegin, etc.). For
+more, see the gv_view_area_expose function in gvviewarea.c, or the draw
+functions in the layer c-code (gvrasterlayer.c, gvshapeslayer.c).
+
+<h2>gtkglarea</h2>
+
+GTK defines gtk_drawing_area as a base class for widgets that need a box
+to draw into.  gtkglarea extends this class to allow it to accept OpenGL
+commands for drawing.  OpenEV's gvviewarea adds the concept of layers
+and tools, and adds the OpenGL commands necessary for georeferenced
+display, 3D, etc.  For more information, see 
+<a href="http://sal.kachinatech.com/F/3/GTKGLAREA.html">this site</a>.
+
+<h2>proj</h2>
+
+Proj is used by GDAL to do projection transformations, for instance 
+between lat/longs and utm. OpenEV will function without proj, but in certain
+cases the georeferenced display will not be correct.  For instance, when a 
+georeferenced MFF2 file is read in, 
+corner coordinates are specified in lat/longs even if the image is 
+projected in utm coordinates.  In the utm case, GDAL must convert the corner
+coordinates from lat/longs to utm prior to display so that the image does
+not appear incorrectly warped.  Proj is used in this conversion.  For more 
+information see the <a href="http://www.remotesensing.org/proj/">Proj website</a>. 
+
+<h2>Gnuplot</h2>
+
+Provides plotting functionality.  This is used in OpenEV through the 
+gvplot.py wrapper.  For more information, see the
+<a href="http://www.comnets.rwth-aachen.de/doc/gnu/gnuplot37/gnuplot.html">Gnuplot website</a>.
+
+<p>
+<a href="DEVCOURSE_gdal.html">Next</a><br>
+<a href="DEVCOURSE.html">Developer Course Outline</a><br>
+<a href="../openevmain.html">OpenEV Help</a><br>
+
+</body>
+</html>

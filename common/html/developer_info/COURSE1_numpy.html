@@ -1,0 +1,55 @@
+<html>
+<head>
+<title>Numerical Python</title>
+</head>
+
+<body BGCOLOR="#FFFFFF">
+
+<body>
+<pre>
+
+	Numerical Python
+	================
+
+Numerical Python adds a fast, compact, multidimensional array language 
+facility to Python.  
+
+ o Complete information is available at http://www.pfdubois.com/numpy/
+
+ o Data types for arrays include byte, integer, float, double and complex.
+
+ o Arrays support a variety of python style slicing operations to access
+   subregions of the array. 
+
+ o Numpy includes interfaces to the LAPACK linear algebra library and the
+   FFTPACK Fourier transforms library. 
+
+ o Convenient methods have been adding for translating GDAL images into 
+   NumPy arrays, and for displaying NumPy arrays in OpenEV.  However, the
+   NumPy representation loses georeferencing, metadata, and colortables. 
+
+This example loads a band from a GDAL supported file (dist_file) into a
+NumPy array (distmap), converts it to floating point, does some manipulations,
+displays the result and then saves to another file. 
+
+   from Numeric import *
+   from gdalnumeric import *
+
+   distmap = LoadFile( dist_file )
+   # hack: make sure no values are zero
+   distmap = distmap.astype(Float32) + 0.001
+   weightmap = sample[3] / power (distmap , exponent)
+   weightmap = weightmap.astype(Float32)
+   display( weightmap )
+   SaveArray( weightmap, weight_file, 'PAux' )
+
+(demo similar steps in OpenEV using the Interactive Shell)   
+
+It would be good to have a more in depth review of NumPy another time.
+</pre>
+<a href="COURSE1_gdal_datamodel.html">Next</a><br>
+<a href="COURSE1_oev_talk.html">Frank's Course Outline</a><br>
+<a href="../openevmain.html">OpenEV Help</a>
+</body>
+</html>
+

@@ -1,0 +1,42 @@
+<html>
+<head>
+<title>Python Bindings</title>
+</head>
+<body BGCOLOR="#FFFFFF">
+<body>
+Python is a scripting language, a bit like matlab.  You can find detailed information
+at the main <a href="http://www.python.org">Python Website</a>, or a summary in the
+<a href="COURSE1_python.html">python section</a> of Frank Warmerdam's course notes.
+
+<p>
+<h1>Python Bindings</h1>
+
+Python bindings wrap c-code into modules that can be imported by python:
+<ul>
+<li> pygtk (_gtkmodule.so/gtk.py under OpenEV/lib/python2.1/site-packages on 
+  Linux/Unix) provides python bindings to gtk functions.  _gtkmodule.so contains
+  the binary functions; gtk.py wraps them in a friendlier interface. For more, see the
+  <a href="http://www.daa.com.au/~james/pygtk/">PyGTK Website</a>.
+
+<li> OpenEV's python bindings are provided by _gvmodule.so and _gtkmissing.so, 
+  and wrapped in gview.py, gvviewwindow.py (among others).  Some of OpenEV's bindings
+  are generated using the the python script mkgv.py and a text file
+  specifying a little information about each function (gv.defs).  This is based
+  on pygtk's method of generating bindings; the mkgv.py script
+  calls pygtk's "generate.py" module with a few arguments.  The output
+  of mkgv.py is two files, gvmodule_defs.c and gvmodule_impl.c, that contain the
+  code for the bindings.  Some of the functions are too
+  complicated to have automatically generated bindings; these are in gvmodule.c.
+  These three files are compiled and their object files included in _gvmodule.so.
+</ul>
+
+<p>
+A more detailed description of python bindings and an example are given in the 
+<a href="COURSE1_python.html#section2">Python Binding</a> section of Frank's course notes.
+<p>
+<a href="DEVCOURSE_openev_files.html">Next</a><br>
+<a href="DEVCOURSE.html">Developer Course Outline</a><br>
+<a href="../openevmain.html">OpenEV Help</a><br>
+
+</body>
+</html>

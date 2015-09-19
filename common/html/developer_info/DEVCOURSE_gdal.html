@@ -1,0 +1,97 @@
+<html>
+<head>
+<title>GDAL (Geospatial Data Abstraction Library)</title>
+</head>
+<body BGCOLOR="#FFFFFF">
+<body>
+<h1>GDAL Summary (from an OpenEV perspective)</h1>
+<ul>
+<li> A library used to read/write datasets
+
+<li> Datasets fall in two main categories from OpenEV's perspective: 
+  raster, and vector.  Raster files
+  are image data, a complete 2 or more dimensional array of values displayed
+  in OpenEV as a grayscale grid (one or two bands) or in colour if there 
+  are more than 2 bands (one colour grid for each of three bands, with
+  the option to use another band to specify the degree of transparency).  
+  Vector files consist
+  of a set of points, lines, or polygons (groups of points).
+  Here is an example of a raster image displayed in an OpenEV window: 
+  <img src="DEVCOURSE_colour_raster.gif">
+  <p>
+  Here is an example of a vector file, displayed in an OpenEV window:
+  <img src="DEVCOURSE_shape_example.gif">
+
+<li> GDAL started out as a raster library, then pulled in OGR to become a 
+  vector library as well. OpenEV does not use GDAL/OGR to read shapefiles- it
+  has its own internal code to read in this information (shpopen.c), but it
+  does use OGR to open other types of vector files (eg. UK.NTF, Arc/Info 
+  Binary Coverage, Mapinfo File).  OGR is an optional configuration option
+  in both gdal and OpenEV- on by default in gdal, off in OpenEV.
+  There is separate code in OpenEV that is only compiled when ogr is
+  turned on (gvogr.c)- this converts the ogr objects to a GvShapes 
+  object (GvShapes is the class that OpenEV uses to represent collections 
+  of vector objects for display).  In gdal,
+  OGR is also used in doing coordinate transformations.
+
+<li> Aside: OGR used to stand for "OpenGIS Simple Features Reference
+  Implementation", however it no longer is compliant with the Simple
+  Feature specification, so although the term OGR is still used, 
+  its meaning is irrelevant.
+
+<li> GDAL reads in a file and gathers the basic information needed for display.
+  For a raster file, the most basic information is the image size, the offset
+  where the actual data starts within the file or fileset, the datatype, and
+  how the data is stored (eg. byte order, band interleaving etc.).  Additional
+  information may also be pulled out and stored (eg. metadata, georeferencing
+  information), depending on the format. The information is stored as a 
+  gdal Dataset (see Dataset in gdal.py for code).  For a vector file, the
+  number and type of shapes stored must be known, along with how to extract
+  the vectors and attribute information.  This information may be stored in
+  an OpenEV GvShapes object directly (if read from a shapefile), or stored 
+  in an ogr Dataset and converted to a GvShapes object before display.
+
+<li> GDAL can take in extra information from other libraries if configured to
+  do so. For instance, if it is configured with --libtiff=internal, it will use
+  internal code for tiffs that just contains enough information to read
+  basic fields.  However, it can also be configured to link to an external
+  tiff library that may offer more specific information on certain fields,
+  provided the library follows the expected API. Some filetypes can only be 
+  read by linking to external libraries (eg. jpeg 2000); these are not
+  configured in by default.
+  The gdal web page indicates the maximum number of formats supported, not
+  the default.  Some versions of OpenEV have a formats tool (Help->Formats
+  menu entry) that searches GDAL's driver list at runtime and displays
+  a widget summarizing this information.
+
+
+<li> GDAL utilities (apply to rasters only): 
+<ol>
+<li>gdal_translate- Translate files into other formats, window files,
+    rescale files, extract bands. 
+<li>gdaladdo- Add tiled overviews to a raster. 
+<li>gdalinfo- Give information about a raster file (format, size, metadata). 
+<li>gdal_warp- Reprojection and warping utility, mosaicing. 
+<li>gdaltindex- Build a shapefile with a record for each input raster
+file, an attribute containing the filename, and a polygon geometry outlining
+the raster.
+<li> rgb2pct.py- compute a pseudocolor table for an rgb image.
+<li>gdal_merge.py- Mosaic a set of images.
+<li>gdal-config- Information about the gdal installation.
+</ol> 
+For more, see the <a href="http://www.remotesensing.org/gdal/gdal_utilities.html">GDAL Utilities</a> website.
+<li>There are also OGR utilities for vectors:
+<ol>
+<li> ogrinfo- Give information about a vector file.
+<li> ogr2ogr- Convert between ogr-supported formats.
+<li> ogrtindex- Create a tileindex (file containing the identities and
+spatial extent of a list of files).
+</ol>
+For more, see the <a href="http://gdal.velocet.ca/projects/opengis/ogrhtml/ogr_utilities.html">OGR Utilities</a> website.
+</ul>
+<a href="DEVCOURSE_python_bindings.html">Next</a><br>
+<a href="DEVCOURSE.html">Developer Course Outline</a><br>
+<a href="../openevmain.html">OpenEV Help</a><br>
+
+</body>
+</html>

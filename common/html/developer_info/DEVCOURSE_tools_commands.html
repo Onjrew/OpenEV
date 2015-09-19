@@ -1,0 +1,290 @@
+<html>
+<head>
+<title>Extending OpenEV</title>
+</head>
+<body BGCOLOR="#FFFFFF">
+<body>
+<h1>Extending OpenEV- Tools and Commands</h1>
+
+<h2>Python Shell Commands</h2>
+The first method of extending OpenEV's functionality is to add
+new functions or commands to the python shell.  Examples of this
+would be the "display" function and "newview" command.  
+Functions are regular python functions imported as soon as the
+python shell is launched via a "from gvshell import *" command.
+You can import your own functions in OpenEV's python shell if
+you have placed your module in OpenEV's python path.
+Commands, such as "newview", follow a more complicated structure
+and differ from functions in the following way:
+<ol>
+<li> They are intercepted rather than being passed to the
+python shell's interpreter.
+<li> They use the syntax "commandname arg1 arg2..." rather than
+"commandname(arg1,arg2,...)"
+<li> They have associated usage strings that are displayed when
+you enter "commands" at the prompt.
+<li> They have argument checking.
+</ol>
+Here is an example of the python shell and the results of the
+display function and newview commands:
+<img src="pyshell_example.gif">
+<p>
+The relevant files here are:
+<ul>
+<li> gviewapp.py- contains the callback (pyshell) that launches the python 
+shell.
+<pre>
+    def pyshell(self, *args):
+        import pyshell
+        pyshell.launch(pyshellfile=self.pyshellfile)
+</pre>
+<li> pyshell.py- defines the interactive python shell, MyInteractiveConsole.
+This shell is based on python's code.InteractiveConsole, but overrides some
+of the commands.  For instance, instead of passing a command line directly to 
+the python interpreter, the "push" function in MyInteractiveConsole does
+the following (excerpts of the code have cut out and replaced with 
+summaries):
+<pre>
+    def push(self, line):
+        ( update command shell history list if present )
+
+        ( if current entry is a macro command, do some macro-specific stuff )
+
+        ( if journaling is on, do record the command to the journal file )
+        
+        if len(self.cmdlist) > 0:
+            # determine if the line starts with a command
+            cmd_name, remainder = parse_interpreter_line(line)
+
+            if self.cmdlist.has_key( cmd_name ):
+                # if code gets here, user has entered a registered
+                # command (eg. newview).  This part parses the
+                # command, converts it to text that can be run
+                # as a python function, then pushes it through
+                # the interpreter. 
+            
+                ( convert command line to python function text )
+
+                return code.InteractiveConsole.push(self,txt)
+
+
+        # If line does not start with a command, push it
+        # through the interpreter as-is.
+        return code.InteractiveConsole.push(self,line)
+           
+</pre>
+<li> gvshell.py- contains additional regular python functions that get 
+imported into the python shell (display, get_roi, roi).
+<li> gvcommand.py- this contains the code that parses the core commands
+and defines the base class for core commands.
+<li> gvcorecmds.py- this contains the core commands implemented to date.
+</ul>
+
+
+<h2>Tools</h2>
+The idea behind the tool mechanism and the methods of registering a tool
+(automatic and non-automatic) are described in the 
+<a href="../customization.html">customization</a> section of 
+OpenEV's help.
+<p>
+The base tool class is defined as follows in gviewapp.py:
+<pre>
+
+class Tool_GViewApp:
+    # Abstract base class to derive tools from
+    def __init__(self,app=None):
+        self.app = app
+        self.menu_entries = Tool_GViewAppMenuEntries()
+        self.icon_entries = Tool_GViewAppIconEntries()
+        self.pymenu_entries = Tool_GViewAppMenuEntries()
+        self.pyicon_entries = Tool_GViewAppIconEntries()
+
+class Tool_GViewAppMenuEntries:
+    # Class to store entries to be added to openev's menu
+    def __init__(self):
+        self.entries = {}
+    
+    def set_entry(self,item,position=0,callback=None,accelerator=None):
+        # item = a string describing menu location
+        # position = default location in the menu (integer): Ignored if an
+        #            xml menu entry is specified for the tool.  Note:
+        #            when used, the position refers to position in the
+        #            lowest level menu.  Eg. if a menu entry is
+        #            'File/menu1/entryN', position refer's to entryN's
+        #            position within menu1, not menu1's position in
+        #            File.  For more flexibility, use the xml form of
+        #            configuration.
+        # callback = callback
+        # accelerator = shortcut key
+
+        if (type(item) == type('')):
+            if (type(position) == type(0)):
+                self.entries[item] = (position,callback, accelerator)
+            else:
+                raise AttributeError,"position should be an integer"
+        else:
+            raise AttributeError,"Menu entry item must be a string"
+
+(similar class for Icon entries)
+
+</pre>
+This defines the way the tools add menu or icon entries to OpenEV's toolbar, 
+and stores a handle to the application so that the tool can interact
+with it.  Below is a simple tool that adds a new menu
+entry Tools/Example, and when called prints out a list of the tools loaded
+in the application.
+<pre>
+#!/usr/bin/env python
+import gviewapp
+
+class Tool_example(gviewapp.Tool_GViewApp):
+
+    def __init__(self, app=None,startpath=None):
+        gviewapp.Tool_GViewApp.__init__(self,app)
+
+        self.init_menu()
+
+    def init_menu(self):
+        self.menu_entries.set_entry("Tools/Example...",1,self.example_tool_cb)
+
+    def example_tool_cb(self,*args):
+        print self.app.Tool_List
+
+
+TOOL_LIST=['Tool_example']
+</pre>
+Placing this tool in OpenEV's "tools" directory will register it 
+automatically. The relevant sections of gviewapp.py are:
+<p>
+Initialization:  <p>
+The tools are loaded up and stored in
+self.Tool_List.  Tools passed as a command line argument are
+loaded using self.load_tools_file; auto-registering tools
+(those in OpenEV's "tools" directory) are loaded using 
+self.scan_tools_directories.  These create an instance of the
+tool, tool_inst, and append a tuple consisting of
+(tool_name,tool_inst) to the Tool_List.
+<pre>
+class GViewApp(Signaler):
+    def __init__(self,toolfile=None,menufile=None,iconfile=None,pyshellfile=None):
+        self.view_manager = ViewManager()
+        self.sel_manager = gvselbrowser.GvSelectionManager( self.view_manager )
+        self.pref_dialog = None
+        self.filename = None
+
+        # Toolbar
+        self.toolbar = Toolbar()
+        self.view_manager.set_toolbar( self.toolbar )
+
+        # Other dialogs, etc.
+        self.layerdlg = layerdlg.Launch()
+        self.view_manager.set_layerdlg(self.layerdlg)
+
+        self.publish('quit')
+        self.publish('rfl-change')
+
+        # Verify that float() works properly.
+        try:
+            x = float('0.9')
+        except:
+            gvutils.warning( 'It appears that float() doesn\'t work properly on your system.\nThis is likely due to use of a numeric locale with an alternate decimal\nrepresentation.  Please try setting the LC_NUMERIC environment variable\nto C and restarting OpenEV.' )
+
+        # Default configuration files for view and python shell
+        self.menufile=menufile
+        self.iconfile=iconfile
+        self.pyshellfile=pyshellfile
+        
+        # External tools to import and add to view menu
+        self.Tool_List = []
+        if toolfile is not None:
+            self.load_tools_file( toolfile )
+
+        self.scan_tools_directories()
+
+        # Tool index: a dictionary with the tool name as a
+        # key and the tool's position in the list as the value
+        self.tool_index = {}
+        for idx in range(len(self.Tool_List)):
+            self.tool_index[self.Tool_List[idx][0]]=idx
+
+        self.shell = None
+</pre>
+New views: <p>
+When a new view is created, the main application cycles through
+its tool list, and appends their menu and icon entries to the menu/icon bars.
+<pre>
+    def new_view(self, title=None, menufile=None,iconfile=None, *args):
+        # If menu/icon files aren't specified, use application-wide
+        # defaults
+        if ((menufile is None) and (self.menufile is not None)):
+            menufile=self.menufile
+        if ((iconfile is None) and (self.iconfile is not None)):
+            iconfile=self.iconfile
+
+        view_window = gvviewwindow.GvViewWindow(app=self, title=title, menufile=menufile, 
+                      iconfile=iconfile)
+        view_name=view_window.title
+        view_menu = view_window.menuf    
+              
+        if ((len(self.Tool_List) > 0) and (menufile is None)):
+            # If no menu configuration file is specified, put
+            # tools in the default positions specified by
+            # the tool menu entry's position parameter.
+            for cur_tool_list in self.Tool_List:
+                cur_tool = cur_tool_list[1]
+                if hasattr(cur_tool.menu_entries.entries,'keys'):
+                    for item in cur_tool.menu_entries.entries.keys():
+                        view_menu.insert_entry(
+                            cur_tool.menu_entries.entries[item][0],
+                            item,
+                            cur_tool.menu_entries.entries[item][2],
+                            cur_tool.menu_entries.entries[item][1],
+                            (view_name))
+
+        # Icons- Note: currently it is assumed that the tool icons are
+        #        xpms.  Support for pixmaps and widgets will be added
+        #        later if necessary (icon type would have to be detected
+        #        from last entry of the relevant tool icon entry, and
+        #        a function would have to be created to deal with them.
+        #        They are slightly more complicated than the xpm case
+        #        and wouldn't use insert_tool_icon.  Would also need
+        #        code in the complextoolentry case to avoid an icon
+        #        of one type (eg. xpm) being replaced by another type
+        #        (eg. widget, pixmap).
+        #
+        #        ALSO: GtkToolbar does not allow callback information
+        #              to be specified, so the viewname cannot be
+        #              passed as an argument to tool icon callbacks
+        #              the way it is for menu callbacks. However,
+        #              if the view is needed, it can be obtained
+        #              using:
+        #              view=args[0].get_toplevel()
+        #              The view title is under:
+        #              view['title'].  Note that this is not quite
+        #              the same as the view's self.title, but is based
+        #              on it (usually 'OpenEV: '+self.title)
+            
+        if ((len(self.Tool_List) > 0) and (iconfile is None)):
+            for cur_tool_list in self.Tool_List:
+                cur_tool=cur_tool_list[1]
+                for item in cur_tool.icon_entries.entries:
+                    view_window.insert_tool_icon(
+                        item[0], # filename
+                        item[1], # label
+                        item[2], # hint text
+                        item[4], # callback
+                        item[5], # help topic
+                        item[3],  # position
+                            )
+        view_window.show()
+        return view_window
+
+
+</pre>
+
+<a href="DEVCOURSE_scripts.html">Next</a><br>
+<a href="DEVCOURSE.html">Developer Course Outline</a><br>
+<a href="../openevmain.html">OpenEV Help</a><br>
+
+</body>
+</html>

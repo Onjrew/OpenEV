@@ -1,0 +1,116 @@
+#!/bin/sh
+
+#
+# echo with no linefeed at end of line (system dependent)
+# 
+echo_no_lf()
+{
+    case `uname -a` in
+        Linux*) echo -n "${1}";;
+        *)      echo "${1}\c";;
+    esac
+}   
+
+#
+# Check the command line parameters
+#
+if [ -z "${2}" ];
+then
+    echo "usage: $0 [linux|solaris|irix|nt] [location]"
+    exit 1
+fi
+
+#
+# Check parameter 1: platform
+#
+case "${1}" in
+    linux)   ARCHPATH=Linux;;
+    solaris) ARCHPATH=SunOS;;
+    irix)    ARCHPATH=IRIX64;;
+    nt)      ARCHPATH=nt;;
+    *)
+        echo "Platform must be one of linux, solaris, irix, or nt."
+        exit 1;;
+esac
+
+#
+# Check parameter 1: insar directory
+#
+if [ "${1}" = "nt" ]; then
+    case  "${2}" in
+       [A-Za-z][:=]/*);;
+       *) echo "Input parameter must be a full path."; exit 1;;
+    esac
+else
+    case  "${2}" in
+       /*);;
+       *) echo "Input parameter must be a full path."; exit 1;;
+    esac
+fi
+INSTALLDIR=${2}
+
+
+#
+# Check OpenEV directory doesn't already exist
+#
+if [ -d ${2} ]; then
+    echo_no_lf "OpenEV already exists in the directory ${2}, do you want to overwrite it [Y/n]?"
+    read OVERWRITE
+    if [ "${OVERWRITE}" = "n" -o "${OVERWRITE}" = "N" ]; then
+        echo "Installation aborted.  No action taken."
+        exit 1
+    fi
+fi
+
+# Try to make the directory
+mkdir -p ${INSTALLDIR}
+
+#
+# Check for Write permission in directory
+#
+if ! [ -w ${2} ]; then
+    echo "Installation failed.  You need to have write permission in ${2}."
+    exit 1
+fi
+
+# --------------------- Real Work Below --------------------
+echo "--Starting OpenEV Installation--"
+
+# Copy OS specific files
+echo "Copying platform dependent file - OpenEV, Python, GTK, Mesa etc."
+
+if [ "${ARCHPATH}" = "Linux" ]; then
+  cp -rf Linux/* ${INSTALLDIR}
+fi
+
+if [ "${ARCHPATH}" = "IRIX64" ]; then
+  cp -rf IRIX64/* ${INSTALLDIR}
+fi
+
+if [ "${ARCHPATH}" = "SunOS" ]; then
+  cp -rf SunOS/* ${INSTALLDIR}
+fi
+
+# Copy OS independent files
+echo "Copying platform independent file"
+cp -rf common/* ${INSTALLDIR}
+
+#setup a link to openev in bin directory
+#ln -s ${INSTALLDIR}/pymod/openev.py ${INSTALLDIR}/bin/openev
+
+# Byte compile Python and OpenEV directories recursively
+echo "Compiling Python Code"
+`${INSTALLDIR}/bin/python -O ${INSTALLDIR}/lib/python2.3/compileall.py ${INSTALLDIR} > /dev/null`
+
+# Create run scripts, to set environment variables and execute openev
+chmod -R u+rw ${INSTALLDIR}
+echo '#!/bin/sh' > ${INSTALLDIR}/first_lines
+echo "OPENEVHOME=$2" >> ${INSTALLDIR}/first_lines
+cat ${INSTALLDIR}/first_lines setup_openev > ${INSTALLDIR}/bin/openev
+rm -f ${INSTALLDIR}/first_lines
+
+chmod a+rx ${INSTALLDIR}/bin/openev
+
+# Done
+echo "Done.  OpenEV Installed Successfully in ${2}."
+echo "Run ${2}/bin/openev to start OpenEV."
